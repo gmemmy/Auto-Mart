@@ -5,15 +5,38 @@
   <!--Navigation bar-->
   <div class="hero" id="myNavbar">
    <a href="signup.html">Sign-up</a>
-   <a href="signin.html">Sign-in</a>
+   <a onclick="document.getElementById('id01').style.display = 'block'">Sign-in</a>
    <a href="admin.html">Admin</a>
   </div>
 
  </head>
  <body>
+   <div id="id01" class="modal">
+  
+     <form class="modal-content animate">
+       <div class="container">
+         <label for="uname"><b>Username</b></label>
+         <input type="text" placeholder="Enter Username" name="uname" required>
+   
+         <label for="psw"><b>Password</b></label>
+         <input type="password" placeholder="Enter Password" name="psw" required>
+           
+         <button type="submit">Sign-in</button>
+         <label>
+           <input type="checkbox" checked="checked" name="remember"> Remember me
+         </label>
+       </div>
+   
+       <div class="container" style="background-color:#f1f1f1">
+         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+         <span class="psw">Forgot <a href="#">password?</a></span>
+       </div>
+     </form>
+   </div>
 
   <div class="page_footer">
    <p>AutoMart 2019.</p>
   </div>
  </body>
+ <script src="JS/index.js"></script>
 </html>
