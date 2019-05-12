@@ -4,35 +4,56 @@
   <title>AutoMart</title>
   <!--Navigation bar-->
   <div class="hero" id="myNavbar">
-   <a href="signup.html">Sign-up</a>
-   <a onclick="document.getElementById('id01').style.display = 'block'">Sign-in</a>
-   <a href="admin.html">Admin</a>
+   <a onclick="document.getElementById('id01').style.display = 'block'">Admin</a>
   </div>
 
  </head>
  <body>
-   <div id="id01" class="modal">
-  
-     <form class="modal-content animate">
+  <h1>Welcome to Auto Mart</h1>
+  <h2>Auto Mart is an online marketplace for automobiles of diverse makes, model or body type.<br>With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.</h2>
+
+		
+				<form class="form-content animate">
+    <div class="container">
+					<h3>Sign-up</h3>
+     <label for="fname"><b>First Name</b></label>
+					<input type="text" placeholder="Enter First Name" name="fname" required>
+					
+					<label for="lsname"><b>Last Name</b></label>
+					<input type="text" placeholder="Enter Last Name" name="lsname" required>
+
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+   
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <label for="psw"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+          
+      <button type="submit">Sign-in</button>
+      <label>
+       <input type="checkbox" checked="checked" name="remember"> Remember me
+     </label>
+				</div>
+				</form>
+			
+
+    <!--Modal sign-in form for Admin-->
+    <div id="id01" class="modal">
+      <form class="modal-content animate">
        <div class="container">
-         <label for="uname"><b>Username</b></label>
+        <label for="uname"><b>Username</b></label>
          <input type="text" placeholder="Enter Username" name="uname" required>
-   
-         <label for="psw"><b>Password</b></label>
-         <input type="password" placeholder="Enter Password" name="psw" required>
-           
-         <button type="submit">Sign-in</button>
-         <label>
+     
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+            
+          <button type="submit">Sign-in</button>
+          <label>
            <input type="checkbox" checked="checked" name="remember"> Remember me
-         </label>
-       </div>
-   
-       <div class="container" style="background-color:#f1f1f1">
-         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-         <span class="psw">Forgot <a href="#">password?</a></span>
-       </div>
-     </form>
-   </div>
+          </label>
+        </div>
 
   <div class="page_footer">
    <p>AutoMart 2019.</p>
