@@ -148,8 +148,10 @@ span.psw {
 
 .form-content {
   background-color: #fefefe;
-  margin-top: 0;
+  margin-bottom: 0;
   margin-left:70%;
+  position: relative;
+  bottom: 200px;
   border: 1px solid #888;
   width: 30%; /* Could be more or less, depending on screen size */
  }
