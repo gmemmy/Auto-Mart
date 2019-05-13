@@ -1,0 +1,123 @@
+body {
+ background-size: cover;
+}
+
+p {
+ padding-top: 0 auto;
+ text-align: center;
+}
+
+.hero {
+ background-color: rgba(5, 4, 0, 0.466);
+ overflow: hidden;
+}
+
+.hero a {
+ float: right;
+ display: block;
+ color: rgb(230, 231, 209);
+ text-align: center;
+ padding: 14px 15px;
+ text-decoration: none;
+ font-size: 14px;
+}
+
+.hero a:hover {
+ background-color: #ddd;
+ color: black;
+}
+
+.active {
+ background-color: rgba(233, 199, 50, 0.466);
+ color: rgb(255, 255, 255);
+}
+
+.hero .icon {
+ display: none;
+}
+
+.wp-box {
+ background: rgb(253, 253, 253);
+ border: 1px solid #E1E1E1;
+ box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+ position: relative;
+ width: 45%;
+ height: 50%;
+ margin-top: 40px;
+ }
+  
+ .ads-box .inner {
+ margin-left: 100px;
+ height: 70px;
+   padding: 15px;
+ border-top: 0 none;
+ }
+ 
+ .wp-box p {
+ font-size: 15px;
+ font-family: 'Times New Roman', Times, serif;
+ line-height: 0.8em;
+ margin: 0;
+ }
+ 
+ 
+/* Modal Header */
+.modal-header {
+ padding: 2px 16px;
+ background-color: #5cb85c;
+ color: white;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+/* Modal Footer */
+.modal-footer {
+ padding: 2px 16px;
+ background-color: #5cb85c;
+ color: white;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+ background-color: #fefefe;
+ margin: 20% auto; /* 15% from the top and centered */
+ padding: 20px;
+ border: 1px solid #888;
+ width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+ color: #aaa;
+ float: right;
+ font-size: 28px;
+ font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+img {
+ width: 100%;
+ height: 300px;
+ object-fit: fill;
+ padding-top: 0 auto;
+}
