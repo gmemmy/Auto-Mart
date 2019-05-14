@@ -5,6 +5,13 @@ body {
 p {
  padding-top: 0 auto;
  text-align: center;
+ font-size: 20px;
+ font-family: 'Times New Roman', Times, serif;
+}
+
+hr {
+  border-top: 1px dotted #d3a560;
+  margin-top: 20px;
 }
 
 .hero {
@@ -77,16 +84,18 @@ p {
  border: 1px solid #E1E1E1;
  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
  position: relative;
- width: 45%;
+ display: inline-block;
+ width: 30%;
  height: 50%;
  margin-top: 40px;
+ margin-left: 40px;
  }
   
  .ads-box .inner {
- margin-left: 100px;
- height: 70px;
-   padding: 15px;
- border-top: 0 none;
+  margin-left: 5px;
+  height: 70px;
+  padding: 15px;
+  border-top: 0 none;
  }
  
  .wp-box p {
@@ -95,24 +104,9 @@ p {
  line-height: 0.8em;
  margin: 0;
  }
- 
- 
-/* Modal Header */
-.modal-header {
- padding: 2px 16px;
- background-color: #5cb85c;
- color: white;
-}
 
 /* Modal Body */
 .modal-body {padding: 2px 16px;}
-
-/* Modal Footer */
-.modal-footer {
- padding: 2px 16px;
- background-color: #5cb85c;
- color: white;
-}
 
 .modal {
   display: none; /* Hidden by default */
@@ -130,10 +124,11 @@ p {
 /* Modal Content/Box */
 .modal-content {
  background-color: #fefefe;
- margin: 20% auto; /* 15% from the top and centered */
- padding: 20px;
+ margin: 10% auto; /* 10% from the top and centered */
+ padding: 10px;
  border: 1px solid #888;
- width: 50%; /* Could be more or less, depending on screen size */
+ width: 40%; /* Could be more or less, depending on screen size */
+ height: 70%;
 }
 
 /* The Close Button */
