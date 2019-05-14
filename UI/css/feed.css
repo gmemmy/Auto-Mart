@@ -36,6 +36,42 @@ p {
  display: none;
 }
 
+/* Style the search box inside the navigation bar */
+.hero input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 13px;
+}
+
+.hero .search-container {
+  float: right;
+  margin-right: 120px;
+}
+
+.hero .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 6px;
+  margin-right: 3px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.hero .search-container button:hover {
+  background: #ccc;
+}
+
+.dropdown_search{
+  position: relative;
+  margin-left: 100%;
+  margin-top: 0;
+}
+
 .wp-box {
  background: rgb(253, 253, 253);
  border: 1px solid #E1E1E1;
