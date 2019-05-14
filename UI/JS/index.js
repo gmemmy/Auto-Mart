@@ -13,7 +13,7 @@ window.addEventListener ('click', event => {
 const cardModal = document.getElementById('boxModal');
 
 //Get the button that opens the modal
-const btn = document.querySelector("#adcard","#adcard2");
+const btn = document.querySelector('#adcard');
 
 //Get the span element that closes the modal
 const span = document.getElementsByClassName("close")[0];
