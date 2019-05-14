@@ -9,6 +9,11 @@ p {
  font-family: 'Times New Roman', Times, serif;
 }
 
+hr {
+  border-top: 1px dotted #d3a560;
+  margin-top: 20px;
+}
+
 .hero {
  background-color: rgba(5, 4, 0, 0.466);
  overflow: hidden;
@@ -99,24 +104,9 @@ p {
  line-height: 0.8em;
  margin: 0;
  }
- 
- 
-/* Modal Header */
-.modal-header {
- padding: 2px 16px;
- background-color: #5cb85c;
- color: white;
-}
 
 /* Modal Body */
 .modal-body {padding: 2px 16px;}
-
-/* Modal Footer */
-.modal-footer {
- padding: 2px 16px;
- background-color: #5cb85c;
- color: white;
-}
 
 .modal {
   display: none; /* Hidden by default */
@@ -134,10 +124,11 @@ p {
 /* Modal Content/Box */
 .modal-content {
  background-color: #fefefe;
- margin: 20% auto; /* 15% from the top and centered */
- padding: 20px;
+ margin: 10% auto; /* 10% from the top and centered */
+ padding: 10px;
  border: 1px solid #888;
- width: 50%; /* Could be more or less, depending on screen size */
+ width: 40%; /* Could be more or less, depending on screen size */
+ height: 70%;
 }
 
 /* The Close Button */
