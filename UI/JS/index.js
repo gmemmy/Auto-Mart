@@ -10,7 +10,7 @@ window.addEventListener ('click', event => {
 
 
 //Modal setup for advertisments card
-const cardModal = document.getElementById('boxModal');
+const cardModal = document.querySelector('#boxModal');
 
 //Get the button that opens the modal
 const btn = document.querySelector('#adcard');
