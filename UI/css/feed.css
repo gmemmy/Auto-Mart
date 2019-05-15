@@ -10,8 +10,20 @@ p {
 }
 
 hr {
-  border-top: 1px dotted #d3a560;
+  border-top: 2px dotted #d3a560;
   margin-top: 20px;
+}
+
+li {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.vl {
+  border-left: 2px solid #d3a560;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
 }
 
 .hero {
@@ -27,6 +39,7 @@ hr {
  padding: 14px 15px;
  text-decoration: none;
  font-size: 14px;
+ cursor: pointer;
 }
 
 .hero a:hover {
@@ -77,11 +90,12 @@ hr {
   position: relative;
   margin-left: 100%;
   margin-top: 0;
+  cursor: pointer;
 }
 
 .wp-box {
  background: rgb(253, 253, 253);
- border: 1px solid #E1E1E1;
+ border: 3px solid #E1E1E1;
  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
  position: relative;
  display: inline-block;
@@ -89,6 +103,7 @@ hr {
  height: 50%;
  margin-top: 40px;
  margin-left: 40px;
+ cursor: pointer;
  }
   
  .ads-box .inner {
