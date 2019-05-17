@@ -34,7 +34,7 @@
               <a class="form__link link--right" href="#">Forgot your password?</a>
             </fieldset>
             <fieldset class="form__group">
-              <input class="form__button" type="submit" value="Login" />
+              <input class="form__button" type="submit" value="Login" onclick="window.location='feed.html'" />
             </fieldset>
             <small>Not a member yet? <label for="flipper__checkbox" class="form__link">Create your account</label>.</small>
           </form>
@@ -42,7 +42,7 @@
         <!-- Back side -->
         <div class="form__signup">
           <h1 class="form__header">Sign Up</h1>
-          <form id="signupForm" action="#" method="post" class="form">
+          <form id="signupForm" action="feed.html" method="post" class="form">
             <fieldset class="form__group">
               <label for="signUpName"><span class="label__icon fa fa-user"></span></label>
               <input id="signUpName" name="signUpName" class="form__element" type="text" placeholder="Full Name" required />
