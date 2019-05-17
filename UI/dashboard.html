@@ -1,0 +1,107 @@
+<head>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+ <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+ 
+ <title>AutoMart</title>
+ <!--Navigation bar-->
+ <div class="hero" id="myNavbar">
+  <a href="landing.html">Sign-out</a>
+  <a href="create-ads.html">Create AD</a>
+  <a href="feed.html">Home</a>
+  <div class="search-container">
+   <form action="">
+    <input type="text" placeholder="Search.." name="search">
+    <button href="#" type="submit"><i class="fa fa-search"></i></button>
+   </form>
+   <!--search filter select-menu-->
+   <div class="dropdown_search">
+     <select>
+      <option value="unsold cars">All unsold cars</option>
+      <option value="Price range">Price range</option>
+      <option value="Manufacturer">Manufacturer</option>
+      <option value="Used">Used</option>
+      <option value="New">New</option>
+     </select>
+    </div>		
+  </div>
+ </div>
+</head>
+
+ <body>
+  <div class= "page_content">
+   <div class="wp-box footer ads-box" id="adcard">
+     <img src="images/advert_img.webp">
+    <div class="inner">
+     <p>Lorem ipsum dolor sit amet, et ludus percipitur adversarium mei. Tota nobis melius has cu, te enim graece eam. Accusam percipitur quaerendum</p>
+     <button>Edit</button>
+    </div>
+   </div>
+
+   <div class="wp-box footer ads-box" id="adcard2">
+     <img src="images/advert_img.webp">
+    <div class="inner">
+      <p>Lorem ipsum dolor sit amet, et ludus percipitur adversarium mei. Tota nobis melius has cu, te enim graece eam. Accusam percipitur quaerendum...</p>
+      <button>Edit</button>
+    </div>
+   </div>
+
+   <div class="wp-box footer ads-box" id="adcard3">
+     <img src="images/advert_img.webp">
+     <div class="inner">
+       <p>Lorem ipsum dolor sit amet, et ludus percipitur adversarium mei. Tota nobis melius has cu, te enim graece eam. Accusam percipitur quaerendum...</p>
+       <button>Edit</button>
+     </div>
+    </div>
+
+      <!--Modal box for advert card-->
+      <div id="boxModal" class="modal">
+       <div class="modal-content">
+         <span class="close">&times;</span>
+         <img src="images/advert_img.webp">
+
+         <div class="container">
+          <form action="">
+            <div class="row">
+              <div class="col-25">
+                <label for="rname">Car Price:</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="rname" name="firstname" placeholder="">
+              </div>
+            </div>
+            
+            <form action="">
+            <div class="row">
+              <div class="col-25">
+                <label for="record">Car Availability:</label>
+              </div>
+
+              <div class="col-75">
+                <select id="record" name="record">
+                  <option value="">SOLD</option>
+                  <option value="">NOT SOLD</option>
+                </select>
+              </div>
+              
+            </div>
+            <div class="row">
+             <div class="col-25">
+              <label><for="picture">Upload image/images:</for></label>
+             </div>
+             <div class="col-75">
+              <input type="file" name="pic" accept="picture/*">
+             </div>
+            </div>
+          </form>
+        </div>
+       </div>
+       </div>
+ </body>
+
+ <div class="page_footer">
+  <p>AutoMart 2019.</p>
+ </div>
+
+ <script src="JS/index.js"></script>
+ </html>
+
