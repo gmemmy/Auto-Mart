@@ -13,6 +13,10 @@ img {
  padding-top: 1px;
 }
 
+button {
+ float: right;
+}
+
 .hero {
  background-color: rgba(5, 4, 0, 0.466);
  overflow: hidden;
