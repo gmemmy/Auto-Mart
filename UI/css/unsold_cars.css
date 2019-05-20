@@ -1,0 +1,62 @@
+body {
+ background-size: cover;
+}
+
+h2 {
+ text-align: center;
+ font-size: 30px;
+ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+img {
+ width: 100%;
+ padding-top: 1px;
+}
+
+.hero {
+ background-color: rgba(5, 4, 0, 0.466);
+ overflow: hidden;
+}
+
+.hero a {
+ float: right;
+ display: block;
+ color: rgb(230, 231, 209);
+ text-align: center;
+ padding: 14px 15px;
+ text-decoration: none;
+ font-size: 14px;
+ cursor: pointer;
+}
+
+.hero a:hover {
+ background-color: #ddd;
+ color: black;
+}
+
+.active {
+ background-color: rgba(233, 199, 50, 0.466);
+ color: rgb(255, 255, 255);
+}
+
+.hero .icon {
+ display: none;
+}
+
+.wp-box {
+ background: rgb(253, 253, 253);
+ border: 3px solid #E1E1E1;
+ box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+ position: relative;
+ display: inline-block;
+ width: 28%;
+ height: 58%;
+ margin-top: 20px;
+ margin-left: 57px;
+ }
+
+ .ads-box .inner {
+  margin-left: 5px;
+  padding: 5px;
+  border-top: 0 none;
+ }
