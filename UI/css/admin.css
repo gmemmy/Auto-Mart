@@ -25,6 +25,12 @@ tr:nth-child(even) {
  background-color: #dddddd;
 }
 
+a:link {
+ color: #d3a560; 
+ background-color: transparent; 
+ text-decoration: none;
+}
+
 .hero {
  background-color: rgba(5, 4, 0, 0.466);
  overflow: hidden;
