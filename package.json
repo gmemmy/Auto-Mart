@@ -1,0 +1,30 @@
+{
+  "name": "auto-mart",
+  "version": "1.0.0",
+  "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With",
+  "main": "App.js",
+  "dependencies": {
+    "eslint": "^5.16.0",
+    "express": "^4.17.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2"
+  },
+  "scripts": {
+    "build": "babel App.js -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gmemmy/Auto-Mart.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gmemmy/Auto-Mart/issues"
+  },
+  "homepage": "https://github.com/gmemmy/Auto-Mart#readme"
+}
