@@ -8,7 +8,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.listen(port, () => {
- console.log(`server is listening on port ${port}!`)
-})
+  // eslint-disable-next-line no-console
+  console.log(`server is listening on port ${port}!`);
+});
 
 export default app;
