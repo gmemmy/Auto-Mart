@@ -10,11 +10,11 @@ const advertisements = [
     price: faker.finance.amount(),
     manufacturer: faker.name.firstName(),
     model: faker.random.words(),
-    body_type: faker.name.word(),
+    body_type: faker.random.word(),
   },
 
   {
-    id: 0,
+    id: 1,
     owner: faker.name.firstName(),
     created_on: faker.date.past(),
     state: faker.random.word(),
@@ -22,11 +22,11 @@ const advertisements = [
     price: faker.finance.amount(),
     manufacturer: faker.name.firstName(),
     model: faker.random.words(),
-    body_type: faker.name.word(),
+    body_type: faker.random.word(),
   },
 
   {
-    id: 0,
+    id: 2,
     owner: faker.name.firstName(),
     created_on: faker.date.past(),
     state: faker.random.word(),
@@ -34,7 +34,7 @@ const advertisements = [
     price: faker.finance.amount(),
     manufacturer: faker.name.firstName(),
     model: faker.random.words(),
-    body_type: faker.name.word(),
+    body_type: faker.random.word(),
   },
 ];
 
