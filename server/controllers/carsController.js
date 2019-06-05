@@ -24,12 +24,7 @@ export default class CarsController {
     advertisements.push(body);
     res.send({
       status: 200,
-      data: [
-        {
-          id: body.id,
-          message: 'Created Car sale advertisement',
-        },
-      ],
+      data: [lastAdvertisement],
     });
   }
 
