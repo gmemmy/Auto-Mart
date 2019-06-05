@@ -32,4 +32,32 @@ export default class CarsController {
       ],
     });
   }
+
+  /**
+  * @description - View a specific car
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static viewSpecificCar(req, res) {
+    const specificCar = advertisements.find(
+      advertisment => advertisment.id === Number(req.params.id),
+    );
+    if (!specificCar) {
+      res.send({
+        status: 404,
+        error: 'Oops! no car found with this id',
+      });
+    } else {
+      res.send({
+        status: 200,
+        data: [specificCar],
+      });
+    }
+  }
 }
