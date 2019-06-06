@@ -23,9 +23,35 @@ export default class CarsController {
     body.id = lastAdvertisement.id + 1;
     advertisements.push(body);
     res.send({
-      status: 200,
+      status: 201,
       data: [lastAdvertisement],
     });
+  }
+
+  /**
+  * @description - View a specific car
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static viewAllUnsoldCars(req, res) {
+    const unsoldCars = advertisements.filter(advertisment => advertisment.state === 'unsold');
+    if (unsoldCars.length >= 1) {
+      res.send({
+        status: 200,
+        data: unsoldCars,
+      });
+    } else {
+      res.send({
+        status: 404,
+        error: 'No car advertisement found!',
+      });
+    }
   }
 
   /**
