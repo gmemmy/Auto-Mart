@@ -1,5 +1,6 @@
 import faker from 'faker';
 import advertisements from '../data/carAds';
+import purchaseOrder from '../data/purchaseOrder';
 
 export default class CarsController {
   /**
@@ -19,7 +20,7 @@ export default class CarsController {
     // The last advertisement's id + 1 is the new advertisement's id
 
     const lastAdvertisement = advertisements.reverse()[0];
-    body.createdOn = faker.date.recent();
+    body.created_on = faker.date.recent();
     body.id = lastAdvertisement.id + 1;
     advertisements.push(body);
     res.send({
@@ -40,7 +41,7 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static viewAllUnsoldCars(req, res) {
-    const unsoldCars = advertisements.filter(advertisment => advertisment.state === 'unsold');
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
     if (unsoldCars.length >= 1) {
       res.send({
         status: 200,
@@ -80,5 +81,30 @@ export default class CarsController {
         data: [specificCar],
       });
     }
+  }
+
+  /**
+  * @description - View a specific car
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static makePurchaseOrder(req, res) {
+    const { body } = req;
+
+    const lastPurchaseOrder = purchaseOrder.reverse()[0];
+    body.id = lastPurchaseOrder.id + 1;
+    body.price_offered = faker.finance.amount();
+    body.created_on = faker.date.recent();
+    purchaseOrder.push(body);
+    res.send({
+      status: 201,
+      data: [lastPurchaseOrder],
+    });
   }
 }
