@@ -1,6 +1,6 @@
 import CarsController from '../controllers/carsController';
-import userController from '../controllers/userController';
-import validateSignup from '../middleware/validator';
+// eslint-disable-next-line import/no-named-as-default
+import UserController from '../controllers/userController';
 
 
 const routes = (app) => {
@@ -10,7 +10,7 @@ const routes = (app) => {
   app.post('/api/v1/carSales/purchase', CarsController.makePurchaseOrder);
 
   // auth routes
-  app.post('api/v1/carSales/signup', validateSignup, userController.signup);
+  app.post('api/v1/carSales/signup', UserController.signUp);
 
   return app;
 };
