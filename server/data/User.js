@@ -1,35 +1,35 @@
 import faker from 'faker';
 
-const User = [
+const Users = [
   {
     id: 0,
-    email: faker.name.email(),
-    first_name: faker.name.firstName(),
-    last_name: faker.name.lastName(),
-    password: faker.random.password(),
+    email: faker.internet.email(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    password: faker.random.uuid(),
     address: faker.address.latitude(),
-    is_admin: faker.random.boolean(),
+    isAdmin: faker.random.boolean(),
   },
 
   {
     id: 0,
-    email: faker.name.email(),
-    first_name: faker.name.firstName(),
-    last_name: faker.name.lastName(),
-    password: faker.random.password(),
+    email: faker.internet.email(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    password: faker.random.uuid(),
     address: faker.address.latitude(),
-    is_admin: faker.random.boolean(),
+    isAdmin: faker.random.boolean(),
   },
 
   {
     id: 0,
-    email: faker.name.email(),
-    first_name: faker.name.firstName(),
-    last_name: faker.name.lastName(),
-    password: faker.random.password(),
+    email: faker.name.findName(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    password: faker.random.uuid(),
     address: faker.address.latitude(),
-    is_admin: faker.random.boolean(),
+    isAdmin: faker.random.boolean(),
   },
 ];
 
-export default User;
+export default Users;
