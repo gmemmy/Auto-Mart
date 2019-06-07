@@ -14,9 +14,8 @@ export default class UserController {
  *
  * @returns {object} Class instance
  */
-  static async signUp(req, res) {
+  static signUp(req, res) {
     const { body } = req;
-    const validUser = await Users.createUser(body);
     const {
       email, firsName, lastName, password,
     } = body;
@@ -34,16 +33,13 @@ export default class UserController {
         message: 'Oops! email already exists',
       });
     } else {
-      const token = generateToken(validUser.id);
-      res.status(201).send({
+      const token = generateToken(newUser.id);
+      Users.push(newUser);
+      res.send({
         status: 201,
         data: [
           token,
-          newUser.id,
-          validUser.firstName,
-          newUser.lastName,
-          newUser.email,
-          newUser.password,
+          newUser,
         ],
       });
     }
