@@ -2,7 +2,8 @@ import ExpressValidator from 'express-validator/check';
 
 const { check } = ExpressValidator;
 
-const validateSignup = [
+// eslint-disable-next-line import/prefer-default-export
+export const validateSignup = [
   check('username')
     .isString().withMessage('Username must be alphabetical characters!')
     .isLength({ min: 4 })
@@ -33,5 +34,3 @@ const validateSignup = [
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long!'),
 ];
-
-export default validateSignup;
