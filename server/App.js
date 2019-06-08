@@ -1,6 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 import routes from './routes/index';
+
+dotenv.config();
 
 // Setup the express app
 const app = express();
@@ -12,6 +15,13 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// wildcard route
+app.all('*', (req, res) => {
+  res.send({
+    status: 404,
+    error: 'This page does not exist',
+  });
+});
 
 // Setup server
 routes(app).listen(port, () => {
