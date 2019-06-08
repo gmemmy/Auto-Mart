@@ -1,6 +1,8 @@
+import expressValidator from 'express-validator/check';
 import { generateToken } from '../helpers/authToken';
 import Users from '../data/User';
 
+const { validationResult } = expressValidator;
 
 export default class UserController {
   /**
@@ -33,7 +35,9 @@ export default class UserController {
         message: 'Oops! email already exists',
       });
     } else {
-      newUser = { email, firstName, lastName, password, id: new Date().getTime()}
+      newUser = {
+        email, firstName, lastName, password, id: new Date().getTime(),
+      };
       const token = generateToken(newUser.id);
       Users.push(newUser);
       res.send({
@@ -45,6 +49,4 @@ export default class UserController {
       });
     }
   }
-
- 
 }
