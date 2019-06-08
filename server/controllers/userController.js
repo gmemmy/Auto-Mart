@@ -18,24 +18,26 @@ export default class UserController {
     const { body } = req;
     const validUser = await Users.createUser(body);
     const {
-      email, firsName, lastName, password,
+      email, firstName, lastName, password,
     } = body;
 
-    if (!email || !firsName || !lastName || !password) {
+    if (!email || !firstName || !lastName || !password) {
       res.send({
         status: 400,
         message: 'Fill in the required input fields',
       });
     }
-    const newUser = Users.find(user => user.email === email);
+    let newUser = Users.find(user => user.email === email);
     if (newUser) {
       res.send({
         status: 400,
         message: 'Oops! email already exists',
       });
     } else {
-      const token = generateToken(validUser.id);
-      res.status(201).send({
+      newUser = { email, firstName, lastName, password, id: new Date().getTime()}
+      const token = generateToken(newUser.id);
+      Users.push(newUser);
+      res.send({
         status: 201,
         data: [
           token,
@@ -48,4 +50,6 @@ export default class UserController {
       });
     }
   }
+
+ 
 }
