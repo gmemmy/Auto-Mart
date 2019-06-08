@@ -14,9 +14,8 @@ export default class UserController {
  *
  * @returns {object} Class instance
  */
-  static async signUp(req, res) {
+  static signUp(req, res) {
     const { body } = req;
-    const validUser = await Users.createUser(body);
     const {
       email, firstName, lastName, password,
     } = body;
@@ -41,11 +40,7 @@ export default class UserController {
         status: 201,
         data: [
           token,
-          newUser.id,
-          validUser.firstName,
-          newUser.lastName,
-          newUser.email,
-          newUser.password,
+          newUser,
         ],
       });
     }

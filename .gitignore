@@ -1,6 +1,8 @@
 #dependencies
 
-node_modules/
-/dist
-.vscode/
+/node_modules/
+/build/
+/.vscode/
+/.nyc_output/
+Procfile
 
