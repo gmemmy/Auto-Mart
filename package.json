@@ -31,7 +31,7 @@
     "clean": "rm -rf build && mkdir build",
     "build-server": "babel -d ./build/server ./server -s",
     "start": "nodemon --exec babel-node server/App.js",
-    "test": "nyc mocha --require @babel/register --exit --recursive --timeout 40000",
+    "test": "nyc mocha server/test/* --require @babel/register --exit --recursive --timeout 40000",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov yarn test",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
