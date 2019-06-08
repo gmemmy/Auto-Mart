@@ -15,6 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+routes(app);
 
 // wildcard route
 app.all('*', (req, res) => {
@@ -25,7 +26,7 @@ app.all('*', (req, res) => {
 });
 
 // Setup server
-routes(app).listen(port, () => {
+app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`server is listening on port ${port}!`);
 });
