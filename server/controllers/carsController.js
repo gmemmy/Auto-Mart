@@ -30,7 +30,7 @@ export default class CarsController {
   }
 
   /**
-  * @description - View a specific car
+  * @description - View all unsold cars
   * @static
   *
   * @param {object} req - HTTP Request
@@ -84,7 +84,7 @@ export default class CarsController {
   }
 
   /**
-  * @description - View a specific car
+  * @description - Make a purchase order
   * @static
   *
   * @param {object} req - HTTP Request
