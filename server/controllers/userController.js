@@ -1,8 +1,5 @@
-import expressValidator from 'express-validator/check';
 import { generateToken } from '../helpers/authToken';
 import Users from '../data/User';
-
-const { validationResult } = expressValidator;
 
 export default class UserController {
   /**
@@ -25,18 +22,18 @@ export default class UserController {
     if (!email || !firstName || !lastName || !password) {
       res.send({
         status: 400,
-        message: 'Fill in the required input fields',
+        error: 'Fill in the required input fields',
       });
     }
     let newUser = Users.find(user => user.email === email);
     if (newUser) {
       res.send({
         status: 400,
-        message: 'Oops! email already exists',
+        error: 'Oops! email already exists',
       });
     } else {
       newUser = {
-        email, firstName, lastName, password, id: new Date().getTime(),
+        id: new Date().getTime(), firstName, lastName, email,
       };
       const token = generateToken(newUser.id);
       Users.push(newUser);
@@ -46,6 +43,21 @@ export default class UserController {
           token,
           newUser,
         ],
+      });
+    }
+  }
+
+  static signIn(req, res) {
+    const existingUser = Users.find(User => User.token === String(req.params.token));
+    if (!existingUser) {
+      res.send({
+        status: 404,
+        error: 'This account does not exist!',
+      });
+    } else {
+      res.send({
+        status: 200,
+        data: [existingUser],
       });
     }
   }
