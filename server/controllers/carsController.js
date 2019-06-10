@@ -16,17 +16,27 @@ export default class CarsController {
   */
   static addCarSaleAdvert(req, res) {
     const { body } = req;
-    // pick last advertisement and check its id
+    const {
+      owner, state, price, manufacturer,
+    } = body;
+    if (!owner || !state || !price || !manufacturer) {
+      res.send({
+        status: 400,
+        error: 'Fill in the required fields to create an advertisement',
+      });
+    } else {
+      // pick last advertisement and check its id
     // The last advertisement's id + 1 is the new advertisement's id
 
-    const lastAdvertisement = advertisements.reverse()[0];
-    body.created_on = faker.date.recent();
-    body.id = lastAdvertisement.id + 1;
-    advertisements.push(body);
-    res.send({
-      status: 201,
-      data: [lastAdvertisement],
-    });
+      const lastAdvertisement = advertisements.reverse()[0];
+      body.created_on = faker.date.recent();
+      body.id = lastAdvertisement.id + 1;
+      advertisements.push(body);
+      res.send({
+        status: 201,
+        data: [lastAdvertisement],
+      });
+    }
   }
 
   /**
