@@ -105,19 +105,45 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static updatePriceCarSaleAdvert(req, res) {
-    const { id, price } = req.body;
-    const selectedAdvert = advertisements.find(advert => advert.id === id);
+    const selectedAdvert = advertisements.find(advert => advert.id === Number(req.params.id));
     if (!selectedAdvert) {
       res.send({
         status: 404,
         error: 'No car sale advertisment was found with the given id',
       });
     } else {
-      selectedAdvert.price = price;
+      selectedAdvert.price = faker.finance.amount();
       res.send({
         status: 201,
         data: [selectedAdvert],
         message: 'price of car sale advertisement has been updated',
+      });
+    }
+  }
+
+  /**
+  * @description - Update the price of a car sale advertisment
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static updateStatusCarSaleAdvert(req, res) {
+    const selectedAdvert = advertisements.find(advert => advert.id === Number(req.params.id));
+    if (!selectedAdvert) {
+      res.send({
+        status: 404,
+        error: 'No car sale advertisement was found with the given id',
+      });
+    } else {
+      selectedAdvert.status = 'sold';
+      res.send({
+        status: 201,
+        data: [selectedAdvert],
       });
     }
   }
