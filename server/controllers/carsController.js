@@ -4,42 +4,6 @@ import purchaseOrder from '../data/purchaseOrder';
 
 export default class CarsController {
   /**
-  * @description - Add a new car sale advertisment
-  * @static
-  *
-  * @param {object} req - HTTP Request
-  * @param {object} res - HTTP Response
-  *
-  * @memberof CarsController
-  *
-  * @returns {object} Class instance
-  */
-  static addCarSaleAdvert(req, res) {
-    const { body } = req;
-    const {
-      owner, state, price, manufacturer,
-    } = body;
-    if (!owner || !state || !price || !manufacturer) {
-      res.send({
-        status: 400,
-        error: 'Fill in the required fields to create an advertisement',
-      });
-    } else {
-      // pick last advertisement and check its id
-    // The last advertisement's id + 1 is the new advertisement's id
-
-      const lastAdvertisement = advertisements.reverse()[0];
-      body.created_on = faker.date.recent();
-      body.id = lastAdvertisement.id + 1;
-      advertisements.push(body);
-      res.send({
-        status: 201,
-        data: [lastAdvertisement],
-      });
-    }
-  }
-
-  /**
   * @description - View all unsold cars
   * @static
   *
@@ -89,6 +53,71 @@ export default class CarsController {
       res.send({
         status: 200,
         data: [specificCar],
+      });
+    }
+  }
+
+  /**
+  * @description - Add a new car sale advertisment
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static addCarSaleAdvert(req, res) {
+    const { body } = req;
+    const {
+      owner, state, price, manufacturer,
+    } = body;
+    if (!owner || !state || !price || !manufacturer) {
+      res.send({
+        status: 400,
+        error: 'Fill in the required fields to create an advertisement',
+      });
+    } else {
+      // pick last advertisement and check its id
+    // The last advertisement's id + 1 is the new advertisement's id
+
+      const lastAdvertisement = advertisements.reverse()[0];
+      body.created_on = faker.date.recent();
+      body.id = lastAdvertisement.id + 1;
+      advertisements.push(body);
+      res.send({
+        status: 201,
+        data: [lastAdvertisement],
+      });
+    }
+  }
+
+  /**
+  * @description - Update the price of a car sale advertisment
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static updatePriceCarSaleAdvert(req, res) {
+    const { id, price } = req.body;
+    const selectedAdvert = advertisements.find(advert => advert.id === id);
+    if (!selectedAdvert) {
+      res.send({
+        status: 404,
+        error: 'No car sale advertisment was found with the given id',
+      });
+    } else {
+      selectedAdvert.price = price;
+      res.send({
+        status: 201,
+        data: [selectedAdvert],
+        message: 'price of car sale advertisement has been updated',
       });
     }
   }
