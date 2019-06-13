@@ -1,54 +1,72 @@
+import ExpressValidator from 'express-validator/check';
+import bcrypt from 'bcrypt';
 import { generateToken } from '../helpers/authToken';
 import Users from '../data/User';
 
+const { validationResult } = ExpressValidator;
+
 export default class UserController {
   /**
- * @description - Create a new user account
- * @static
- *
- * @param {object} req - HTTP Request
- * @param {object} res - HTTP Response
- *
- * @memberof UserController
- *
- * @returns {object} Class instance
- */
+   * @description - Create a new user account
+   * @static
+   *
+   * @param {object} req - HTTP Request
+   * @param {object} res - HTTP Response
+   *
+   * @memberof UserController
+   *
+   * @returns {object} Class instance
+   */
   static signUp(req, res) {
-    const { body } = req;
-    const {
-      email, firstName, lastName, password,
-    } = body;
+    // Use express validator to validate the user's input
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      const { email, firstName, lastName } = req.body;
 
-    if (!email || !firstName || !lastName || !password) {
-      res.send({
-        status: 400,
-        error: 'Fill in the required input fields',
-      });
-    }
-    let newUser = Users.find(user => user.email === email);
-    if (newUser) {
-      res.send({
-        status: 400,
-        error: 'Oops! email already exists',
-      });
+      // Checks if the email entered by the user already exists and throws an error if it does
+      const newUserEmail = Users.find(user => user.email === email);
+      if (newUserEmail) {
+        res.send({
+          status: 409,
+          error: 'Email already exists',
+        });
+      } else {
+        // hash user pasword
+        req.body.password = bcrypt.hash(req.body.password, 10, (err) => {
+          if (err) {
+            res.send({
+              status: 500,
+              error: err,
+            });
+          } else {
+            const newUser = {
+              id: new Date().getTime(),
+              firstName,
+              lastName,
+              email,
+            };
+            const token = generateToken(newUser.id);
+            Users.push(newUser);
+            res.send({
+              status: 201,
+              message: 'User successfully created',
+              data: [token, newUser],
+            });
+          }
+        });
+      }
     } else {
-      newUser = {
-        id: new Date().getTime(), firstName, lastName, email,
-      };
-      const token = generateToken(newUser.id);
-      Users.push(newUser);
       res.send({
-        status: 201,
-        data: [
-          token,
-          newUser,
-        ],
+        status: 400,
+        error: errors,
       });
     }
   }
 
   static signIn(req, res) {
-    const existingUser = Users.find(User => User.token === String(req.params.token));
+    const existingUser = Users.find(
+      User => User.token === String(req.params.token),
+    );
     if (!existingUser) {
       res.send({
         status: 404,
