@@ -172,4 +172,32 @@ export default class CarsController {
       data: [lastPurchaseOrder],
     });
   }
+
+  /**
+  * @description - Make a purchase order
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static updatePricePurchaseOrder(req, res) {
+    const { price } = req.body;
+    const selectedAdvert = advertisements.find(advert => advert.id === Number(req.params.id));
+    if (!selectedAdvert) {
+      res.send({
+        status: 404,
+        error: 'No car sale advertisement was found with the given id',
+      });
+    } else {
+      selectedAdvert.price = price;
+      res.send({
+        status: 200,
+        data: [selectedAdvert],
+      });
+    }
+  }
 }
