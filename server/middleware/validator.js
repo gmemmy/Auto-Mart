@@ -31,10 +31,10 @@ export const validateSignup = [
 ];
 
 export const validateSignin = [
-  check('username')
-    .isString().withMessage('Username must be alpabetical characters')
+  check('email')
+    .isString().withMessage('Email must be alpanumeric characters')
     .isLength({ min: 4, max: 20 })
-    .withMessage('Username must be at least 5 characters long!'),
+    .withMessage('Email must not be less than 8 characters long and not more than 20!!'),
 
   check('password')
     .isString().withMessage('Password must be alphanumeric characters!')

@@ -64,18 +64,35 @@ export default class UserController {
   }
 
   static signIn(req, res) {
-    const existingUser = Users.find(
-      User => User.token === String(req.params.token),
-    );
-    if (!existingUser) {
-      res.send({
-        status: 404,
-        error: 'This account does not exist!',
-      });
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      const { email, password, hash } = req.body;
+
+      const existingUser = Users.find(user => user.email === email);
+      if (!existingUser) {
+        res.send({
+          status: 404,
+          data: 'Invalid email address',
+        });
+      } else {
+        const validPassword = bcrypt.compare(password, hash);
+        if (validPassword) {
+          const token = generateToken(existingUser.id);
+          res.send({
+            status: 200,
+            data: [token, existingUser],
+          });
+        } else {
+          res.send({
+            status: 400,
+            error: 'password is invalid!',
+          });
+        }
+      }
     } else {
       res.send({
-        status: 200,
-        data: [existingUser],
+        status: 400,
+        error: errors,
       });
     }
   }
