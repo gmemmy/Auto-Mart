@@ -4,14 +4,9 @@ const { check } = ExpressValidator;
 
 // eslint-disable-next-line import/prefer-default-export
 export const validateSignup = [
-  check('username')
-    .isString().withMessage('Username must be alphabetical characters!')
-    .isLength({ min: 4, max: 20 })
-    .withMessage('Username must be at least 5 characters long!'),
-
   check('email')
-    .isString().withMessage('Email must be alphanumeric characters!')
-    .isLength({ min: 8, max: 20 })
+    .isEmail().withMessage('Email must be alphanumeric characters!')
+    .isLength({ min: 8, max: 40 })
     .withMessage('Email must not be less than 8 characters long and not more than 20!'),
 
   check('password')
