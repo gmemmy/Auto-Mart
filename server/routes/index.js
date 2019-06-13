@@ -20,6 +20,7 @@ const routes = (app) => {
 
   // admin routes
   app.get('/api/v1/admin', AdminController.viewAllCarRecords);
+  app.delete('/api/v1/admin/:id', AdminController.deleteASpecificRecord);
 
   return app;
 };
