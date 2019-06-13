@@ -11,6 +11,7 @@ const routes = (app) => {
   app.patch('/api/v1/carSales/:id/price', CarsController.updatePriceCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/status', CarsController.updateStatusCarSaleAdvert);
   app.post('/api/v1/carSales/purchase', CarsController.makePurchaseOrder);
+  app.patch('/api/v1/Carsales/:id/updatePurchase', CarsController.updatePricePurchaseOrder);
 
   // auth routes
   app.post('/api/v1/auth/signup', validateSignup, UserController.signUp);
