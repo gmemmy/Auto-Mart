@@ -1,17 +1,22 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
+import volleyball from 'volleyball';
 import swaggerUI from 'swagger-ui-express';
 import routes from './routes/index';
 import doc from '../doc.json';
 
 dotenv.config();
 
-// Setup the express app
-const app = express();
-
 // Define the port variable
 const port = process.env.PORT || 3000;
+
+// Setup the express app
+const app = express();
+app.use(volleyball);
+app.use(cors());
+
 
 // Parse incoming requests body data
 app.use(bodyParser.json());
