@@ -21,7 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.0",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "swagger-ui-express": "^4.0.6"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
