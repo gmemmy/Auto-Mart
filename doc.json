@@ -1,0 +1,25 @@
+    {
+     "swagger": "2.0",
+     "info": {
+      "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.",
+      "version": "1.0.0",
+      "title": "Auto-Mart",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+       "email": "gmemmy22@gmail.com"
+      },
+      "license": {
+       "name": "GNU General Public License",
+       "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+      }
+     },
+     "host": "auto-mart-gmemmy.herokuapp.com",
+     "basePath": "/api/v1",
+     "tags": [
+      {
+       "name": "auth",
+       "description": "User authentication",
+       "externalDocs": {
+        "url": "https://auto-mart-gmemmy.herokuapp.com"
+       }
+      },
