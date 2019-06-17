@@ -1,5 +1,8 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
+// eslint-disable-next-line no-unused-vars
+import { carAdsTable, purchaseOrderTable, userTable } from './tables';
+
 
 dotenv.config();
 
