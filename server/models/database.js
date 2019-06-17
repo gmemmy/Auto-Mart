@@ -15,3 +15,14 @@ pool.on('error', (err, client) => {
 });
 
 pool.connect()
+  .then(client => client.query(userTable)
+    .then((res) => {
+      client.release();
+      // eslint-disable-next-line no-console
+      console.log(res.rows[0]);
+    })
+    .catch((err) => {
+      client.release();
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }));
