@@ -11,8 +11,8 @@ const client = new Client({
 export const dropTables = async () => {
   await client.connect();
   await client.query('DROP TABLE IF EXISTS carAds;');
-  await client.query('DROP TABLE IF EXISTS purchaseOrder:');
-  await client.query('DROP TABLE IF EXISTS Users:');
+  await client.query('DROP TABLE IF EXISTS purchaseOrder;');
+  await client.query('DROP TABLE IF EXISTS users;');
   await client.end();
   // eslint-disable-next-line no-console
   console.log('All tables dropped successfully!');

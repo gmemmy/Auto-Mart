@@ -31,6 +31,6 @@ export const userTable = `
   lastName varchar(255),
   password varchar(30),
   address varchar(255),
-  isAdmin boolean
+  isAdmin boolean,
  );
 `;
