@@ -8,7 +8,8 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
 });
 
-const createTables = async () => {
+// eslint-disable-next-line import/prefer-default-export
+export const createTables = async () => {
   try {
     await client.connect();
     await client.query(carAdsTable);

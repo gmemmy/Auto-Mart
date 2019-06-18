@@ -1,9 +1,17 @@
-#dependencies
+# dependencies
+node_modules/
 
-/node_modules/
-/build/
-/.vscode/
-/.nyc_output/
-Procfile
+# nyc test coverage
+.nyc_output
+
+# dotenv environment variables file
 .env
+
+# builds and releases
+build/
+.vscode/
+
+# Heroku Procfile
+Procfile
+
 

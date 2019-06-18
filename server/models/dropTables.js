@@ -7,7 +7,8 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
 });
 
-const dropTables = async () => {
+// eslint-disable-next-line import/prefer-default-export
+export const dropTables = async () => {
   await client.connect();
   await client.query('DROP TABLE IF EXISTS carAds;');
   await client.query('DROP TABLE IF EXISTS purchaseOrder:');
