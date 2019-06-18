@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/prefer-default-export
 export const carAdsTable = `
   CREATE TABLE IF NOT EXISTS carAds (
-   id int,
+   id SERIAL,
    owner varchar(30),
    createdOn date,
    state varchar(20),
@@ -15,7 +15,7 @@ export const carAdsTable = `
 
 export const purchaseOrderTable = `
   CREATE TABLE IF NOT EXISTS purchaseOrders (
-   id int,
+   id SERIAL,
    buyer varchar(50),
    carId int,
    amount int,
@@ -25,7 +25,7 @@ export const purchaseOrderTable = `
 
 export const userTable = `
  CREATE TABLE IF NOT EXISTS Users (
-  id int,
+  id SERIAL,
   email varchar(30),
   firstName varchar(255),
   lastName varchar(255),
