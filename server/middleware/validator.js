@@ -2,6 +2,27 @@ import ExpressValidator from 'express-validator/check';
 
 const { check } = ExpressValidator;
 
+export const validateNewCarAdvert = [
+  check('owner')
+    .isString().withMessage('Owner must be only alphabetical characters')
+    .isLength({ min: 5 })
+    .withMessage('Owner must be at least 5 characters long'),
+  check('price')
+    .isNumeric().withMessage('price must be only numeric characters')
+    .isLength({ min: 5 })
+    .withMessage('price must be at least 5 characters long'),
+];
+
+export const checkPassword = (req, res, next) => {
+  const { password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    res.send({
+      status: 400,
+      error: 'Password and Confirm Password do not match',
+    });
+  } return next();
+};
+
 // eslint-disable-next-line import/prefer-default-export
 export const validateSignup = [
   check('email')
