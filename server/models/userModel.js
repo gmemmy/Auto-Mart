@@ -8,16 +8,7 @@ const pool = new Pool({
 });
 
 export default class UserModel {
-/**
- * @description - Sign
- * @static
- *
- * @param {object} - User data object
- *
- * @memberof UserModel
- *
- * @returns {object} Class instance
- * */
+  // Creates a new user
   static async addNewUser(newUserObj) {
     try {
       const {
@@ -36,16 +27,7 @@ export default class UserModel {
     }
   }
 
-  /**
- * @description - Sign
- * @static
- *
- * @param {object} - email
- *
- * @memberof UserModel
- *
- * @returns {object} Class instance
-* */
+  // Gets user by email
   static async getByEmail(email) {
     try {
       const query = `SELECT * FROM Users WHERE email = '${email.trim()}' `;
@@ -57,16 +39,7 @@ export default class UserModel {
     }
   }
 
-  /**
-* @description - Sign
-* @static
-*
-* @param {object} - User Id
-*
-* @memberof UserModel
-*
-* @returns {object} Class instance
-* */
+  // Gets user by Id
   static async getById(id) {
     try {
       const query = `SELECT * FROM Users WHERE id = '${id} `;
