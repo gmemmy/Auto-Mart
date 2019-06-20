@@ -27,6 +27,8 @@ export default class CarAdsModel {
     }
   }
 
+  // creates a purchase order
+
   // Gets a car by id
   static async getById(id) {
     try {

@@ -12,14 +12,29 @@ export default class UserModel {
   static async addNewUser(newUserObj) {
     try {
       const {
-        email, firstName, lastName, password, address, isAdmin,
+        email, username, firstName, lastName, password, address, isAdmin,
       } = newUserObj;
 
-      const query = `INSERT INTO Users(email, firstName, lastName, password, address, isAdmin) 
-        VALUES ('${email.trim()}', '${firstName.trim()}', '${lastName.trim()}', '${password.trim()}', '${address.trim()}', '${isAdmin},')
+      const query = `INSERT INTO Users(email, username, firstName, lastName, password, address, isAdmin) 
+        VALUES ('${email.trim()}', '${username.trim()}', '${firstName.trim()}', '${lastName.trim()}', '${password.trim()}', '${address.trim()}', '${isAdmin},')
         RETURNING *
       `;
 
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // Gets all users
+  static async getAll({ fieldName, fieldValue }) {
+    try {
+      const query = fieldName && fieldValue
+        ? `
+        SELECT * FROM Users
+        WHERE ${fieldName} = ${fieldName === 'username' ? String(fieldValue) : fieldValue}
+        ` : 'SELECT * FROM Users';
       const response = await pool.query(query);
       return response;
     } catch (error) {

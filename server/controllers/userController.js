@@ -21,14 +21,24 @@ export default class UserController {
     // Use express validator to validate the user's input
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
-      const { email, firstName, lastName } = req.body;
+      const {
+        email, username, firstName, lastName,
+      } = req.body;
 
       // Checks if the email entered by the user already exists and throws an error if it does
       const newUserEmail = Users.find(user => user.email === email);
+      const newUserName = Users.find(user => user.username === username);
       if (newUserEmail) {
         res.send({
           status: 409,
           error: 'Email already exists',
+        });
+      }
+
+      if (newUserName) {
+        res.send({
+          status: 409,
+          error: 'Username already exists',
         });
       } else {
         // hash user pasword
