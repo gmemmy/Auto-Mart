@@ -8,7 +8,6 @@ const pool = new Pool({
 });
 
 export default class CarAdsModel {
-
   // Creates a new car advertisement
   static async addCar(newCarObj) {
     try {
@@ -47,6 +46,38 @@ export default class CarAdsModel {
         SELECT * FROM carAds
         WHERE ${fieldName} = ${fieldName === 'owner' ? Number(fieldValue) : fieldValue}
         ` : 'SELECT * FROM carAds';
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // updates a car record
+  static async patch(payload) {
+    try {
+      const { fieldName, data, id } = payload;
+      const query = `
+         UPDATE carAds
+         SET ${fieldName} = '${data}'
+         WHERE id = ${Number(id)}
+         RETURNING *
+        `;
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // deletes a car record
+  static async deleteById(id) {
+    try {
+      const query = `
+         DELETE FROM carAds
+         WHERE id = ${Number(id)}
+         RETURNING id
+      `;
       const response = await pool.query(query);
       return response;
     } catch (error) {
