@@ -4,7 +4,7 @@ const Users = [
   {
     id: 0,
     email: faker.internet.email(),
-    username: faker.name.random(),
+    username: faker.name.findName(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     password: faker.random.uuid(),
@@ -15,7 +15,7 @@ const Users = [
   {
     id: 0,
     email: faker.internet.email(),
-    username: faker.name.random(),
+    username: faker.name.findName(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     password: faker.random.uuid(),
@@ -26,7 +26,7 @@ const Users = [
   {
     id: 0,
     email: faker.name.findName(),
-    username: faker.name.random(),
+    username: faker.name.findName(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     password: faker.random.uuid(),
