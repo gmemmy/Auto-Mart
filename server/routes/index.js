@@ -10,6 +10,7 @@ import AdminController from '../controllers/adminController';
 const routes = (app) => {
   app.get('/api/v1/carSales/', CarsController.viewAllUnsoldCars);
   app.get('/api/v1/carSales/priceRange', CarsController.viewAllUnsoldCarsWithinAPriceRange);
+  app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   app.get('/api/v1/carSales/:id', CarsController.viewSpecificCar);
   app.post('/api/v1/carSales/', validateNewCarAdvert, CarsController.addCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/price', CarsController.updatePriceCarSaleAdvert);

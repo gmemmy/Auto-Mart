@@ -95,6 +95,44 @@ export default class CarsController {
   }
 
   /**
+* @description - View all unsold cars within specific price range
+* @static
+*
+* @param {object} req - HTTP Request
+* @param {object} res - HTTP Response
+*
+* @memberof CarsController
+*
+* @returns {object} Class instance
+*/
+
+  static viewAllUnsoldCarsOfSpecificBodyType(req, res) {
+    const { bodyType } = req.body;
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
+
+    if (bodyType) {
+      unsoldCars.forEach((unsoldCar) => {
+        if (bodyType !== unsoldCar.body_type) {
+          res.send({
+            status: 404,
+            error: 'The specified body type is not found',
+          });
+        } else {
+          res.send({
+            status: 200,
+            data: [unsoldCar],
+          });
+        }
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: 'Please a specify a body type, e.g car, truck, e.t.c',
+      });
+    }
+  }
+
+  /**
   * @description - Add a new car sale advertisment
   * @static
   *
