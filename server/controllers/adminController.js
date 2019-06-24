@@ -1,4 +1,5 @@
 import advertisements from '../data/carAds';
+import Users from '../data/User';
 
 export default class AdminController {
   /**
@@ -8,7 +9,7 @@ export default class AdminController {
   * @param {object} req - HTTP Request
   * @param {object} res - HTTP Response
   *
-  * @memberof CarsController
+  * @memberof AdminController
   *
   * @returns {object} Class instance
   */
@@ -27,13 +28,38 @@ export default class AdminController {
   }
 
   /**
-  * @description - View all unsold cars
+* @description - View all users
+* @static
+*
+* @param {object} req - HTTP Request
+* @param {object} res - HTTP Response
+*
+* @memberof AdminController
+*
+* @returns {object} Class instance
+*/
+  static viewAllUsers(req, res) {
+    if (Users.length >= 1) {
+      res.send({
+        status: 200,
+        data: [Users],
+      });
+    } else {
+      res.send({
+        status: 404,
+        error: 'No user record found',
+      });
+    }
+  }
+
+  /**
+  * @description - Delete a specific car record
   * @static
   *
   * @param {object} req - HTTP Request
   * @param {object} res - HTTP Response
   *
-  * @memberof CarsController
+  * @memberof AdminController
   *
   * @returns {object} Class instance
   */
