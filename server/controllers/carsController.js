@@ -69,7 +69,7 @@ export default class CarsController {
 *
 * @returns {object} Class instance
 */
-  static async viewAllUnsoldCarsWithinAPriceRange(req, res) {
+  static viewAllUnsoldCarsWithinAPriceRange(req, res) {
     const { minPrice, maxPrice } = req.body;
     const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
     if (minPrice || maxPrice) {
