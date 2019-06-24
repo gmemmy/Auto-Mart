@@ -57,6 +57,43 @@ export default class CarsController {
     }
   }
 
+
+  /**
+* @description - View all unsold cars within specific price range
+* @static
+*
+* @param {object} req - HTTP Request
+* @param {object} res - HTTP Response
+*
+* @memberof CarsController
+*
+* @returns {object} Class instance
+*/
+  static viewAllUnsoldCarsWithinAPriceRange(req, res) {
+    const { minPrice, maxPrice } = req.body;
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
+    if (minPrice || maxPrice) {
+      unsoldCars.forEach((unsoldCar) => {
+        if (minPrice >= unsoldCar.price && maxPrice <= unsoldCar.price) {
+          res.send({
+            status: 200,
+            data: [unsoldCar],
+          });
+        } else {
+          res.send({
+            status: 404,
+            error: 'No car record found within the specified range',
+          });
+        }
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: 'Please specify price range',
+      });
+    }
+  }
+
   /**
   * @description - Add a new car sale advertisment
   * @static
