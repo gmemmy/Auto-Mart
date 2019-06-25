@@ -133,6 +133,43 @@ export default class CarsController {
   }
 
   /**
+* @description - Add a new car sale advertisment
+* @static
+*
+* @param {object} req - HTTP Request
+* @param {object} res - HTTP Response
+*
+* @memberof CarsController
+*
+* @returns {object} Class instance
+*/
+  static viewAllUnsoldCarsofUsedState(req, res) {
+    const { state } = req.body;
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
+    const usedCars = unsoldCars.filter(unsoldCar => unsoldCar.state === 'used');
+    if (state) {
+      usedCars.forEach((usedCar) => {
+        if (state === usedCar.state) {
+          res.send({
+            status: 200,
+            data: [usedCar],
+          });
+        } else {
+          res.send({
+            status: 400,
+            error: 'no used car record found',
+          });
+        }
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: '',
+      });
+    }
+  }
+
+  /**
   * @description - Add a new car sale advertisment
   * @static
   *
