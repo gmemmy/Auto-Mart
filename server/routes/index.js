@@ -10,9 +10,12 @@ import dropTables from '../models/dropTables';
 
 
 const routes = (app) => {
-  app.get('/api/v1/carSales', CarsController.viewAllUnsoldCars);
+  app.get('/api/v1/carSales/', CarsController.viewAllUnsoldCars);
+  app.get('/api/v1/carSales/priceRange', CarsController.viewAllUnsoldCarsWithinAPriceRange);
+  app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
+  app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
   app.get('/api/v1/carSales/:id', CarsController.viewSpecificCar);
-  app.post('/api/v1/carSales', validateNewCarAdvert, CarsController.addCarSaleAdvert);
+  app.post('/api/v1/carSales/', validateNewCarAdvert, CarsController.addCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/price', CarsController.updatePriceCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/status', CarsController.updateStatusCarSaleAdvert);
   app.post('/api/v1/carSales/purchase', CarsController.makePurchaseOrder);
@@ -24,6 +27,7 @@ const routes = (app) => {
 
   // admin routes
   app.get('/api/v1/admin', AdminController.viewAllCarRecords);
+  app.get('/api/v1/admin/users', AdminController.viewAllUsers);
   app.delete('/api/v1/admin/:id', AdminController.deleteASpecificRecord);
 
   // tables route

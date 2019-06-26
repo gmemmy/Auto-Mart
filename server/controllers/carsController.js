@@ -57,6 +57,118 @@ export default class CarsController {
     }
   }
 
+
+  /**
+* @description - View all unsold cars within specific price range
+* @static
+*
+* @param {object} req - HTTP Request
+* @param {object} res - HTTP Response
+*
+* @memberof CarsController
+*
+* @returns {object} Class instance
+*/
+  static viewAllUnsoldCarsWithinAPriceRange(req, res) {
+    const { minPrice, maxPrice } = req.body;
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
+    if (minPrice || maxPrice) {
+      unsoldCars.forEach((unsoldCar) => {
+        if (minPrice >= unsoldCar.price && maxPrice <= unsoldCar.price) {
+          res.send({
+            status: 200,
+            data: [unsoldCar],
+          });
+        } else {
+          res.send({
+            status: 404,
+            error: 'No car record found within the specified range',
+          });
+        }
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: 'Please specify price range',
+      });
+    }
+  }
+
+  /**
+* @description - View all unsold cars within specific price range
+* @static
+*
+* @param {object} req - HTTP Request
+* @param {object} res - HTTP Response
+*
+* @memberof CarsController
+*
+* @returns {object} Class instance
+*/
+
+  static viewAllUnsoldCarsOfSpecificBodyType(req, res) {
+    const { bodyType } = req.body;
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
+
+    if (bodyType) {
+      unsoldCars.forEach((unsoldCar) => {
+        if (bodyType !== unsoldCar.body_type) {
+          res.send({
+            status: 404,
+            error: 'The specified body type is not found',
+          });
+        } else {
+          res.send({
+            status: 200,
+            data: [unsoldCar],
+          });
+        }
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: 'Please a specify a body type, e.g car, truck, e.t.c',
+      });
+    }
+  }
+
+  /**
+* @description - Add a new car sale advertisment
+* @static
+*
+* @param {object} req - HTTP Request
+* @param {object} res - HTTP Response
+*
+* @memberof CarsController
+*
+* @returns {object} Class instance
+*/
+  static viewAllUnsoldCarsofUsedState(req, res) {
+    const { state } = req.body;
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
+    const usedCars = unsoldCars.filter(unsoldCar => unsoldCar.state === 'used');
+    if (state) {
+      usedCars.forEach((usedCar) => {
+        if (state === usedCar.state) {
+          res.send({
+            status: 200,
+            data: [usedCar],
+          });
+        } else {
+          res.send({
+            status: 400,
+            error: 'no used car record found',
+          });
+        }
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: '',
+      });
+    }
+  }
+
   /**
   * @description - Add a new car sale advertisment
   * @static
