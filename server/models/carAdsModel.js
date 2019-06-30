@@ -7,7 +7,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-export default class CarAdsModel {
+export default class CarModel {
   // Creates a new car advertisement
   static async addCar(newCarObj) {
     try {
