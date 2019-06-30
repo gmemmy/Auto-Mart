@@ -5,6 +5,7 @@ import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import routes from './routes/index';
 import doc from '../doc.json';
+import 'regenerator-runtime/runtime';
 
 dotenv.config();
 

@@ -27,8 +27,6 @@ export default class CarAdsModel {
     }
   }
 
-  // creates a purchase order
-
   // Gets a car by id
   static async getById(id) {
     try {
@@ -80,6 +78,43 @@ export default class CarAdsModel {
          WHERE id = ${Number(id)}
          RETURNING id
       `;
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // creates a new purchase order
+  static async addOrder(newOrderObj) {
+    try {
+      const {
+        buyer, carId, amount, status,
+      } = newOrderObj;
+
+      const query = `INSERT INTO purchaseOrders(buyer, carId, amount, status)
+      VALUES ('${buyer.trim()}', '${carId}', '${amount}', '${status}')
+      RETURNING *
+      `;
+
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // Updates the price of a purchase order
+  static async patchOrder(payload) {
+    try {
+      const { fieldName, data, id } = payload;
+      const query = `
+      UPDATE purchaseOrders
+       SET ${fieldName} = '${data}'
+       WHERE id = ${Number(id)}
+       RETURNING *
+       `;
+
       const response = await pool.query(query);
       return response;
     } catch (error) {
