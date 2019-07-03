@@ -22,7 +22,7 @@ const authentication = (req, res, next) => {
   } else {
     res.send({
       status: 401,
-      error: 'Unauthorized! you have to login first',
+      error: 'Unauthorized! you have to sign in first',
     });
   }
 };

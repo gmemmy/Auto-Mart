@@ -25,6 +25,6 @@ export const isAdmin = (req, res, next) => {
   }
   return res.send({
     status: 402,
-    error: 'Unauthorized, only yhe admin can perform this operation',
+    error: 'Unauthorized, only the admin can perform this operation',
   });
 };

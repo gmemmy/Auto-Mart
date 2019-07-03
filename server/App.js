@@ -3,9 +3,9 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
+import volleyball from 'volleyball';
 import routes from './routes/index';
 import doc from '../doc.json';
-import 'regenerator-runtime/runtime';
 
 dotenv.config();
 
@@ -14,8 +14,9 @@ const port = process.env.PORT || 3000;
 
 // Setup the express app
 const app = express();
-app.use(cors());
 
+app.use(volleyball());
+app.use(cors());
 
 // Parse incoming requests body data
 app.use(bodyParser.json());

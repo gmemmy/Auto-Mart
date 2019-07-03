@@ -1,6 +1,7 @@
 import faker from 'faker';
 import advertisements from '../data/carAds';
 import purchaseOrder from '../data/purchaseOrder';
+import CarModel from '../models/carAdsModel';
 
 export default class CarsController {
   /**
@@ -14,12 +15,12 @@ export default class CarsController {
   *
   * @returns {object} Class instance
   */
-  static viewAllUnsoldCars(req, res) {
-    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
-    if (unsoldCars.length >= 1) {
+  static async viewAllUnsoldCars(req, res) {
+    const unsoldCars = await CarModel.getAll({ status: 'available' });
+    if (unsoldCars.rowCount >= 1) {
       res.send({
         status: 200,
-        data: unsoldCars,
+        data: unsoldCars.rows,
       });
     } else {
       res.send({

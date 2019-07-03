@@ -4,7 +4,9 @@ import UserController from '../controllers/userController';
 import {
   validateNewCarAdvert, checkPassword, validateSignup, validateSignin,
 } from '../middleware/validator';
+import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
+import isAdmin from '../middleware/userPermission';
 import createTables from '../models/createTables';
 import dropTables from '../models/dropTables';
 
@@ -15,20 +17,20 @@ const routes = (app) => {
   app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
   app.get('/api/v1/carSales/:id', CarsController.viewSpecificCar);
-  app.post('/api/v1/carSales/', validateNewCarAdvert, CarsController.addCarSaleAdvert);
-  app.patch('/api/v1/carSales/:id/price', CarsController.updatePriceCarSaleAdvert);
-  app.patch('/api/v1/carSales/:id/status', CarsController.updateStatusCarSaleAdvert);
-  app.post('/api/v1/carSales/purchase', CarsController.makePurchaseOrder);
-  app.patch('/api/v1/Carsales/:id/updatePurchase', CarsController.updatePricePurchaseOrder);
+  app.post('/api/v1/carSales/', authentication, validateNewCarAdvert, CarsController.addCarSaleAdvert);
+  app.patch('/api/v1/carSales/:id/price', authentication, CarsController.updatePriceCarSaleAdvert);
+  app.patch('/api/v1/carSales/:id/status', authentication, CarsController.updateStatusCarSaleAdvert);
+  app.post('/api/v1/carSales/purchase', authentication, CarsController.makePurchaseOrder);
+  app.patch('/api/v1/Carsales/:id/updatePurchase', authentication, CarsController.updatePricePurchaseOrder);
 
   // auth routes
   app.post('/api/v1/auth/signup', checkPassword, validateSignup, UserController.signUp);
   app.post('/api/v1/auth/signin', validateSignin, UserController.signIn);
 
   // admin routes
-  app.get('/api/v1/admin', AdminController.viewAllCarRecords);
-  app.get('/api/v1/admin/users', AdminController.viewAllUsers);
-  app.delete('/api/v1/admin/:id', AdminController.deleteASpecificRecord);
+  app.get('/api/v1/admin', authentication, isAdmin, AdminController.viewAllCarRecords);
+  app.get('/api/v1/admin/users', authentication, isAdmin, AdminController.viewAllUsers);
+  app.delete('/api/v1/admin/:id', authentication, isAdmin, AdminController.deleteASpecificRecord);
 
   // tables route
   app.get('/api/v1/migrate', async (req, res) => {
