@@ -9,7 +9,7 @@ export const carAdsTable = `
    price int,
    manufacturer varchar(50),
    model varchar(50),
-   bodyType text,
+   bodyType text
   );
 `;
 
@@ -19,7 +19,7 @@ export const purchaseOrderTable = `
    buyer varchar(50),
    carId int,
    amount int,
-   status varchar(50),
+   status varchar(50)
   );
 `;
 
@@ -31,6 +31,6 @@ export const userTable = `
   lastName varchar(255),
   password varchar(30),
   address varchar(255),
-  isAdmin boolean,
+  isAdmin boolean
  );
 `;
