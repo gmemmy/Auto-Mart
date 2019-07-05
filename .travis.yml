@@ -4,3 +4,10 @@ node_js:
 cache:
   directories:
     - "node_modules"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'CREATE DATABASE automart;' -U postgres
+  
