@@ -4,6 +4,11 @@ body {
  background-size: cover;
  background-repeat: no-repeat;
 }
+ 
+label {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 500;
+}
 
 .hero {
  background-color: rgba(5, 4, 0, 0.466);
@@ -53,8 +58,8 @@ body {
 .hero .search-container button {
   float: right;
   padding: 6px 10px;
-  margin-top: 0;
-  margin-left: 100%;
+  margin-top: 6px;
+  margin-right: 3px;
   background: #ddd;
   font-size: 17px;
   border: none;
@@ -66,14 +71,16 @@ body {
 }
 
 .dropdown_search{
+  position: relative;
   margin-left: 100%;
-  margin-top: 5px;
+  margin-top: 0;
   cursor: pointer;
 }
 
 /* Style inputs, select elements and textareas */
-input[type=text], select, textarea{
+.container input[type=text], select[name=record], textarea{
  width: 100%;
+ height: 30px;
  padding: 12px;
  border: 4px solid #ccc;
  border-radius: 4px;
@@ -83,8 +90,10 @@ input[type=text], select, textarea{
 
 /* Style the label to display next to the inputs */
 label {
- padding: 12px 12px 12px 0;
- display: inline-block;
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 500;
 }
 
 /* Style the submit button */
