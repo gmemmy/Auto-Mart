@@ -3,6 +3,7 @@ body {
  background-size: cover;
  background-repeat: no-repeat;
  margin: 0;
+ overflow: visible;
  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -71,15 +72,7 @@ h2 {
  }
 }
 
-/* Full-width input fields */
-input[type=text], input[type=password] {
- width: 100%;
- padding: 12px 20px;
- margin: 8px 0;
- display: inline-block;
- border: 1px solid #ccc;
- box-sizing: border-box;
-}
+
 
 /* Set a style for all buttons */
 button {
@@ -127,6 +120,17 @@ span.psw {
  margin-left:70%;
  border: 1px solid #888;
  width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* Full-width input fields */
+.modal-content .container input[type=Admintext], input[type=Adminpassword] {
+ width: 100%;
+ padding: 12px 20px;
+ margin: 8px 0;
+ display: inline-block;
+ border: 1px solid #ccc;
+ box-sizing: border-box;
+ overflow: hidden;
 }
 
 /* Add Zoom Animation */
@@ -294,7 +298,8 @@ span.psw {
  .label__icon {
    padding: 0.97rem 0;
    float: left;
-   width: 3rem;
+   width: 2rem;
+   height: 1.42rem;
    font-size: 1.25rem;
    text-align: center;
    color: rgba(107, 141, 159, 0.25);
@@ -306,10 +311,13 @@ span.psw {
  }
  
  .form__element {
-   padding-top: 1.11rem;
-   padding-right: 1.11rem;
-   padding-bottom: 2.11rem;
-   width: 15.875rem;
+   width: 25.9rem;
+   height: 5em;
+   margin-top: 0;
+   float: right;
+   align-items: center;
+   justify-content: center;
+   font-weight: 500;
    border-top: 1px solid #e1e1e1;
    border-right: 1px solid #e1e1e1;
    border-bottom: 1px solid #e1e1e1;
@@ -317,7 +325,6 @@ span.psw {
    border-top-right-radius: 2px;
    border-bottom-right-radius: 2px;
  }
- 
  .form__element:focus {
    outline: 0;
  }
