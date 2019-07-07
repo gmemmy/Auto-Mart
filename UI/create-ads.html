@@ -39,10 +39,26 @@
 									<input type="text" id="rname" name="firstname" placeholder="">
 							</div>
 					</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="rname">Model:</label>
+							</div>
+							<div class="col-75">
+								<input type="text" id="rname" name="Car Model" placeholder="Vehicle Model...">
+							</div>
+						</div>
+							<div class="row">
+								<div class="col-25">
+									<label for="rname">Price:</label>
+								</div>
+								<div class="col-75">
+									<input type="text" id="rname" name="price" placeholder="Amount in naira...">
+								</div>
+							</div>
 					
 					<div class="row">
 							<div class="col-25">
-									<label for="record">Car State:</label>
+									<label for="record">Vehicle State:</label>
 							</div>
 							<div class="col-75">
 									<select id="record" name="record">
@@ -53,18 +69,23 @@
 					</div>
 					<div class="row">
 							<div class="col-25">
-									<label for="subject">Car Description:</label>
+									<label for="subject">Body Type:</label>
 							</div>
-							<div class="col-75">
-									<textarea id="subject" name="subject" placeholder="Write something..." style="height:200px"></textarea>
-							</div>
+						<div class="col-75">
+							<select id="record" name="record">
+								<option value="">Car</option>
+								<option value="">Truck</option>
+								<option value="">Trailer</option>
+								<option value="">Van</option>
+							</select>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-25">
 							<label> <for="picture">Upload image/images:</for></label>
 						</div>
 						<div class="col-75">
-							<input type="file" name="pic" accept="picture/*">
+							<input type="file" name="pic" accept="picture/*" multiple>
 						</div>
 					</div>
 					<div class="row">
