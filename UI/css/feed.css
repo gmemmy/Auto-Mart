@@ -103,7 +103,7 @@ img {
 
  .ads-box .box__status h3 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-top: 55px;
+  margin-top: 30px;
   margin-left: 4px;
   color: #bd8c43;
 }
@@ -116,7 +116,7 @@ img {
    width: 100px;
    padding: 10px;
    border-radius: 5px;
-   margin-bottom: 500px;
+   margin-top: 0;
    margin-left: 300px;
    color: rgb(0, 0, 0);
    font-weight: 500;
