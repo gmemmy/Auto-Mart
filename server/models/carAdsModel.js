@@ -41,7 +41,7 @@ export default class CarModel {
   // Gets all cars
   static async getAll({ status }) {
     try {
-      const query = status ? `SELECT * FROM carAds WHERE type= '${status}'` : 'SELECT * FROM carAds';
+      const query = status ? `SELECT * FROM carAds WHERE status= '${status}'` : 'SELECT * FROM carAds';
 
       const response = await pool.query(query);
       return response;

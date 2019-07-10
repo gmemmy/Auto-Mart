@@ -1,6 +1,5 @@
-import faker from 'faker';
+import { validationResult } from 'express-validator/check';
 import advertisements from '../data/carAds';
-import purchaseOrder from '../data/purchaseOrder';
 import CarModel from '../models/carAdsModel';
 
 export default class CarsController {
@@ -30,6 +29,7 @@ export default class CarsController {
     }
   }
 
+
   /**
   * @description - View a specific car
   * @static
@@ -41,19 +41,17 @@ export default class CarsController {
   *
   * @returns {object} Class instance
   */
-  static viewSpecificCar(req, res) {
-    const specificCar = advertisements.find(
-      advertisment => advertisment.id === Number(req.params.id),
-    );
-    if (!specificCar) {
+  static async viewSpecificCar(req, res) {
+    const specificCar = await CarModel.getById(Number(req.params.id));
+    if (specificCar.rowCount !== 1) {
       res.send({
         status: 404,
-        error: 'Oops! no car found with this id',
+        error: 'Oops! no car found with this id.',
       });
     } else {
       res.send({
         status: 200,
-        data: [specificCar],
+        data: [specificCar.rows[0]],
       });
     }
   }
@@ -96,7 +94,7 @@ export default class CarsController {
   }
 
   /**
-* @description - View all unsold cars within specific price range
+* @description - View all unsold cars with a specific body type
 * @static
 *
 * @param {object} req - HTTP Request
@@ -134,7 +132,7 @@ export default class CarsController {
   }
 
   /**
-* @description - Add a new car sale advertisment
+* @description - View all unsold cars that are used
 * @static
 *
 * @param {object} req - HTTP Request
@@ -181,33 +179,42 @@ export default class CarsController {
   *
   * @returns {object} Class instance
   */
-  static addCarSaleAdvert(req, res) {
-    const { body } = req;
-    const {
-      owner, state, price, manufacturer,
-    } = body;
-    if (!owner || !state || !price || !manufacturer) {
+  static async addCarSaleAdvert(req, res) {
+    const carSale = req.body;
+    // Get all the errors from express validator
+    const errors = validationResult(req).array().map(error => error.msg);
+    // pick last car advert from the car adverts array, check it's id
+    // the last record's id + 1 is the new record's id
+    if (errors.length < 1) {
+      carSale.owner = req.user.id;
+      carSale.createdOn = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      carSale.state = carSale.state;
+      carSale.status = carSale.status;
+      carSale.price = carSale.price;
+      carSale.manufacturer = carSale.manufacturer;
+      carSale.model = carSale.model;
+      carSale.bodyType = carSale.bodyType;
+      const newAdvert = await CarModel.addCar(carSale);
+
+      res.send({
+        status: 201,
+        data: [
+          {
+            id: newAdvert.rows[0].id,
+            message: 'Successfully created a new car sale advertisement',
+          },
+        ],
+      });
+    } else {
       res.send({
         status: 400,
-        error: 'Fill in the required fields to create an advertisement',
-      });
-    } else {
-      // pick last advertisement and check its id
-    // The last advertisement's id + 1 is the new advertisement's id
-
-      const lastAdvertisement = advertisements.reverse()[0];
-      body.created_on = faker.date.recent();
-      body.id = lastAdvertisement.id + 1;
-      advertisements.push(body);
-      res.send({
-        status: 201,
-        data: [lastAdvertisement],
+        error: errors,
       });
     }
   }
 
   /**
-  * @description - Update the price of a car sale advertisment
+  * @description - Update the price of a car sale advertisment by id
   * @static
   *
   * @param {object} req - HTTP Request
@@ -217,99 +224,135 @@ export default class CarsController {
   *
   * @returns {object} Class instance
   */
-  static updatePriceCarSaleAdvert(req, res) {
-    const selectedAdvert = advertisements.find(advert => advert.id === Number(req.params.id));
-    if (!selectedAdvert) {
-      res.send({
-        status: 404,
-        error: 'No car sale advertisment was found with the given id',
-      });
-    } else {
-      selectedAdvert.price = faker.finance.amount();
-      res.send({
-        status: 201,
-        data: [selectedAdvert],
-        message: 'price of car sale advertisement has been updated',
-      });
-    }
-  }
-
-  /**
-  * @description - Update the price of a car sale advertisment
-  * @static
-  *
-  * @param {object} req - HTTP Request
-  * @param {object} res - HTTP Response
-  *
-  * @memberof CarsController
-  *
-  * @returns {object} Class instance
-  */
-  static updateStatusCarSaleAdvert(req, res) {
-    const selectedAdvert = advertisements.find(advert => advert.id === Number(req.params.id));
-    if (!selectedAdvert) {
-      res.send({
-        status: 404,
-        error: 'No car sale advertisement was found with the given id',
-      });
-    } else {
-      selectedAdvert.status = 'sold';
-      res.send({
-        status: 201,
-        data: [selectedAdvert],
-      });
-    }
-  }
-
-  /**
-  * @description - Make a purchase order
-  * @static
-  *
-  * @param {object} req - HTTP Request
-  * @param {object} res - HTTP Response
-  *
-  * @memberof CarsController
-  *
-  * @returns {object} Class instance
-  */
-  static makePurchaseOrder(req, res) {
-    const { body } = req;
-
-    const lastPurchaseOrder = purchaseOrder.reverse()[0];
-    body.id = lastPurchaseOrder.id + 1;
-    body.price_offered = faker.finance.amount();
-    body.created_on = faker.date.recent();
-    purchaseOrder.push(body);
-    res.send({
-      status: 201,
-      data: [lastPurchaseOrder],
-    });
-  }
-
-  /**
-  * @description - Make a purchase order
-  * @static
-  *
-  * @param {object} req - HTTP Request
-  * @param {object} res - HTTP Response
-  *
-  * @memberof CarsController
-  *
-  * @returns {object} Class instance
-  */
-  static updatePricePurchaseOrder(req, res) {
-    const { price } = req.body;
-    const selectedAdvert = advertisements.find(advert => advert.id === Number(req.params.id));
-    if (!selectedAdvert) {
-      res.send({
-        status: 404,
-        error: 'No car sale advertisement was found with the given id',
-      });
-    } else {
-      selectedAdvert.price = price;
-      res.send({
+  static async updatePriceCarSaleAdvert(req, res) {
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      const payload = {
+        id: req.params.id,
+        fieldName: 'price',
+        data: req.body.price,
+      };
+      const updatePrice = await CarModel.patch(payload);
+      req.send({
         status: 200,
-        data: [selectedAdvert],
+        data: [{
+          id: updatePrice.rows[0].id,
+          message: 'Successfully updated price of the car advert',
+        }],
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: errors,
+      });
+    }
+  }
+
+  /**
+  * @description - Update the status of a car sale advertisment by id
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static async updateStatusCarSaleAdvert(req, res) {
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      const payload = {
+        id: req.params.id,
+        fieldName: 'status',
+        data: req.body.status,
+      };
+      const updateStatus = await CarModel.patch(payload);
+      req.send({
+        status: 200,
+        data: [{
+          id: updateStatus.rows[0].id,
+          message: 'Successfully updated the status of the car advert',
+        }],
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: errors,
+      });
+    }
+  }
+
+  /**
+  * @description - Make a purchase order
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static async makePurchaseOrder(req, res) {
+    // eslint-disable-next-line no-shadow
+    const purchaseOrder = req.body;
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      purchaseOrder.buyer = req.user.id;
+      purchaseOrder.carId = req.params.id;
+      purchaseOrder.status = purchaseOrder.status;
+      purchaseOrder.status = purchaseOrder.status;
+      const newPurchaseOrder = await CarModel.addCar(purchaseOrder);
+
+      res.send({
+        status: 201,
+        data: [
+          {
+            id: newPurchaseOrder.rows[0].id,
+            message: 'Successfully created a new car purchase order',
+          },
+        ],
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: errors,
+      });
+    }
+  }
+
+  /**
+  * @description - Make a purchase order
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static async updatePricePurchaseOrder(req, res) {
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      const payload = {
+        id: req.params.id,
+        fieldName: 'price',
+        data: req.body.price,
+      };
+      const updateOrderPrice = await CarModel.patch(payload);
+      req.send({
+        status: 200,
+        data: [{
+          id: updateOrderPrice.rows[0].id,
+          message: 'Successfully updated price of the purchase order',
+        }],
+      });
+    } else {
+      res.send({
+        status: 400,
+        error: errors,
       });
     }
   }
