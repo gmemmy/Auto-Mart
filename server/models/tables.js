@@ -27,6 +27,7 @@ export const userTable = `
  CREATE TABLE IF NOT EXISTS Users (
   id SERIAL,
   email varchar(30),
+  username varchar(30),
   firstName varchar(255),
   lastName varchar(255),
   password varchar(30),

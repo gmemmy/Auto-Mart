@@ -22,7 +22,7 @@ const routes = (app) => {
   app.patch('/api/v1/Carsales/:id/updatePurchase', authentication, userRecord, CarsController.updatePricePurchaseOrder);
 
   // auth routes
-  app.post('/api/v1/auth/signup', checkPassword, validateSignup, UserController.signUp);
+  app.post('/api/v1/auth/signup', validateSignup, checkPassword, UserController.signUp);
   app.post('/api/v1/auth/signin', validateSignin, UserController.signIn);
 
   // admin routes
