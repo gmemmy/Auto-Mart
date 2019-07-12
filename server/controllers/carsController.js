@@ -1,6 +1,8 @@
-import { validationResult } from 'express-validator/check';
+import ExpressValidator from 'express-validator/check';
 import advertisements from '../data/carAds';
 import CarModel from '../models/carAdsModel';
+
+const { validationResult } = ExpressValidator;
 
 export default class CarsController {
   /**
@@ -23,8 +25,8 @@ export default class CarsController {
       });
     } else {
       res.send({
-        status: 404,
-        error: 'No car advertisement found!',
+        status: 204,
+        data: [],
       });
     }
   }

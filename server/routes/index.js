@@ -15,7 +15,7 @@ const routes = (app) => {
   app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
   app.get('/api/v1/carSales/:id', CarsController.viewSpecificCar);
-  app.post('/api/v1/carSales/', validateNewCarAdvert, CarsController.addCarSaleAdvert);
+  app.post('/api/v1/carSales/', authentication, validateNewCarAdvert, CarsController.addCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/price', authentication, userRecord, CarsController.updatePriceCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/status', authentication, userRecord, CarsController.updateStatusCarSaleAdvert);
   app.post('/api/v1/carSales/purchase', authentication, CarsController.makePurchaseOrder);
