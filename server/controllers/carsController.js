@@ -107,28 +107,17 @@ export default class CarsController {
 * @returns {object} Class instance
 */
 
-  static viewAllUnsoldCarsOfSpecificBodyType(req, res) {
-    const { bodyType } = req.body;
-    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
-
-    if (bodyType) {
-      unsoldCars.forEach((unsoldCar) => {
-        if (bodyType !== unsoldCar.body_type) {
-          res.send({
-            status: 404,
-            error: 'The specified body type is not found',
-          });
-        } else {
-          res.send({
-            status: 200,
-            data: [unsoldCar],
-          });
-        }
+  static async viewAllUnsoldCarsOfSpecificBodyType(req, res) {
+    const carsByBodyType = await CarModel.getAll({ status: 'available', body_type: req.user.body_type });
+    if (carsByBodyType.rowCount >= 1) {
+      res.send({
+        status: 200,
+        data: carsByBodyType.rows,
       });
     } else {
       res.send({
-        status: 400,
-        error: 'Please a specify a body type, e.g car, truck, e.t.c',
+        status: 204,
+        data: [],
       });
     }
   }
@@ -144,28 +133,17 @@ export default class CarsController {
 *
 * @returns {object} Class instance
 */
-  static viewAllUnsoldCarsofUsedState(req, res) {
-    const { state } = req.body;
-    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
-    const usedCars = unsoldCars.filter(unsoldCar => unsoldCar.state === 'used');
-    if (state) {
-      usedCars.forEach((usedCar) => {
-        if (state === usedCar.state) {
-          res.send({
-            status: 200,
-            data: [usedCar],
-          });
-        } else {
-          res.send({
-            status: 400,
-            error: 'no used car record found',
-          });
-        }
+  static async viewAllUnsoldCarsofUsedState(req, res) {
+    const carsOfUsedState = await CarModel.getAll({ status: 'available', state: 'used' });
+    if (carsOfUsedState.rowCount >= 1) {
+      res.send({
+        status: 200,
+        data: carsOfUsedState.rows,
       });
     } else {
       res.send({
-        status: 400,
-        error: '',
+        status: 204,
+        data: [],
       });
     }
   }
@@ -188,24 +166,21 @@ export default class CarsController {
     // pick last car advert from the car adverts array, check it's id
     // the last record's id + 1 is the new record's id
     if (errors.length < 1) {
-      carSale.owner = req.user.id;
-      carSale.createdOn = new Date().toISOString().slice(0, 19).replace('T', ' ');
-      carSale.state = carSale.state;
-      carSale.status = carSale.status;
-      carSale.price = carSale.price;
+      carSale.created_On = new Date().toISOString().slice(0, 19).replace('T', ' ');
       carSale.manufacturer = carSale.manufacturer;
       carSale.model = carSale.model;
-      carSale.bodyType = carSale.bodyType;
+      carSale.price = carSale.price;
+      carSale.state = carSale.state;
+      carSale.status = 'Available';
+      carSale.body_type = carSale.body_type;
       const newAdvert = await CarModel.addCar(carSale);
 
       res.send({
         status: 201,
         data: [
-          {
-            id: newAdvert.rows[0].id,
-            message: 'Successfully created a new car sale advertisement',
-          },
+          newAdvert.rows,
         ],
+        message: 'Successfully created a new car sale advertisement',
       });
     } else {
       res.send({
@@ -301,11 +276,12 @@ export default class CarsController {
     const purchaseOrder = req.body;
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
-      purchaseOrder.buyer = req.user.id;
-      purchaseOrder.carId = req.params.id;
+      purchaseOrder.car_id = req.params.id;
+      purchaseOrder.created_On = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      purchaseOrder.price = purchaseOrder.price;
       purchaseOrder.status = purchaseOrder.status;
-      purchaseOrder.status = purchaseOrder.status;
-      const newPurchaseOrder = await CarModel.addCar(purchaseOrder);
+      purchaseOrder.price_offered = purchaseOrder.price_offered;
+      const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
 
       res.send({
         status: 201,

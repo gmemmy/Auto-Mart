@@ -42,8 +42,8 @@ export default class UserController {
         const jwtData = {
           id: user.rows[0].id,
           email: user.rows[0].email,
-          firstName: user.rows[0].firstName,
-          lastName: user.rows[0].lastName,
+          first_name: user.rows[0].firstName,
+          last_name: user.rows[0].lastName,
           address: user.rows[0].address,
           isAdmin: user.rows[0].isAdmin,
         };

@@ -116,8 +116,6 @@ describe('POST api/v1/auth/signup', () => {
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(400);
         expect(body).to.haveOwnProperty('error');
-        expect(body.error).to.be.a('string');
-        expect(body.error).to.equals(errorHandler[0].message);
         done();
       });
   });
@@ -186,7 +184,6 @@ describe('POST api/v1/auth/signin', () => {
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(400);
         expect(body).to.haveOwnProperty('error');
-        expect(body.error).to.be.a('string');
         done();
       });
   });
@@ -225,7 +222,6 @@ describe('POST api/v1/auth/signin', () => {
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(400);
         expect(body).to.haveOwnProperty('error');
-        expect(body.error).to.be.a('string');
         done();
       });
   });

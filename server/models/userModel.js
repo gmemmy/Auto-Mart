@@ -15,7 +15,7 @@ export default class UserModel {
         email, username, firstName, lastName, password, address, isAdmin,
       } = newUserObj;
 
-      const query = `INSERT INTO Users(email, username, firstName, lastName, password, address, isAdmin) 
+      const query = `INSERT INTO Users(email, firstName, lastName, password, address, isAdmin) 
         VALUES ('${email.trim()}', '${username.trim()}', '${firstName.trim()}', '${lastName.trim()}', '${password.trim()}', '${address.trim()}', '${isAdmin},')
         RETURNING *
       `;
@@ -33,7 +33,7 @@ export default class UserModel {
       const query = fieldName && fieldValue
         ? `
         SELECT * FROM Users
-        WHERE ${fieldName} = ${fieldName === 'username' ? String(fieldValue) : fieldValue}
+        WHERE ${fieldName} = ${fieldName === 'owner' ? String(fieldValue) : fieldValue}
         ` : 'SELECT * FROM Users';
       const response = await pool.query(query);
       return response;

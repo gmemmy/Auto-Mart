@@ -19,7 +19,7 @@ describe('POST api/v1/carSales', () => {
         price: '500,000',
         manufacturer: `${faker.name.firstName()}`,
         model: `${faker.random.words()}`,
-        bodyType: 'car',
+        body_type: 'car',
       })
       .end((err, res) => {
         if (err) done();
