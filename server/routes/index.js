@@ -7,6 +7,9 @@ import {
 import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
 import { userRecord, isAdmin } from '../middleware/userPermission';
+import cloudinaryUpload from '../helpers/cloudinarySetup';
+
+const uploadImage = cloudinaryUpload();
 
 
 const routes = (app) => {
@@ -15,10 +18,10 @@ const routes = (app) => {
   app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
   app.get('/api/v1/carSales/:id', CarsController.viewSpecificCar);
-  app.post('/api/v1/carSales/', authentication, validateNewCarAdvert, CarsController.addCarSaleAdvert);
+  app.post('/api/v1/carSales/', validateNewCarAdvert, uploadImage.single('image'), CarsController.addCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/price', authentication, userRecord, CarsController.updatePriceCarSaleAdvert);
   app.patch('/api/v1/carSales/:id/status', authentication, userRecord, CarsController.updateStatusCarSaleAdvert);
-  app.post('/api/v1/carSales/purchase', authentication, CarsController.makePurchaseOrder);
+  app.post('/api/v1/carSales/purchase', CarsController.makePurchaseOrder);
   app.patch('/api/v1/Carsales/:id/updatePurchase', authentication, userRecord, CarsController.updatePricePurchaseOrder);
 
   // auth routes

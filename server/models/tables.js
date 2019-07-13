@@ -9,7 +9,8 @@ export const carAdsTable = `
    price int,
    manufacturer varchar(50),
    model varchar(50),
-   bodyType text
+   bodyType text,
+   imgUrl varchar(50)
   );
 `;
 

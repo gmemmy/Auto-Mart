@@ -173,13 +173,12 @@ export default class CarsController {
       carSale.state = carSale.state;
       carSale.status = 'Available';
       carSale.body_type = carSale.body_type;
+      carSale.img_url = [];
       const newAdvert = await CarModel.addCar(carSale);
 
       res.send({
         status: 201,
-        data: [
-          newAdvert.rows,
-        ],
+        data: [newAdvert.rows],
         message: 'Successfully created a new car sale advertisement',
       });
     } else {
@@ -276,13 +275,12 @@ export default class CarsController {
     const purchaseOrder = req.body;
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
+      purchaseOrder.buyer = purchaseOrder.buyer;
       purchaseOrder.car_id = req.params.id;
-      purchaseOrder.created_On = new Date().toISOString().slice(0, 19).replace('T', ' ');
-      purchaseOrder.price = purchaseOrder.price;
+      purchaseOrder.amount = purchaseOrder.price;
       purchaseOrder.status = purchaseOrder.status;
       purchaseOrder.price_offered = purchaseOrder.price_offered;
       const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
-
       res.send({
         status: 201,
         data: [

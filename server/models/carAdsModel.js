@@ -12,11 +12,11 @@ export default class CarModel {
   static async addCar(newCarObj) {
     try {
       const {
-        owner, createdOn, state, status, price, manufacturer, model, bodyType,
+        owner, createdOn, state, status, price, manufacturer, model, bodyType, imgUrl,
       } = newCarObj;
 
-      const query = `INSERT INTO carAds(owner, createdOn, state, status, price, manufacturer, model, bodyType)
-     VALUES ('${owner.trim()}', '${createdOn}', '${state}', '${status}', '${price}', '${manufacturer.trim()}, '${model.trim()}', '${bodyType.trim()}')
+      const query = `INSERT INTO carAds(owner, createdOn, state, status, price, manufacturer, model, bodyType, imgUrl)
+     VALUES ('${owner.trim()}', '${createdOn}', '${state}', '${status}', '${price}', '${manufacturer.trim()}, '${model.trim()}', '${bodyType.trim()}', ${imgUrl.trim()})
      RETURNING *
    `;
 
