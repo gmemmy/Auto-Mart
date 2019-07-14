@@ -41,14 +41,14 @@ describe('POST api/v1/auth/signin', () => {
         if (err) done();
         const { body } = res;
         // eslint-disable-next-line prefer-destructuring
-        token = body.data[0].token;
+        token = body.data.token;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.equal(200);
-        expect(body.data[0]).to.haveOwnProperty('token');
-        expect(body.data[0]).to.haveOwnProperty('newUser');
-        expect(body.data[0].existingUser).to.be.an('object');
-        expect(body.data[0].token).to.be.a('string');
+        expect(body.data).to.haveOwnProperty('token');
+        expect(body.data).to.haveOwnProperty('newUser');
+        expect(body.data.existingUser).to.be.an('object');
+        expect(body.data.token).to.be.a('string');
         done();
       });
   });
@@ -63,14 +63,14 @@ describe('POST api/v1/auth/signin', () => {
         if (err) done();
         const { body } = res;
         // eslint-disable-next-line prefer-destructuring
-        adminToken = body.data[0].token;
+        adminToken = body.data.token;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.equal(200);
-        expect(body.data[0]).to.haveOwnProperty('token');
-        expect(body.data[0]).to.haveOwnProperty('newUser');
-        expect(body.data[0].existingUser).to.be.an('object');
-        expect(body.data[0].token).to.be.a('string');
+        expect(body.data).to.haveOwnProperty('token');
+        expect(body.data).to.haveOwnProperty('newUser');
+        expect(body.data.existingUser).to.be.an('object');
+        expect(body.data.token).to.be.a('string');
         done();
       });
   });
@@ -160,10 +160,10 @@ describe('POST api/v1/auth/signin', () => {
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(200);
-        expect(body.data[0]).to.haveOwnProperty('token');
-        expect(body.data[0]).to.haveOwnProperty('user');
-        expect(body.data[0].user).to.be.an('object');
-        expect(body.data[0].token).to.be.a('string');
+        expect(body.data).to.haveOwnProperty('token');
+        expect(body.data).to.haveOwnProperty('user');
+        expect(body.data.user).to.be.an('object');
+        expect(body.data.token).to.be.a('string');
         done();
       });
   });

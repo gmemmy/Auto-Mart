@@ -27,10 +27,10 @@ describe('POST api/v1/carSales', () => {
         expect(body).to.be.an('object');
         expect(body).to.haveOwnProperty('data');
         expect(body.status).to.equal(200);
-        expect(body.data[0]).to.be.an('object');
-        expect(body.data[0].message).to.be.a('string');
-        expect(body.data[0]).to.haveOwnProperty('id' && 'message');
-        expect(body.data[0].message).to.equal('Successfully created a new car sale advertisemen');
+        expect(body.data).to.be.an('object');
+        expect(body.data.message).to.be.a('string');
+        expect(body.data).to.haveOwnProperty('id' && 'message');
+        expect(body.data.message).to.equal('Successfully created a new car sale advertisemen');
         done();
       });
   });

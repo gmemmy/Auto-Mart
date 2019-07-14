@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const authentication = (req, res, next) => {
-  const token = req.headers['x-access-token'];
+  const token = req.headers.authorization;
 
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -15,7 +15,6 @@ const authentication = (req, res, next) => {
         });
       }
       // save to request body
-      req.decoded = decoded;
       req.user = decoded;
       return next();
     });

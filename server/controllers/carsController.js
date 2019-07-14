@@ -19,16 +19,15 @@ export default class CarsController {
   static async viewAllUnsoldCars(req, res) {
     const unsoldCars = await CarModel.getAll({ status: 'available' });
     if (unsoldCars.rowCount >= 1) {
-      res.send({
+      return res.send({
         status: 200,
         data: unsoldCars.rows,
       });
-    } else {
-      res.send({
-        status: 204,
-        data: [],
-      });
     }
+    return res.send({
+      status: 204,
+      data: [],
+    });
   }
 
 
@@ -46,16 +45,15 @@ export default class CarsController {
   static async viewSpecificCar(req, res) {
     const specificCar = await CarModel.getById(Number(req.params.id));
     if (specificCar.rowCount !== 1) {
-      res.send({
+      return res.send({
         status: 404,
         error: 'Oops! no car found with this id.',
       });
-    } else {
-      res.send({
-        status: 200,
-        data: [specificCar.rows[0]],
-      });
     }
+    return res.send({
+      status: 200,
+      data: [specificCar.rows[0]],
+    });
   }
 
 
@@ -76,16 +74,15 @@ export default class CarsController {
     if (minPrice || maxPrice) {
       unsoldCars.forEach((unsoldCar) => {
         if (minPrice >= unsoldCar.price && maxPrice <= unsoldCar.price) {
-          res.send({
+          return res.send({
             status: 200,
             data: [unsoldCar],
           });
-        } else {
-          res.send({
-            status: 404,
-            error: 'No car record found within the specified range',
-          });
         }
+        return res.send({
+          status: 404,
+          error: 'No car record found within the specified range',
+        });
       });
     } else {
       res.send({
@@ -110,16 +107,15 @@ export default class CarsController {
   static async viewAllUnsoldCarsOfSpecificBodyType(req, res) {
     const carsByBodyType = await CarModel.getAll({ status: 'available', body_type: req.user.body_type });
     if (carsByBodyType.rowCount >= 1) {
-      res.send({
+      return res.send({
         status: 200,
         data: carsByBodyType.rows,
       });
-    } else {
-      res.send({
-        status: 204,
-        data: [],
-      });
     }
+    return res.send({
+      status: 204,
+      data: [],
+    });
   }
 
   /**
@@ -166,27 +162,25 @@ export default class CarsController {
     // pick last car advert from the car adverts array, check it's id
     // the last record's id + 1 is the new record's id
     if (errors.length < 1) {
-      carSale.created_On = new Date().toISOString().slice(0, 19).replace('T', ' ');
       carSale.manufacturer = carSale.manufacturer;
-      carSale.model = carSale.model;
+      carSale.model = !carSale.model;
+      carSale.owner = req.user.id;
       carSale.price = carSale.price;
       carSale.state = carSale.state;
       carSale.status = 'Available';
-      carSale.body_type = carSale.body_type;
-      carSale.img_url = [];
+      carSale.bodyType = carSale.body_type;
+      carSale.imgUrl = [];
       const newAdvert = await CarModel.addCar(carSale);
-
-      res.send({
+      return res.send({
         status: 201,
         data: [newAdvert.rows],
         message: 'Successfully created a new car sale advertisement',
       });
-    } else {
-      res.send({
-        status: 400,
-        error: errors,
-      });
     }
+    return res.send({
+      status: 400,
+      error: errors,
+    });
   }
 
   /**
@@ -208,20 +202,31 @@ export default class CarsController {
         fieldName: 'price',
         data: req.body.price,
       };
+      if (Number.isNaN(req.body.price)) {
+        return res.send({
+          status: 400,
+          message: 'Please input a valid request',
+        });
+      }
       const updatePrice = await CarModel.patch(payload);
-      req.send({
-        status: 200,
-        data: [{
-          id: updatePrice.rows[0].id,
-          message: 'Successfully updated price of the car advert',
-        }],
-      });
-    } else {
-      res.send({
-        status: 400,
-        error: errors,
+      if (updatePrice.rowCount) {
+        return res.send({
+          status: 200,
+          data: [{
+            id: updatePrice.rows[0].id,
+            message: 'Successfully updated price of the car advert',
+          }],
+        });
+      }
+      return res.send({
+        status: 500,
+        message: 'Sorry, something happened.',
       });
     }
+    return res.send({
+      status: 400,
+      error: errors,
+    });
   }
 
   /**
@@ -275,27 +280,22 @@ export default class CarsController {
     const purchaseOrder = req.body;
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
-      purchaseOrder.buyer = purchaseOrder.buyer;
-      purchaseOrder.car_id = req.params.id;
-      purchaseOrder.amount = purchaseOrder.price;
-      purchaseOrder.status = purchaseOrder.status;
-      purchaseOrder.price_offered = purchaseOrder.price_offered;
+      purchaseOrder.buyer = req.user.id;
+      purchaseOrder.carId = purchaseOrder.car_id;
+      purchaseOrder.price = purchaseOrder.price;
+      purchaseOrder.status = 'Pending';
+      purchaseOrder.priceOffered = purchaseOrder.price_offered;
       const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
-      res.send({
+      return res.send({
         status: 201,
-        data: [
-          {
-            id: newPurchaseOrder.rows[0].id,
-            message: 'Successfully created a new car purchase order',
-          },
-        ],
-      });
-    } else {
-      res.send({
-        status: 400,
-        error: errors,
+        data: newPurchaseOrder.rows[0],
+        message: 'Successfully created a new car purchase order',
       });
     }
+    return res.send({
+      status: 400,
+      error: errors,
+    });
   }
 
   /**
