@@ -45,14 +45,14 @@ describe('POST api/v1/auth/signin', () => {
         if (err) done();
         const { body } = res;
         // eslint-disable-next-line prefer-destructuring
-        token = body.data[0].token;
+        token = body.data.token;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.equal(200);
-        expect(body.data[0]).to.haveOwnProperty('token');
-        expect(body.data[0]).to.haveOwnProperty('existingUser');
-        expect(body.data[0].existingUser).to.be.an('object');
-        expect(body.data[0].token).to.be.a('string');
+        expect(body.data).to.haveOwnProperty('token');
+        expect(body.data).to.haveOwnProperty('existingUser');
+        expect(body.data.existingUser).to.be.an('object');
+        expect(body.data.token).to.be.a('string');
         done();
       });
   });
@@ -67,14 +67,14 @@ describe('POST api/v1/auth/signin', () => {
         if (err) done();
         const { body } = res;
         // eslint-disable-next-line prefer-destructuring
-        adminToken = body.data[0].token;
+        adminToken = body.data.token;
         expect(body).to.be.an('object');
         expect(body.status).to.be.a('number');
         expect(body.status).to.equal(200);
-        expect(body.data[0]).to.haveOwnProperty('token');
-        expect(body.data[0]).to.haveOwnProperty('existingUser');
-        expect(body.data[0].existingUser).to.be.an('object');
-        expect(body.data[0].token).to.be.a('string');
+        expect(body.data).to.haveOwnProperty('token');
+        expect(body.data).to.haveOwnProperty('existingUser');
+        expect(body.data.existingUser).to.be.an('object');
+        expect(body.data.token).to.be.a('string');
         done();
       });
   });
@@ -114,10 +114,10 @@ describe('POST api/v1/carSales', () => {
         expect(body).to.be.an('object');
         expect(body).to.haveOwnProperty('data');
         expect(body.status).to.equal(200);
-        expect(body.data[0]).to.be.an('object');
-        expect(body.data[0].message).to.be.a('string');
-        expect(body.data[0]).to.haveOwnProperty('id' && 'message');
-        expect(body.data[0].message).to.equal('Successfully created a new car sale advertisemen');
+        expect(body.data).to.be.an('object');
+        expect(body.data.message).to.be.a('string');
+        expect(body.data).to.haveOwnProperty('id' && 'message');
+        expect(body.data.message).to.equal('Successfully created a new car sale advertisemen');
         done();
       });
   });
@@ -207,7 +207,7 @@ describe('GET api/v1/carSales', () => {
         expect(body).to.haveOwnProperty('status');
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(200);
-        expect(body.data[0]).to.haveOwnProperty('id');
+        expect(body.data).to.haveOwnProperty('id');
         done();
       });
   });
@@ -261,8 +261,8 @@ describe('PATCH api/v1/carSales/:id/price', () => {
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(200);
         expect(body).to.haveOwnProperty('data');
-        expect(body.data[0]).to.haveOwnProperty('message');
-        expect(body.data[0]).to.haveOwnProperty('id' && 'message');
+        expect(body.data).to.haveOwnProperty('message');
+        expect(body.data).to.haveOwnProperty('id' && 'message');
         done();
       });
   });
@@ -321,8 +321,8 @@ describe('PATCH api/v1/carSales/:id/status', () => {
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(200);
         expect(body).to.haveOwnProperty('data');
-        expect(body.data[0]).to.haveOwnProperty('message');
-        expect(body.data[0]).to.haveOwnProperty('id' && 'message');
+        expect(body.data).to.haveOwnProperty('message');
+        expect(body.data).to.haveOwnProperty('id' && 'message');
         done();
       });
   });
@@ -340,7 +340,7 @@ describe('DELETE api/v1/admin/:id/', () => {
         expect(body.status).to.be.a('number');
         expect(body.status).to.be.equals(200);
         expect(body).to.haveOwnProperty('data');
-        expect(body.data[0]).to.haveOwnProperty('id' && 'message');
+        expect(body.data).to.haveOwnProperty('id' && 'message');
         done();
       });
   });

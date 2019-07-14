@@ -16,10 +16,9 @@ export default class CarModel {
       } = newCarObj;
 
       const query = `INSERT INTO carAds(owner, createdOn, state, status, price, manufacturer, model, bodyType, imgUrl)
-     VALUES ('${owner.trim()}', '${createdOn}', '${state}', '${status}', '${price}', '${manufacturer.trim()}, '${model.trim()}', '${bodyType.trim()}', ${imgUrl.trim()})
+     VALUES ('${owner}', '${createdOn}', '${state}', '${status}', '${price}', '${manufacturer}', '${model}', '${bodyType}', '${imgUrl}')
      RETURNING *
    `;
-
       const response = await pool.query(query);
       return response;
     } catch (error) {
@@ -65,6 +64,7 @@ export default class CarModel {
          RETURNING *
         `;
       const response = await pool.query(query);
+      // console.log(response, 'nj');
       return response;
     } catch (error) {
       return error;
@@ -90,13 +90,14 @@ export default class CarModel {
   static async addOrder(newOrderObj) {
     try {
       const {
-        buyer, carId, amount, status,
+        buyer, carId, price, priceOffered, status,
       } = newOrderObj;
 
-      const query = `INSERT INTO purchaseOrders(buyer, carId, amount, status)
-      VALUES ('${buyer.trim()}', '${carId}', '${amount}', '${status}')
+      const query = `INSERT INTO purchaseOrders(buyer, carId, price, priceOffered, status)
+      VALUES ('${buyer}', '${carId}', '${price}', '${priceOffered}', '${status}')
       RETURNING *
       `;
+
 
       const response = await pool.query(query);
       return response;

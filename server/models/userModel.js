@@ -12,14 +12,13 @@ export default class UserModel {
   static async addNewUser(newUserObj) {
     try {
       const {
-        email, username, firstName, lastName, password, address, isAdmin,
+        email, firstName, lastName, password, address,
       } = newUserObj;
 
-      const query = `INSERT INTO Users(email, firstName, lastName, password, address, isAdmin) 
-        VALUES ('${email.trim()}', '${username.trim()}', '${firstName.trim()}', '${lastName.trim()}', '${password.trim()}', '${address.trim()}', '${isAdmin},')
+      const query = `INSERT INTO Users(email, firstname, lastname, password, address) 
+        VALUES ('${email.trim()}', '${firstName.trim()}', '${lastName.trim()}', '${password.trim()}', '${address.trim()}')
         RETURNING *
       `;
-
       const response = await pool.query(query);
       return response;
     } catch (error) {

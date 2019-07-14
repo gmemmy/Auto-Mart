@@ -2,7 +2,6 @@ import ExpressValidator from 'express-validator/check';
 import bcrypt from 'bcrypt';
 import { generateToken } from '../helpers/authToken';
 import UserModel from '../models/userModel';
-import errorHandler from '../helpers/errorhandler';
 
 const { validationResult } = ExpressValidator;
 
@@ -31,40 +30,28 @@ export default class UserController {
         .replace('T', ' ');
       newUserObj.admin = false;
       const user = await UserModel.addNewUser(newUserObj);
-
-      if (!(user.rowCount === 1)) {
-        const error = user;
-        res.send({
+      if (!user.rowCount) {
+        return res.send({
           status: 400,
-          error: errorHandler.find(err => err.code === error.code).message,
-        });
-      } else {
-        const jwtData = {
-          id: user.rows[0].id,
-          email: user.rows[0].email,
-          first_name: user.rows[0].firstName,
-          last_name: user.rows[0].lastName,
-          address: user.rows[0].address,
-          isAdmin: user.rows[0].isAdmin,
-        };
-
-        const token = generateToken(jwtData);
-        res.send({
-          status: 201,
-          data: [
-            {
-              token,
-              user: jwtData,
-            },
-          ],
+          error: 'A user with your email already exists.',
         });
       }
-    } else {
-      res.send({
-        status: 400,
-        error: errors,
+      delete user.rows[0].password;
+      const token = generateToken(user.rows[0]);
+      return res.send({
+        status: 201,
+        data: [
+          {
+            token,
+            user: user.rows[0],
+          },
+        ],
       });
     }
+    return res.send({
+      status: 400,
+      error: errors,
+    });
   }
 
   static async signIn(req, res) {
@@ -85,21 +72,14 @@ export default class UserController {
           user.rows[0].password,
         );
         if (passwordIsValid) {
-          const jwtData = {
-            id: user.rows[0].id,
-            email: user.rows[0].email,
-            firstName: user.rows[0].firstName,
-            lastName: user.rows[0].lastName,
-            address: user.rows[0].address,
-            isAdmin: user.rows[0].isAdmin,
-          };
-          const token = generateToken(jwtData);
+          delete user.rows[0].password;
+          const token = generateToken(user.rows[0]);
           res.send({
             status: 200,
             data: [
               {
                 token,
-                user: jwtData,
+                user: user.rows[0],
               },
             ],
           });
