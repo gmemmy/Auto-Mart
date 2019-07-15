@@ -1,7 +1,7 @@
 import ExpressValidator from 'express-validator/check';
 import bcrypt from 'bcrypt';
 import { generateToken } from '../helpers/authToken';
-import Users from '../data/User';
+import UserModel from '../models/userModel';
 
 const { validationResult } = ExpressValidator;
 
@@ -17,75 +17,76 @@ export default class UserController {
    *
    * @returns {object} Class instance
    */
-  static signUp(req, res) {
-    // Use express validator to validate the user's input
-    const errors = validationResult(req).array().map(error => error.msg);
+  static async signUp(req, res) {
+    const errors = validationResult(req)
+      .array()
+      .map(error => error.msg);
+    const newUserObj = req.body;
     if (errors.length < 1) {
-      const { email, firstName, lastName } = req.body;
-
-      // Checks if the email entered by the user already exists and throws an error if it does
-      const newUserEmail = Users.find(user => user.email === email);
-      if (newUserEmail) {
-        res.send({
-          status: 409,
-          error: 'Email already exists',
-        });
-      } else {
-        // hash user pasword
-        req.body.password = bcrypt.hash(req.body.password, 10, (err) => {
-          if (err) {
-            res.send({
-              status: 500,
-              error: err,
-            });
-          } else {
-            const newUser = {
-              id: new Date().getTime(),
-              firstName,
-              lastName,
-              email,
-            };
-            const token = generateToken(newUser.id);
-            Users.push(newUser);
-            res.send({
-              status: 201,
-              message: 'User successfully created',
-              data: [token, newUser],
-            });
-          }
+      newUserObj.password = bcrypt.hashSync(newUserObj.password, 10);
+      newUserObj.createdOn = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ');
+      newUserObj.admin = false;
+      const user = await UserModel.addNewUser(newUserObj);
+      if (!user.rowCount) {
+        return res.send({
+          status: 400,
+          error: 'A user with your email already exists.',
         });
       }
-    } else {
-      res.send({
-        status: 400,
-        error: errors,
+      delete user.rows[0].password;
+      const token = generateToken(user.rows[0]);
+      return res.send({
+        status: 201,
+        data: [
+          {
+            token,
+            user: user.rows[0],
+          },
+        ],
       });
     }
+    return res.send({
+      status: 400,
+      error: errors,
+    });
   }
 
-  static signIn(req, res) {
-    const errors = validationResult(req).array().map(error => error.msg);
+  static async signIn(req, res) {
+    const errors = validationResult(req)
+      .array()
+      .map(error => error.msg);
     if (errors.length < 1) {
-      const { email, password, hash } = req.body;
-
-      const existingUser = Users.find(user => user.email === email);
-      if (!existingUser) {
+      const { email, password } = req.body;
+      const user = await UserModel.getByEmail(email);
+      if (!user.rowCount) {
         res.send({
-          status: 404,
-          data: 'Invalid email address',
+          status: 400,
+          error: 'You do not have an active account, please sign in.',
         });
       } else {
-        const validPassword = bcrypt.compare(password, hash);
-        if (validPassword) {
-          const token = generateToken(existingUser.id);
+        const passwordIsValid = bcrypt.compareSync(
+          password,
+          user.rows[0].password,
+        );
+        if (passwordIsValid) {
+          delete user.rows[0].password;
+          const token = generateToken(user.rows[0]);
           res.send({
             status: 200,
-            data: [token, existingUser],
+            data: [
+              {
+                token,
+                user: user.rows[0],
+              },
+            ],
           });
         } else {
           res.send({
             status: 400,
-            error: 'password is invalid!',
+            error: 'Password is invalid!',
           });
         }
       }

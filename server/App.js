@@ -13,8 +13,9 @@ const port = process.env.PORT || 3000;
 
 // Setup the express app
 const app = express();
-app.use(cors());
 
+
+app.use(cors());
 
 // Parse incoming requests body data
 app.use(bodyParser.json());

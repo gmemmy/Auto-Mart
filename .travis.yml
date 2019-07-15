@@ -4,3 +4,28 @@ node_js:
 cache:
   directories:
     - "node_modules"
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  - psql -c 'CREATE DATABASE automart;' -U postgres
+
+services:
+  - postgresql
+
+after_success:
+  - npm run coveralls
+  - npm run coverage
+  - ./cc-test-reporter after-build -r 049a14a48ae82527f6b1aaf00fcd95e4336b5a19019f05fd4a8578b005323d25 --exit-code $TRAVIS_TEST_RESULT
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID= 049a14a48ae82527f6b1aaf00fcd95e4336b5a19019f05fd4a8578b005323d25
+    - touch .env
+    - echo DATABASE_URL=postgres://otbbamwa:205z5X5ci5LPw3nQfDMcYqlmH6NXAWLy@elmer.db.elephantsql.com:5432/otbbamwa >> .env
+    - echo JWT_SECRET=RERESCESDCEDSC >> .env
+    - echo EMAIL_ADDRESS=automart22@gmail.com >> .env
+    - echo EMAIL_PASSWORD=automart2000 >> .env
+
+  

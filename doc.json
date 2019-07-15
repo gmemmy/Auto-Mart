@@ -1,22 +1,545 @@
 {
- "swagger": "2.0",
- "info": {
-  "version": "1.0.0",
-  "title": "Auto-Mart",
-  "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.",
-  "contact": {
-   "email": "gmemmy22@gmail.com"
+  "swagger": "2.0",
+  "info": {
+    "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.",
+    "version": "1.0.0",
+    "title": "Auto-mart",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "gmemmy22@gmail.com"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+    }
+  },
+  "host": "auto-mart-gmemmy.herokuapp.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "auth",
+      "description": "User authentication",
+      "externalDocs": {
+        "url": "https://auto-mart-gmemmy.herokuapp.com"
+      }
+    },
+    {
+      "name": "carSales",
+      "description": "Everything about Car records",
+      "externalDocs": {
+        "url": "https://auto-mart-gmemmy.herokuapp.com"
+      }
+    },
+    {
+      "name": "purchase",
+      "description": "Everything about purchase order records",
+      "externalDocs": {
+        "url": "https://auto-mart-gmemmy.herokuapp.com"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/carSales": {
+      "post": {
+        "tags": [
+          "carSales"
+        ],
+        "summary": "Create a car sale advertisement",
+        "description": "Users can create a car sale advertisement",
+        "operationId": "addCarSaleAdvert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "record",
+            "description": "The record the user wants to place",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/carSales"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car sale advertisement created successfully"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "carSales"
+        ],
+        "summary": "Get all unsold cars",
+        "description": "Return all unsold cars from the database",
+        "operationId": "viewAllUnsoldCars",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully got all unsold cars"
+          },
+          "204": {
+            "description": "No avaliable unsold car records"
+          }
+        }
+      }
+    },
+    "/carSales/unsold/used": {
+      "get": {
+        "tags": [
+          "carSales"
+        ],
+        "summary": "User: Allows to view all used, unsold cars",
+        "description": "View all unsold, used cars",
+        "operationId": "viewAllUnsoldCarsofUsedState)",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "All unsold, used cars",
+            "schema": {
+              "$ref": "#/definitions/carSales"
+            }
+          },
+          "404": {
+            "description": "No record found"
+          }
+        }
+      }
+    },
+      "/carSales/unsold/bodyType": {
+        "get": {
+          "tags": [
+            "carSales"
+          ],
+          "summary": "User: Allows to view all unsold cars by specific body type",
+          "description": "View all unsold cars by specific body type",
+          "operationId": "viewAllUnsoldCarsOfSpecificBodyType",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "All unsold cars by body type",
+              "schema": {
+                "$ref": "#/definitions/carSales"
+              }
+            },
+            "404": {
+              "description": "No record found"
+            }
+          }
+        }
+      },
+      "/carSales/unsold/priceRange": {
+        "get": {
+          "tags": [
+            "carSales"
+          ],
+          "summary": "User: Allows to view all unsold cars within a specific price range",
+          "description": "View all unsold cars within a specific price range",
+          "operationId": "viewAllUnsoldCarsWithinAPriceRange",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "All unsold cars by price range",
+              "schema": {
+                "$ref": "#/definitions/carSales"
+              }
+            },
+            "404": {
+              "description": "No record found"
+            }
+          }
+        }
+      },
+    "/carSales/{id}": {
+      "get": {
+        "tags": [
+          "carSales"
+        ],
+        "summary": "Find car by ID",
+        "description": "Returns a single car record",
+        "operationId": "viewSpecificCar",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of record to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful got record",
+            "schema": {
+              "$ref": "#/definitions/carSales"
+            }
+          },
+          "404": {
+            "description": "record not found"
+          }
+        }
+      }
+    },
+    "/carSales/{id}/price": {
+      "patch": {
+        "tags": [
+          "carSales"
+        ],
+        "summary": "Edit a car advert's price",
+        "description": "Edits a car advert's price by id",
+        "operationId": "updatePriceCarSaleAdvert",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of record to edit",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful edited adverts price",
+            "schema": {
+              "$ref": "#/definitions/record2"
+            }
+          },
+          "404": {
+            "description": "record not found"
+          },
+          "403": {
+            "description": "user is not authorized to edit this record."
+          }
+        }
+      }
+    },
+    "/carSales/{id}/status": {
+      "patch": {
+        "tags": [
+          "carSales"
+        ],
+        "summary": "Edit a car sale advert's status by id",
+        "description": "Edits a car advert's status by id",
+        "operationId": "updateStatusCarSaleAdvert",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of record to edit",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful edited record's status",
+            "schema": {
+              "$ref": "#/definitions/record2"
+            }
+          },
+          "404": {
+            "description": "record not found"
+          },
+          "403": {
+            "description": "user is not authorized to edit this record."
+          }
+        }
+      }
+    },
+    
+    "/carSales/purchase": {
+      "get": {
+        "tags": [
+          "purchase"
+        ],
+        "summary": "Create a purchase order",
+        "description": "Users can create purchase orders",
+        "operationId": "makePurchaseOrder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "order",
+            "description": "The record the user wants to place",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/purchase"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "purchase order created successfully"
+          }
+        }
+      }
+    },
+    "/carSaless/{id}/updatePurchase": {
+      "patch": {
+        "tags": [
+          "purchase"
+        ],
+        "summary": "Edit price of purchase order",
+        "description": "Edit the the price of a purchase order by id",
+        "operationId": "pdatePricePurchaseOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+              "name": "id",
+              "in": "path",
+              "description": "ID of record to edit",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful edited record's location",
+            "schema": {
+              "$ref": "#/definitions/carSales"
+            }
+          },
+          "404": {
+            "description": "record not found"
+          },
+          "403": {
+            "description": "user is not authorized to edit this record."
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Enables a user to signup",
+        "description": "Registers a new user",
+        "operationId": "signup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Create user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account created successfully",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        }
+      }
+    },
+    "/auth/sigin": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Enables a user to signin",
+        "description": "Authenticate a user",
+        "operationId": "signin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User sign in details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "You have been signed in successfully!"
+          },
+          "401": {
+            "description": "Could not sign in. The email and password do not match",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "carSales": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "owner": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "state": {
+          "type": "string",
+          "description": "record status",
+          "enum": [
+            "New",
+            "Used"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "description": "record status",
+          "enum": [
+            "Sold",
+            "Available"
+          ]
+        },
+        "createdOn": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "body_type": {
+          "type": "string"
+        },
+        "img_url": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "xml": {
+        "name": "carSales"
+      }
+    },
+    "purchase": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "buyer": {
+          "type": "string"
+        },
+        "car_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+      "amount": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+      },
+      "xml": {
+        "name": "record"
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "isadmin": {
+          "type": "boolean"
+        },
+        "registered": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "signin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
   }
- },
- "basePath": "/api/v1",
- "schemes": [
-  "http",
-  "https"
- ],
- "servers": [
-  {
-   "url": "https://gmemmy-auto-mart.herokuapp.com/api/v1",
-   "description": "Production server on heroku; (it uses live data and requires authentication)"
-  }
- ]
 }

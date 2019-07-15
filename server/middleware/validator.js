@@ -3,10 +3,6 @@ import ExpressValidator from 'express-validator/check';
 const { check } = ExpressValidator;
 
 export const validateNewCarAdvert = [
-  check('owner')
-    .isString().withMessage('Owner must be only alphabetical characters')
-    .isLength({ min: 5 })
-    .withMessage('Owner must be at least 5 characters long'),
   check('price')
     .isNumeric().withMessage('price must be only numeric characters')
     .isLength({ min: 5 })

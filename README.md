@@ -20,7 +20,7 @@ npm install
  4. Test endpoints with postman, get api docs here: http://auto-mart-gmemmy.herokuapp.com/api-docs/
 
 ## Features
-Below are the features of iReporter.
+Below are the features of Auto-Mart.
 
 Users can signup and login<br/>
 Users can post car sale advertisements<br/>

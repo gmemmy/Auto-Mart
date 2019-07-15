@@ -3,7 +3,7 @@ import faker from 'faker';
 const advertisements = [
   {
     id: 0,
-    owner: faker.name.firstName(),
+    owner: 10,
     created_on: faker.date.past(),
     state: 'new',
     status: 'Available',
@@ -15,7 +15,7 @@ const advertisements = [
 
   {
     id: 1,
-    owner: faker.name.firstName(),
+    owner: 10,
     created_on: faker.date.past(),
     state: 'used',
     status: 'sold',
@@ -27,7 +27,7 @@ const advertisements = [
 
   {
     id: 2,
-    owner: faker.name.firstName(),
+    owner: 10,
     created_on: faker.date.past(),
     state: 'new',
     status: 'Available',
