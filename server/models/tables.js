@@ -2,7 +2,7 @@
 export const carAdsTable = `
   CREATE TABLE IF NOT EXISTS carAds (
    id SERIAL,
-   owner SERIAL,
+   email varchar(30),
    createdOn TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    state varchar(20),
    status varchar(20),

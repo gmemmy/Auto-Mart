@@ -163,8 +163,8 @@ export default class CarsController {
     // the last record's id + 1 is the new record's id
     if (errors.length < 1) {
       carSale.manufacturer = carSale.manufacturer;
-      carSale.model = !carSale.model;
-      carSale.owner = req.user.id;
+      carSale.model = carSale.model;
+      carSale.email = carSale.email;
       carSale.price = carSale.price;
       carSale.state = carSale.state;
       carSale.status = 'Available';
@@ -173,7 +173,7 @@ export default class CarsController {
       const newAdvert = await CarModel.addCar(carSale);
       return res.send({
         status: 201,
-        data: [newAdvert.rows],
+        data: newAdvert.rows,
         message: 'Successfully created a new car sale advertisement',
       });
     }
@@ -198,7 +198,9 @@ export default class CarsController {
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
       const payload = {
-        id: req.params.id,
+        car_id: req.params.id,
+        email: req.user.email,
+        manufacturer: req.user.makePurchaseOrder,
         fieldName: 'price',
         data: req.body.price,
       };
