@@ -40,12 +40,11 @@ export default class UserController {
       const token = generateToken(user.rows[0]);
       return res.send({
         status: 201,
-        data: [
+        data:
           {
             token,
             user: user.rows[0],
           },
-        ],
       });
     }
     return res.send({
@@ -76,12 +75,11 @@ export default class UserController {
           const token = generateToken(user.rows[0]);
           res.send({
             status: 200,
-            data: [
+            data:
               {
                 token,
                 user: user.rows[0],
               },
-            ],
           });
         } else {
           res.send({
