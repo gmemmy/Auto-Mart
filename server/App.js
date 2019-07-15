@@ -21,11 +21,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 // render swagger UI
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(doc));
 routes(app);
-
 
 // wildcard route
 app.all('*', (req, res) => {

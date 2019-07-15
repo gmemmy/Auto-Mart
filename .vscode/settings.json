@@ -1,0 +1,5 @@
+{
+ "editor.tabSize": 1,
+ "git.ignoreLimitWarning": true,
+ "files.autoSave": "afterDelay"
+}
