@@ -29,7 +29,7 @@ export default class CarModel {
   // Gets a car by id
   static async getById(id) {
     try {
-      const query = `SELECT * FROM carAds WHERE id = '${id}' `;
+      const query = `SELECT * FROM carAds WHERE id = '${id}'`;
       const response = await pool.query(query);
       return response;
     } catch (error) {
@@ -43,9 +43,31 @@ export default class CarModel {
       const query = fieldName && fieldValue
         ? `
         SELECT * FROM carAds
-        WHERE ${fieldName} = ${fieldName === 'owner' ? Number(fieldValue) : fieldValue}
+        WHERE ${fieldName} = ${fieldName === 'email' ? String(fieldValue) : fieldValue}
         ` : 'SELECT * FROM carAds';
 
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // Gets a car by body type
+  static async getBodyType(bodyType) {
+    try {
+      const query = `SELECT * FROM carAds WHERE bodyType = '${bodyType}'`;
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // Gets a car by body type
+  static async getUsedState(state) {
+    try {
+      const query = `SELECT * FROM carAds WHERE state = '${state}'`;
       const response = await pool.query(query);
       return response;
     } catch (error) {
