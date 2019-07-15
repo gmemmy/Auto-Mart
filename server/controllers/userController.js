@@ -24,10 +24,6 @@ export default class UserController {
     const newUserObj = req.body;
     if (errors.length < 1) {
       newUserObj.password = bcrypt.hashSync(newUserObj.password, 10);
-      newUserObj.createdOn = new Date()
-        .toISOString()
-        .slice(0, 19)
-        .replace('T', ' ');
       newUserObj.admin = false;
       const user = await UserModel.addNewUser(newUserObj);
       if (!user.rowCount) {

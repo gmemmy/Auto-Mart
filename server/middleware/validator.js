@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import ExpressValidator from 'express-validator/check';
 
 const { check } = ExpressValidator;
@@ -9,12 +10,36 @@ export const validateNewCarAdvert = [
     .withMessage('price must be at least 5 characters long'),
 ];
 
+// Validate request body and throw relevant error messages
+
 export const checkPassword = (req, res, next) => {
   const { password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    res.send({
+    return res.send({
       status: 400,
       error: 'Password and Confirm Password do not match',
+    });
+  } return next();
+};
+
+export const errorSignupBody = (req, res, next) => {
+  const {
+    email, first_name, last_name, password, address,
+  } = req.body;
+  if (!password || !first_name || !last_name || !email || !address) {
+    return res.send({
+      status: 400,
+      error: 'Please fill in valid details',
+    });
+  } return next();
+};
+
+export const errorSigninBody = (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.send({
+      status: 400,
+      error: 'Please fill in valid details',
     });
   } return next();
 };

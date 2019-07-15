@@ -1,9 +1,7 @@
 import CarsController from '../controllers/carsController';
 // eslint-disable-next-line import/no-named-as-default
 import UserController from '../controllers/userController';
-// import {
-//   validateNewCarAdvert, checkPassword, validateSignup, validateSignin,
-// } from '../middleware/validator';
+import { errorSignupBody, errorSigninBody } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
 // import { userRecord, isAdmin } from '../middleware/userPermission';
@@ -22,12 +20,12 @@ const routes = (app) => {
   app.patch('/order/:order-id/price', CarsController.updatePricePurchaseOrder);
 
   // auth routes
-  app.post('/auth/signup', UserController.signUp);
-  app.post('/auth/signin', UserController.signIn);
+  app.post('/auth/signup', errorSignupBody, UserController.signUp);
+  app.post('/auth/signin', errorSigninBody, UserController.signIn);
 
   // admin routes
-  app.get('/car/', AdminController.viewAllCarRecords);
-  app.get('/users/', AdminController.viewAllUsers);
+  app.get('/api/v1/admin', AdminController.viewAllCarRecords);
+  app.get('/api/v1/admin/users', AdminController.viewAllUsers);
   app.delete('/car/:car_id/', AdminController.deleteASpecificRecord);
 
   return app;
