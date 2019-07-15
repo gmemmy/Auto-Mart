@@ -17,8 +17,9 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async viewAllUnsoldCars(req, res) {
-    const unsoldCars = await CarModel.getAll({ status: 'available' });
+    const unsoldCars = await CarModel.getAll({ status: 'Available' });
     if (unsoldCars.rowCount >= 1) {
+      delete unsoldCars.rows[0].email;
       return res.send({
         status: 200,
         data: unsoldCars.rows,
@@ -50,9 +51,10 @@ export default class CarsController {
         error: 'Oops! no car found with this id.',
       });
     }
+    delete specificCar.rows[0].email;
     return res.send({
       status: 200,
-      data: [specificCar.rows[0]],
+      data: specificCar.rows[0],
     });
   }
 
@@ -105,7 +107,7 @@ export default class CarsController {
 */
 
   static async viewAllUnsoldCarsOfSpecificBodyType(req, res) {
-    const carsByBodyType = await CarModel.getAll({ status: 'available', body_type: req.user.body_type });
+    const carsByBodyType = await CarModel.getBodyType(req.body.body_type);
     if (carsByBodyType.rowCount >= 1) {
       return res.send({
         status: 200,
@@ -114,6 +116,7 @@ export default class CarsController {
     }
     return res.send({
       status: 204,
+      message: 'Sorry there are no cars with the specified body type',
       data: [],
     });
   }
@@ -130,18 +133,23 @@ export default class CarsController {
 * @returns {object} Class instance
 */
   static async viewAllUnsoldCarsofUsedState(req, res) {
-    const carsOfUsedState = await CarModel.getAll({ status: 'available', state: 'used' });
-    if (carsOfUsedState.rowCount >= 1) {
-      res.send({
+    const carsOfUsedState = await CarModel.getUsedState(req.body.state);
+    if (req.body.state !== 'used') {
+      return res.send({
+        status: 400,
+        error: 'Unauthorized! You can only view cars that are of state used',
+      });
+    } if (carsOfUsedState.rowCount >= 1) {
+      return res.send({
         status: 200,
         data: carsOfUsedState.rows,
       });
-    } else {
-      res.send({
-        status: 204,
-        data: [],
-      });
     }
+    return res.send({
+      status: 204,
+      message: 'Sorry there are no cars with the specified car state',
+      data: [],
+    });
   }
 
   /**
@@ -198,9 +206,7 @@ export default class CarsController {
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
       const payload = {
-        car_id: req.params.id,
-        email: req.user.email,
-        manufacturer: req.user.makePurchaseOrder,
+        id: Number(req.params.id),
         fieldName: 'price',
         data: req.body.price,
       };
@@ -214,10 +220,8 @@ export default class CarsController {
       if (updatePrice.rowCount) {
         return res.send({
           status: 200,
-          data: [{
-            id: updatePrice.rows[0].id,
-            message: 'Successfully updated price of the car advert',
-          }],
+          data: updatePrice.rows,
+          message: 'Successfully updated price of the car advert',
         });
       }
       return res.send({
@@ -243,55 +247,19 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async updateStatusCarSaleAdvert(req, res) {
+    const { status } = req.body;
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
       const payload = {
         id: req.params.id,
         fieldName: 'status',
-        data: req.body.status,
+        data: status,
       };
       const updateStatus = await CarModel.patch(payload);
-      req.send({
-        status: 200,
-        data: [{
-          id: updateStatus.rows[0].id,
-          message: 'Successfully updated the status of the car advert',
-        }],
-      });
-    } else {
-      res.send({
-        status: 400,
-        error: errors,
-      });
-    }
-  }
-
-  /**
-  * @description - Make a purchase order
-  * @static
-  *
-  * @param {object} req - HTTP Request
-  * @param {object} res - HTTP Response
-  *
-  * @memberof CarsController
-  *
-  * @returns {object} Class instance
-  */
-  static async makePurchaseOrder(req, res) {
-    // eslint-disable-next-line no-shadow
-    const purchaseOrder = req.body;
-    const errors = validationResult(req).array().map(error => error.msg);
-    if (errors.length < 1) {
-      purchaseOrder.buyer = req.user.id;
-      purchaseOrder.carId = purchaseOrder.car_id;
-      purchaseOrder.price = purchaseOrder.price;
-      purchaseOrder.status = 'Pending';
-      purchaseOrder.priceOffered = purchaseOrder.price_offered;
-      const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
       return res.send({
-        status: 201,
-        data: newPurchaseOrder.rows[0],
-        message: 'Successfully created a new car purchase order',
+        status: 200,
+        data: updateStatus.rows,
+        message: 'Successfully updated the status of the car advert',
       });
     }
     return res.send({
@@ -311,6 +279,40 @@ export default class CarsController {
   *
   * @returns {object} Class instance
   */
+  static async makePurchaseOrder(req, res) {
+    // eslint-disable-next-line no-shadow
+    const purchaseOrder = req.body;
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      purchaseOrder.buyer = Number(req.user.id);
+      purchaseOrder.carId = purchaseOrder.car_id;
+      purchaseOrder.price = purchaseOrder.price;
+      purchaseOrder.status = 'Pending';
+      purchaseOrder.priceOffered = purchaseOrder.price_offered;
+      const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
+      return res.send({
+        status: 201,
+        data: newPurchaseOrder.rows[0],
+        message: 'Successfully created a new car purchase order',
+      });
+    }
+    return res.send({
+      status: 400,
+      error: errors,
+    });
+  }
+
+  /**
+  * @description - Update the price of a purchase order
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
   static async updatePricePurchaseOrder(req, res) {
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
@@ -320,18 +322,15 @@ export default class CarsController {
         data: req.body.price,
       };
       const updateOrderPrice = await CarModel.patch(payload);
-      req.send({
+      return res.send({
         status: 200,
-        data: [{
-          id: updateOrderPrice.rows[0].id,
-          message: 'Successfully updated price of the purchase order',
-        }],
-      });
-    } else {
-      res.send({
-        status: 400,
-        error: errors,
+        data: updateOrderPrice.rows,
+        message: 'Successfully updated price of the purchase order',
       });
     }
+    return res.send({
+      status: 400,
+      error: errors,
+    });
   }
 }
