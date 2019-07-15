@@ -12,9 +12,19 @@ export const validateNewCarAdvert = [
 export const checkPassword = (req, res, next) => {
   const { password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    res.send({
+    return res.send({
       status: 400,
       error: 'Password and Confirm Password do not match',
+    });
+  } return next();
+};
+
+export const validatePassword = (req, res, next) => {
+  const { password } = req.body;
+  if (!password || password === null) {
+    return res.send({
+      status: 400,
+      error: 'Please input a valid password',
     });
   } return next();
 };
