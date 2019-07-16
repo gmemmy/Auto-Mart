@@ -12,9 +12,9 @@ import AdminController from '../controllers/adminController';
 
 const routes = (app) => {
   app.get('/car/', authentication, CarsController.viewAllUnsoldCars);
-  app.get('/car/', CarsController.viewAllUnsoldCarsWithinAPriceRange);
-  app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
-  app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
+  // app.get('/car/', CarsController.viewAllUnsoldCarsWithinAPriceRange);
+  // app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
+  // app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
   app.get('/car/:car-id', authentication, CarsController.viewSpecificCar);
   app.post('/car/', errorNewCar, CarsController.addCarSaleAdvert);
   app.patch('/car/:car-id/price', authentication, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
