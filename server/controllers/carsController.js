@@ -193,7 +193,6 @@ export default class CarsController {
       field_name: 'price',
       data: req.body.price,
     };
-    console.log(req.body);
     const updatePrice = await CarModel.patch(payload);
     if (updatePrice.rowCount) {
       return res.status(200).send({
@@ -202,7 +201,7 @@ export default class CarsController {
       });
     }
     return res.status(400).send({
-      status: 204,
+      status: 400,
       error: 'Car sale advert does not exist',
     });
   }
