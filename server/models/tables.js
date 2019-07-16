@@ -3,14 +3,14 @@ export const carAdsTable = `
   CREATE TABLE IF NOT EXISTS carAds (
    id SERIAL,
    email varchar(30),
-   createdOn TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    state varchar(20),
    status varchar(20),
    price int,
    manufacturer varchar(50),
    model varchar(50),
-   bodyType text,
-   imgUrl varchar(50)
+   body_type text,
+   img_url varchar(50)
   );
 `;
 
@@ -18,10 +18,10 @@ export const purchaseOrderTable = `
   CREATE TABLE IF NOT EXISTS purchaseOrders (
    id SERIAL,
    buyer varchar(50),
-   createdOn TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-   carId int,
+   created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   car_id int,
    price int,
-   priceOffered int,
+   price_offered int,
    status varchar(50)
   );
 `;

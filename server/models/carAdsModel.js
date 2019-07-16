@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
@@ -12,11 +13,11 @@ export default class CarModel {
   static async addCar(newCarObj) {
     try {
       const {
-        email, state, status, price, manufacturer, model, bodyType, imgUrl,
+        email, state, status, price, manufacturer, model, body_type, img_url,
       } = newCarObj;
 
       const query = `INSERT INTO carAds(email, state, status, price, manufacturer, model, bodyType, imgUrl)
-     VALUES ('${email}', '${state}', '${status}', '${price}', '${manufacturer}', '${model}', '${bodyType}', '${imgUrl}')
+     VALUES ('${email}', '${state}', '${status}', '${price}', '${manufacturer}', '${model}', '${body_type}', '${img_url}')
      RETURNING *
    `;
       const response = await pool.query(query);
@@ -54,9 +55,9 @@ export default class CarModel {
   }
 
   // Gets a car by body type
-  static async getBodyType(bodyType) {
+  static async getBodyType(body_type) {
     try {
-      const query = `SELECT * FROM carAds WHERE bodyType = '${bodyType}'`;
+      const query = `SELECT * FROM carAds WHERE body_type = '${body_type}'`;
       const response = await pool.query(query);
       return response;
     } catch (error) {
@@ -78,10 +79,10 @@ export default class CarModel {
   // updates a car record
   static async patch(payload) {
     try {
-      const { fieldName, data, id } = payload;
+      const { field_name, data, id } = payload;
       const query = `
          UPDATE carAds
-         SET ${fieldName} = '${data}'
+         SET ${field_name} = '${data}'
          WHERE id = ${Number(id)}
          RETURNING *
         `;
@@ -112,11 +113,11 @@ export default class CarModel {
   static async addOrder(newOrderObj) {
     try {
       const {
-        buyer, carId, price, priceOffered, status,
+        buyer, car_id, price, price_offered, status,
       } = newOrderObj;
 
       const query = `INSERT INTO purchaseOrders(buyer, carId, price, priceOffered, status)
-      VALUES ('${buyer}', '${carId}', '${price}', '${priceOffered}', '${status}')
+      VALUES ('${buyer}', '${car_id}', '${price}', '${price_offered}', '${status}')
       RETURNING *
       `;
 
@@ -131,10 +132,10 @@ export default class CarModel {
   // Updates the price of a purchase order
   static async patchOrder(payload) {
     try {
-      const { fieldName, data, id } = payload;
+      const { field_name, data, id } = payload;
       const query = `
       UPDATE purchaseOrders
-       SET ${fieldName} = '${data}'
+       SET ${field_name} = '${data}'
        WHERE id = ${Number(id)}
        RETURNING *
        `;

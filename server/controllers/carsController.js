@@ -175,8 +175,8 @@ export default class CarsController {
       carSale.price = carSale.price;
       carSale.state = carSale.state;
       carSale.status = 'Available';
-      carSale.bodyType = carSale.body_type;
-      carSale.imgUrl = [];
+      carSale.body_type = carSale.body_type;
+      carSale.img_url = [];
       const newAdvert = await CarModel.addCar(carSale);
       return res.send({
         status: 201,
@@ -206,7 +206,7 @@ export default class CarsController {
     if (errors.length < 1) {
       const payload = {
         id: Number(req.params.id),
-        fieldName: 'price',
+        field_name: 'price',
         data: req.body.price,
       };
       if (Number.isNaN(req.body.price)) {
@@ -251,7 +251,7 @@ export default class CarsController {
     if (errors.length < 1) {
       const payload = {
         id: req.params.id,
-        fieldName: 'status',
+        field_name: 'status',
         data: status,
       };
       const updateStatus = await CarModel.patch(payload);
@@ -284,10 +284,10 @@ export default class CarsController {
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
       purchaseOrder.buyer = Number(req.user.id);
-      purchaseOrder.carId = purchaseOrder.car_id;
+      purchaseOrder.car_id = purchaseOrder.car_id;
       purchaseOrder.price = purchaseOrder.price;
       purchaseOrder.status = 'Pending';
-      purchaseOrder.priceOffered = purchaseOrder.price_offered;
+      purchaseOrder.price_offered = purchaseOrder.price_offered;
       const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
       return res.send({
         status: 201,
@@ -317,7 +317,7 @@ export default class CarsController {
     if (errors.length < 1) {
       const payload = {
         id: req.params.id,
-        fieldName: 'price',
+        field_name: 'price',
         data: req.body.price,
       };
       const updateOrderPrice = await CarModel.patch(payload);
