@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import ExpressValidator from 'express-validator/check';
 
 const { check } = ExpressValidator;
@@ -9,6 +10,8 @@ export const validateNewCarAdvert = [
     .withMessage('price must be at least 5 characters long'),
 ];
 
+// Validate request body and throw relevant error messages
+
 export const checkPassword = (req, res, next) => {
   const { password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
@@ -19,12 +22,90 @@ export const checkPassword = (req, res, next) => {
   } return next();
 };
 
-export const validatePassword = (req, res, next) => {
-  const { password } = req.body;
-  if (!password || password === null) {
-    return res.send({
+export const errorSignupBody = (req, res, next) => {
+  const {
+    email, first_name, last_name, password, address,
+  } = req.body;
+  if (!password || !first_name || !last_name || !email || !address) {
+    return res.status(400).send({
       status: 400,
-      error: 'Please input a valid password',
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorSigninBody = (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+// Validation for car body object
+
+export const errorNewCar = (req, res, next) => {
+  const {
+    manufacturer, model, price, state, status, body_type, img_url,
+  } = req.body;
+  if (!manufacturer || !model || !price || !state || !status || !body_type || !img_url) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorNewOrder = (req, res, next) => {
+  const {
+    car_id, amount,
+  } = req.body;
+  if (!car_id || !amount) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorUpdatePriceOfCar = (req, res, next) => {
+  const { id, price } = req.body;
+  if (!price || !id) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorUpdateStatusOfCar = (req, res, next) => {
+  const { status } = req.body;
+  if (!status) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorUpdatePriceOfOrder = (req, res, next) => {
+  const { price } = req.body;
+  if (!price || Number.isNaN(req.params.id)) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorDeleteCar = (req, res, next) => {
+  const { id } = req.body;
+  if (!id) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
     });
   } return next();
 };

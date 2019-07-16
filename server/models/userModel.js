@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
@@ -12,11 +13,11 @@ export default class UserModel {
   static async addNewUser(newUserObj) {
     try {
       const {
-        email, firstName, lastName, password, address,
+        email, first_name, last_name, password, address,
       } = newUserObj;
 
-      const query = `INSERT INTO Users(email, firstname, lastname, password, address) 
-        VALUES ('${email.trim()}', '${firstName.trim()}', '${lastName.trim()}', '${password.trim()}', '${address.trim()}')
+      const query = `INSERT INTO Users(email, first_name, last_name, password, address) 
+        VALUES ('${email.trim()}', '${first_name.trim()}', '${last_name.trim()}', '${password.trim()}', '${address.trim()}')
         RETURNING *
       `;
       const response = await pool.query(query);
