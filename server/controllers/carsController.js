@@ -172,7 +172,7 @@ export default class CarsController {
     const newAdvert = await CarModel.addCar(carSale);
     return res.status(201).send({
       status: 201,
-      data: newAdvert.rows,
+      data: newAdvert.rows[0],
     });
   }
 
@@ -197,7 +197,7 @@ export default class CarsController {
     if (updatePrice.rowCount) {
       return res.status(200).send({
         status: 200,
-        data: updatePrice.rows,
+        data: updatePrice.rows[0],
       });
     }
     return res.status(400).send({
@@ -228,7 +228,7 @@ export default class CarsController {
     const updateStatus = await CarModel.patch(payload);
     return res.status(200).send({
       status: 200,
-      data: updateStatus.rows,
+      data: updateStatus.rows[0],
     });
   }
 
@@ -275,7 +275,7 @@ export default class CarsController {
     const updateOrderPrice = await CarModel.Orderpatch(payload);
     return res.status(200).send({
       status: 200,
-      data: updateOrderPrice.rows,
+      data: updateOrderPrice.rows[0],
       message: 'Successfully updated price of the purchase order',
     });
   }
