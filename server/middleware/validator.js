@@ -92,7 +92,7 @@ export const errorUpdateStatusOfCar = (req, res, next) => {
 
 export const errorUpdatePriceOfOrder = (req, res, next) => {
   const { price } = req.body;
-  if (!price) {
+  if (!price || Number.isNaN(req.params.id)) {
     return res.status(400).send({
       status: 400,
       error: 'Please fill in valid data',

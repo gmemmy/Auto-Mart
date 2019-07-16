@@ -22,9 +22,9 @@ export default class CarsController {
         data: unsoldCars.rows,
       });
     }
-    return res.status(204).send({
-      status: 204,
-      data: [],
+    return res.status(400).send({
+      status: 400,
+      error: 'No unsold cars found',
     });
   }
 
@@ -269,8 +269,8 @@ export default class CarsController {
   */
   static async updatePricePurchaseOrder(req, res) {
     const payload = {
-      id: req.body.id,
-      field_name: 'amount',
+      id: req.params.id,
+      field_name: 'price',
       data: req.body.price,
     };
     const updateOrderPrice = await CarModel.Orderpatch(payload);

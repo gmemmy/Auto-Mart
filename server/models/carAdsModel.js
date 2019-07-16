@@ -96,11 +96,11 @@ export default class CarModel {
   // updates an order record
   static async Orderpatch(payload) {
     try {
-      const { field_name, data, car_id } = payload;
+      const { field_name, data, id } = payload;
       const query = `
-         UPDATE carAds
+         UPDATE purchaseOrders
          SET ${field_name} = '${data}'
-         WHERE id = ${Number(car_id)}
+         WHERE id = ${Number(id)}
          RETURNING *
         `;
       const response = await pool.query(query);
