@@ -3,6 +3,7 @@ import CarsController from '../controllers/carsController';
 import UserController from '../controllers/userController';
 import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
+  errorUpdatePriceOfCar, errorUpdateStatusOfCar,
 } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
@@ -16,10 +17,10 @@ const routes = (app) => {
   app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
   app.get('/car/:car-id', CarsController.viewSpecificCar);
   app.post('/car/', errorNewCar, CarsController.addCarSaleAdvert);
-  app.patch('/car/:car-id/price', CarsController.updatePriceCarSaleAdvert);
-  app.patch('/car/:car-id/status', CarsController.updateStatusCarSaleAdvert);
+  app.patch('/car/:car-id/price', errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
+  app.patch('/car/:car-id/status', errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
   app.post('/order/', errorNewOrder, CarsController.makePurchaseOrder);
-  app.patch('/order/:order-id/price', CarsController.updatePricePurchaseOrder);
+  app.patch('/order/:order-id/price', errorUpdatePriceOfCar, CarsController.updatePricePurchaseOrder);
 
   // auth routes
   app.post('/auth/signup', errorSignupBody, UserController.signUp);

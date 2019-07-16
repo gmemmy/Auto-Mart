@@ -164,28 +164,18 @@ export default class CarsController {
   */
   static async addCarSaleAdvert(req, res) {
     const carSale = req.body;
-    // Get all the errors from express validator
-    const errors = validationResult(req).array().map(error => error.msg);
-    // pick last car advert from the car adverts array, check it's id
-    // the last record's id + 1 is the new record's id
-    if (errors.length < 1) {
-      carSale.manufacturer = carSale.manufacturer;
-      carSale.model = carSale.model;
-      carSale.email = carSale.email;
-      carSale.price = carSale.price;
-      carSale.state = carSale.state;
-      carSale.status = 'Available';
-      carSale.body_type = carSale.body_type;
-      carSale.img_url = [];
-      const newAdvert = await CarModel.addCar(carSale);
-      return res.status(201).send({
-        status: 201,
-        data: newAdvert.rows,
-      });
-    }
-    return res.status(400).send({
-      status: 400,
-      error: errors,
+    carSale.manufacturer = carSale.manufacturer;
+    carSale.model = carSale.model;
+    carSale.email = carSale.email;
+    carSale.price = carSale.price;
+    carSale.state = carSale.state;
+    carSale.status = 'Available';
+    carSale.body_type = carSale.body_type;
+    carSale.img_url = [];
+    const newAdvert = await CarModel.addCar(carSale);
+    return res.status(201).send({
+      status: 201,
+      data: newAdvert.rows,
     });
   }
 
@@ -201,37 +191,24 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async updatePriceCarSaleAdvert(req, res) {
-    const errors = validationResult(req).array().map(error => error.msg);
-    if (errors.length < 1) {
-      const payload = {
-        id: Number(req.params.id),
-        field_name: 'price',
-        data: req.body.price,
-      };
-      if (Number.isNaN(req.body.price)) {
-        return res.status(400).send({
-          status: 400,
-          message: 'Please input a valid request',
-        });
-      }
-      const updatePrice = await CarModel.patch(payload);
-      if (updatePrice.rowCount) {
-        return res.status(200).send({
-          status: 200,
-          data: updatePrice.rows,
-          message: 'Successfully updated price of the car advert',
-        });
-      }
-      return res.status(500).send({
-        status: 500,
-        message: 'Sorry, something happened.',
+    const payload = {
+      id: Number(req.params.id),
+      field_name: 'price',
+      data: req.body.price,
+    };
+    const updatePrice = await CarModel.patch(payload);
+    if (updatePrice.rowCount) {
+      return res.status(200).send({
+        status: 200,
+        data: updatePrice.rows,
       });
     }
     return res.status(400).send({
-      status: 400,
-      error: errors,
+      status: 204,
+      error: 'Car sale advert does not exist',
     });
   }
+
 
   /**
   * @description - Update the status of a car sale advertisment by id
@@ -249,7 +226,7 @@ export default class CarsController {
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
       const payload = {
-        id: req.params.id,
+        id: req.body.id,
         field_name: 'status',
         data: status,
       };
@@ -315,7 +292,7 @@ export default class CarsController {
     const errors = validationResult(req).array().map(error => error.msg);
     if (errors.length < 1) {
       const payload = {
-        id: req.params.id,
+        id: req.body.id,
         field_name: 'price',
         data: req.body.price,
       };

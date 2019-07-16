@@ -70,6 +70,26 @@ export const errorNewOrder = (req, res, next) => {
   } return next();
 };
 
+export const errorUpdatePriceOfCar = (req, res, next) => {
+  const { price, id } = req.body;
+  if (!price || !id) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorUpdateStatusOfCar = (req, res, next) => {
+  const { status, id } = req.body;
+  if (!status || !id) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
 // eslint-disable-next-line import/prefer-default-export
 export const validateSignup = [
   check('email')
