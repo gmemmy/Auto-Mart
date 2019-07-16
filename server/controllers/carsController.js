@@ -194,6 +194,7 @@ export default class CarsController {
       data: req.body.price,
     };
     const updatePrice = await CarModel.patch(payload);
+    console.log(updatePrice);
     if (updatePrice.rowCount) {
       return res.status(200).send({
         status: 200,
