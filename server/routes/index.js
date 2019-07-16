@@ -5,22 +5,22 @@ import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
   errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
 } from '../middleware/validator';
-// import authentication from '../middleware/userAuth';
+import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
 // import { userRecord, isAdmin } from '../middleware/userPermission';
 
 
 const routes = (app) => {
-  app.get('/car/', CarsController.viewAllUnsoldCars);
+  app.get('/car/', authentication, CarsController.viewAllUnsoldCars);
   app.get('/car/', CarsController.viewAllUnsoldCarsWithinAPriceRange);
   app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
-  app.get('/car/:car-id', CarsController.viewSpecificCar);
+  app.get('/car/:car-id', authentication, CarsController.viewSpecificCar);
   app.post('/car/', errorNewCar, CarsController.addCarSaleAdvert);
-  app.patch('/car/:car-id/price', errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
-  app.patch('/car/:car-id/status', errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
+  app.patch('/car/:car-id/price', authentication, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
+  app.patch('/car/:car-id/status', authentication, errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
   app.post('/order/', errorNewOrder, CarsController.makePurchaseOrder);
-  app.patch('/order/:order-id/price', errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
+  app.patch('/order/:order-id/price', authentication, errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
 
   // auth routes
   app.post('/auth/signup', errorSignupBody, UserController.signUp);
