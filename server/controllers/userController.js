@@ -27,15 +27,15 @@ export default class UserController {
       newUserObj.admin = false;
       const user = await UserModel.addNewUser(newUserObj);
       if (!user.rowCount) {
-        return res.send({
+        return res.status(400).send({
           status: 400,
           error: 'A user with your email already exists.',
         });
       }
       delete user.rows[0].password;
       const token = generateToken(user.rows[0]);
-      return res.send({
-        status: 201,
+      return res.status(200).send({
+        status: 200,
         data:
           {
             token,
@@ -43,7 +43,7 @@ export default class UserController {
           },
       });
     }
-    return res.send({
+    return res.status(400).send({
       status: 400,
       error: errors,
     });
@@ -57,38 +57,35 @@ export default class UserController {
       const { email, password } = req.body;
       const user = await UserModel.getByEmail(email);
       if (!user.rowCount) {
-        res.send({
+        return res.status(400).send({
           status: 400,
           error: 'You do not have an active account, please sign in.',
         });
-      } else {
-        const passwordIsValid = bcrypt.compareSync(
-          password,
-          user.rows[0].password,
-        );
-        if (passwordIsValid) {
-          delete user.rows[0].password;
-          const token = generateToken(user.rows[0]);
-          res.send({
-            status: 200,
-            data:
+      }
+      const passwordIsValid = bcrypt.compareSync(
+        password,
+        user.rows[0].password,
+      );
+      if (passwordIsValid) {
+        delete user.rows[0].password;
+        const token = generateToken(user.rows[0]);
+        return res.status(200).send({
+          status: 200,
+          data:
               {
                 token,
                 user: user.rows[0],
               },
-          });
-        } else {
-          res.send({
-            status: 400,
-            error: 'Password is invalid!',
-          });
-        }
+        });
       }
-    } else {
-      res.send({
+      return res.status(400).send({
         status: 400,
-        error: errors,
+        error: 'Password is invalid!',
       });
     }
+    return res.status(400).send({
+      status: 400,
+      error: errors,
+    });
   }
 }

@@ -19,12 +19,12 @@ export default class CarsController {
   static async viewAllUnsoldCars(req, res) {
     const unsoldCars = await CarModel.getAll({ status: 'Available' });
     if (unsoldCars.rowCount >= 1) {
-      return res.send({
+      return res.status(200).send({
         status: 200,
         data: unsoldCars.rows,
       });
     }
-    return res.send({
+    return res.status(204).send({
       status: 204,
       data: [],
     });
@@ -45,13 +45,13 @@ export default class CarsController {
   static async viewSpecificCar(req, res) {
     const specificCar = await CarModel.getById(Number(req.params.id));
     if (specificCar.rowCount !== 1) {
-      return res.send({
+      return res.status(404).send({
         status: 404,
         error: 'Oops! no car found with this id.',
       });
     }
     delete specificCar.rows[0].email;
-    return res.send({
+    return res.status(200).send({
       status: 200,
       data: specificCar.rows[0],
     });
@@ -75,18 +75,18 @@ export default class CarsController {
     if (minPrice || maxPrice) {
       unsoldCars.forEach((unsoldCar) => {
         if (minPrice >= unsoldCar.price && maxPrice <= unsoldCar.price) {
-          return res.send({
+          return res.status(200).send({
             status: 200,
             data: [unsoldCar],
           });
         }
-        return res.send({
+        return res.status(404).send({
           status: 404,
           error: 'No car record found within the specified range',
         });
       });
     } else {
-      res.send({
+      res.status(400).send({
         status: 400,
         error: 'Please specify price range',
       });
@@ -108,12 +108,12 @@ export default class CarsController {
   static async viewAllUnsoldCarsOfSpecificBodyType(req, res) {
     const carsByBodyType = await CarModel.getBodyType(req.body.body_type);
     if (carsByBodyType.rowCount >= 1) {
-      return res.send({
+      return res.status(200).send({
         status: 200,
         data: carsByBodyType.rows,
       });
     }
-    return res.send({
+    return res.status(204).send({
       status: 204,
       message: 'Sorry there are no cars with the specified body type',
       data: [],
@@ -134,17 +134,17 @@ export default class CarsController {
   static async viewAllUnsoldCarsofUsedState(req, res) {
     const carsOfUsedState = await CarModel.getUsedState(req.body.state);
     if (req.body.state !== 'used') {
-      return res.send({
+      return res.status(400).send({
         status: 400,
         error: 'Unauthorized! You can only view cars that are of state used',
       });
     } if (carsOfUsedState.rowCount >= 1) {
-      return res.send({
+      return res.status(200).send({
         status: 200,
         data: carsOfUsedState.rows,
       });
     }
-    return res.send({
+    return res.status(204).send({
       status: 204,
       message: 'Sorry there are no cars with the specified car state',
       data: [],
@@ -178,13 +178,13 @@ export default class CarsController {
       carSale.body_type = carSale.body_type;
       carSale.img_url = [];
       const newAdvert = await CarModel.addCar(carSale);
-      return res.send({
+      return res.status(201).send({
         status: 201,
         data: newAdvert.rows,
         message: 'Successfully created a new car sale advertisement',
       });
     }
-    return res.send({
+    return res.status(400).send({
       status: 400,
       error: errors,
     });
@@ -210,25 +210,25 @@ export default class CarsController {
         data: req.body.price,
       };
       if (Number.isNaN(req.body.price)) {
-        return res.send({
+        return res.status(400).send({
           status: 400,
           message: 'Please input a valid request',
         });
       }
       const updatePrice = await CarModel.patch(payload);
       if (updatePrice.rowCount) {
-        return res.send({
+        return res.status(200).send({
           status: 200,
           data: updatePrice.rows,
           message: 'Successfully updated price of the car advert',
         });
       }
-      return res.send({
+      return res.status(500).send({
         status: 500,
         message: 'Sorry, something happened.',
       });
     }
-    return res.send({
+    return res.status(400).send({
       status: 400,
       error: errors,
     });
@@ -255,13 +255,13 @@ export default class CarsController {
         data: status,
       };
       const updateStatus = await CarModel.patch(payload);
-      return res.send({
+      return res.status(200).send({
         status: 200,
         data: updateStatus.rows,
         message: 'Successfully updated the status of the car advert',
       });
     }
-    return res.send({
+    return res.status(400).send({
       status: 400,
       error: errors,
     });
@@ -289,13 +289,13 @@ export default class CarsController {
       purchaseOrder.status = 'Pending';
       purchaseOrder.price_offered = purchaseOrder.price_offered;
       const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
-      return res.send({
+      return res.status(201).send({
         status: 201,
         data: newPurchaseOrder.rows[0],
         message: 'Successfully created a new car purchase order',
       });
     }
-    return res.send({
+    return res.status(400).send({
       status: 400,
       error: errors,
     });
@@ -321,13 +321,13 @@ export default class CarsController {
         data: req.body.price,
       };
       const updateOrderPrice = await CarModel.patch(payload);
-      return res.send({
+      return res.status(200).send({
         status: 200,
         data: updateOrderPrice.rows,
         message: 'Successfully updated price of the purchase order',
       });
     }
-    return res.send({
+    return res.status(400).send({
       status: 400,
       error: errors,
     });
