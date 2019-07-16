@@ -16,12 +16,12 @@ export default class AdminController {
   */
   static viewAllCarRecords(req, res) {
     if (advertisements.length >= 1) {
-      res.json({
+      res.send({
         status: 200,
         data: [advertisements],
       });
     } else {
-      res.json({
+      res.send({
         status: 404,
         error: 'No car sale record found',
       });
@@ -41,12 +41,12 @@ export default class AdminController {
 */
   static viewAllUsers(req, res) {
     if (Users.length >= 1) {
-      res.json({
+      res.send({
         status: 200,
         data: [Users],
       });
     } else {
-      res.json({
+      res.send({
         status: 404,
         error: 'No user record found',
       });
@@ -66,7 +66,7 @@ export default class AdminController {
   */
   static async deleteASpecificRecord(req, res) {
     await CarModel.deleteById(req.body.id);
-    res.status(200).json({
+    res.status(200).send({
       status: 200,
       data: 'Car advert successfully deleted',
     });
