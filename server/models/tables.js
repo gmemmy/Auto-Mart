@@ -30,14 +30,14 @@ export const userTable = `
  CREATE TABLE IF NOT EXISTS Users (
   id SERIAL,
   email varchar(30) NOT NULL UNIQUE,
-  createdOn TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   username varchar(30),
-  firstName varchar(255),
-  lastName varchar(255),
+  first_name varchar(255),
+  last_name varchar(255),
   password varchar(330),
   address varchar(255),
-  isAdmin boolean
+  is_admin boolean
  );
- INSERT INTO Users(email, firstname, lastname, password, address, isadmin)
+ INSERT INTO Users(email, first_name, last_name, password, address, is_admin)
         VALUES ('nuelojay22@gmail.com', 'Emmanuel', 'Atawodi', '$2b$10$f0y/rrEk0JfBb1UT/gju5.mRk55urRN5jvLHN53hS6kjKphh4zmxG', 'Surulere', true)
 `;

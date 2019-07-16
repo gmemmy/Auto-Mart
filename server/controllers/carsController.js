@@ -19,7 +19,6 @@ export default class CarsController {
   static async viewAllUnsoldCars(req, res) {
     const unsoldCars = await CarModel.getAll({ status: 'Available' });
     if (unsoldCars.rowCount >= 1) {
-      delete unsoldCars.rows[0].email;
       return res.send({
         status: 200,
         data: unsoldCars.rows,
