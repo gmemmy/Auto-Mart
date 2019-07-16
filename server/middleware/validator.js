@@ -27,9 +27,8 @@ export const errorSignupBody = (req, res, next) => {
     email, first_name, last_name, password, address,
   } = req.body;
   if (!password || !first_name || !last_name || !email || !address) {
-    return res.send({
-      status: 400,
-      error: 'Please fill in valid details',
+    return res.status(400).send({
+      error: 'Please fill in valid data',
     });
   } return next();
 };
@@ -37,9 +36,8 @@ export const errorSignupBody = (req, res, next) => {
 export const errorSigninBody = (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.send({
-      status: 400,
-      error: 'Please fill in valid details',
+    return res.status(400).send({
+      error: 'Please fill in valid data',
     });
   } return next();
 };
