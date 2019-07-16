@@ -249,7 +249,6 @@ export default class CarsController {
     purchaseOrder.amount = purchaseOrder.amount;
     purchaseOrder.car_id = purchaseOrder.car_id;
     const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
-    console.log(newPurchaseOrder);
     return res.status(201).send({
       status: 201,
       data: newPurchaseOrder.rows[0],
@@ -269,8 +268,8 @@ export default class CarsController {
   */
   static async updatePricePurchaseOrder(req, res) {
     const payload = {
-      car_id: req.body.car_id,
-      field_name: 'price',
+      id: req.body.id,
+      field_name: 'amount',
       data: req.body.price,
     };
     const updateOrderPrice = await CarModel.Orderpatch(payload);
