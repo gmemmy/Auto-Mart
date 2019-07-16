@@ -41,7 +41,7 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async viewSpecificCar(req, res) {
-    const specificCar = await CarModel.getById(Number(req.params.id));
+    const specificCar = await CarModel.getById(Number(req.body.id));
     if (specificCar.rowCount !== 1) {
       return res.status(404).send({
         status: 404,
@@ -164,7 +164,6 @@ export default class CarsController {
     const carSale = req.body;
     carSale.manufacturer = carSale.manufacturer;
     carSale.model = carSale.model;
-    carSale.email = carSale.email;
     carSale.price = carSale.price;
     carSale.state = carSale.state;
     carSale.status = carSale.status;
@@ -247,11 +246,8 @@ export default class CarsController {
   static async makePurchaseOrder(req, res) {
     // eslint-disable-next-line no-shadow
     const purchaseOrder = req.body;
-    purchaseOrder.buyer = Number(req.user.id);
+    purchaseOrder.amount = purchaseOrder.amount;
     purchaseOrder.car_id = purchaseOrder.car_id;
-    purchaseOrder.price = purchaseOrder.price;
-    purchaseOrder.status = purchaseOrder.status;
-    purchaseOrder.price_offered = purchaseOrder.price_offered;
     const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
     return res.status(201).send({
       status: 201,
@@ -276,7 +272,7 @@ export default class CarsController {
       field_name: 'price',
       data: req.body.price,
     };
-    const updateOrderPrice = await CarModel.patch(payload);
+    const updateOrderPrice = await CarModel.Orderpatch(payload);
     return res.status(200).send({
       status: 200,
       data: updateOrderPrice.rows,

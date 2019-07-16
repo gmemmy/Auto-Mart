@@ -48,9 +48,9 @@ export const errorSigninBody = (req, res, next) => {
 
 export const errorNewCar = (req, res, next) => {
   const {
-    manufacturer, model, email, price, state, status, body_type, img_url,
+    manufacturer, model, price, state, status, body_type, img_url,
   } = req.body;
-  if (!manufacturer || !model || !email || !price || !state || !status || !body_type || !img_url) {
+  if (!manufacturer || !model || !price || !state || !status || !body_type || !img_url) {
     return res.status(400).send({
       status: 400,
       error: 'Please fill in valid data',
@@ -60,9 +60,9 @@ export const errorNewCar = (req, res, next) => {
 
 export const errorNewOrder = (req, res, next) => {
   const {
-    car_id, price, status, price_offered,
+    car_id, amount,
   } = req.body;
-  if (!car_id || !price || !status || !price_offered) {
+  if (!car_id || !amount) {
     return res.status(400).send({
       status: 400,
       error: 'Please fill in valid data',

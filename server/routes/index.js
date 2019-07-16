@@ -3,7 +3,7 @@ import CarsController from '../controllers/carsController';
 import UserController from '../controllers/userController';
 import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
-  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder
+  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
 } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';

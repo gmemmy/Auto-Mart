@@ -87,7 +87,23 @@ export default class CarModel {
          RETURNING *
         `;
       const response = await pool.query(query);
-      // console.log(response, 'nj');
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // updates an order record
+  static async Orderpatch(payload) {
+    try {
+      const { field_name, data, car_id } = payload;
+      const query = `
+         UPDATE carAds
+         SET ${field_name} = '${data}'
+         WHERE id = ${Number(car_id)}
+         RETURNING *
+        `;
+      const response = await pool.query(query);
       return response;
     } catch (error) {
       return error;
@@ -113,11 +129,11 @@ export default class CarModel {
   static async addOrder(newOrderObj) {
     try {
       const {
-        buyer, car_id, price, price_offered, status,
+        amount, car_id,
       } = newOrderObj;
 
-      const query = `INSERT INTO purchaseOrders(buyer, car_id, price, price_offered, status)
-      VALUES ('${buyer}', '${car_id}', '${price}', '${price_offered}', '${status}')
+      const query = `INSERT INTO purchaseOrders(amount, car_id)
+      VALUES ('${amount}', '${car_id}')
       RETURNING *
       `;
 

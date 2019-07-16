@@ -65,7 +65,7 @@ export default class AdminController {
   */
   static deleteASpecificRecord(req, res) {
     // make an array containing all the ids of each record and pick the index from there.
-    const indexOfRecord = advertisements.map(advert => advert.id).indexOf(Number(req.params.id));
+    const indexOfRecord = advertisements.map(advert => advert.id).indexOf(Number(req.body.id));
 
     if (indexOfRecord >= 0) {
       const deleted = advertisements.splice(indexOfRecord, 1);
