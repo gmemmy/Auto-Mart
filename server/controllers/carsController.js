@@ -249,6 +249,7 @@ export default class CarsController {
     purchaseOrder.amount = purchaseOrder.amount;
     purchaseOrder.car_id = purchaseOrder.car_id;
     const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
+    console.log(newPurchaseOrder);
     return res.status(201).send({
       status: 201,
       data: newPurchaseOrder.rows[0],
