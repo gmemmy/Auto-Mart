@@ -189,12 +189,12 @@ export default class CarsController {
   */
   static async updatePriceCarSaleAdvert(req, res) {
     const payload = {
-      id: req.body.id,
+      id: req.params.id,
       field_name: 'price',
       data: req.body.price,
     };
+    console.log(req.body);
     const updatePrice = await CarModel.patch(payload);
-    console.log(updatePrice);
     if (updatePrice.rowCount) {
       return res.status(200).send({
         status: 200,
