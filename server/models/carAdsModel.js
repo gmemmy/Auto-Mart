@@ -116,7 +116,7 @@ export default class CarModel {
         buyer, car_id, price, price_offered, status,
       } = newOrderObj;
 
-      const query = `INSERT INTO purchaseOrders(buyer, carId, price, priceOffered, status)
+      const query = `INSERT INTO purchaseOrders(buyer, car_id, price, price_offered, status)
       VALUES ('${buyer}', '${car_id}', '${price}', '${price_offered}', '${status}')
       RETURNING *
       `;
@@ -132,11 +132,11 @@ export default class CarModel {
   // Updates the price of a purchase order
   static async patchOrder(payload) {
     try {
-      const { field_name, data, id } = payload;
+      const { field_name, data, car_id } = payload;
       const query = `
       UPDATE purchaseOrders
        SET ${field_name} = '${data}'
-       WHERE id = ${Number(id)}
+       WHERE car_id = ${Number(car_id)}
        RETURNING *
        `;
 

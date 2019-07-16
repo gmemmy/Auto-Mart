@@ -60,9 +60,9 @@ export const errorNewCar = (req, res, next) => {
 
 export const errorNewOrder = (req, res, next) => {
   const {
-    buyer, car_id, price, status, price_offered,
+    car_id, price, status, price_offered,
   } = req.body;
-  if (!buyer || !car_id || !price || status || !price_offered) {
+  if (!car_id || !price || !status || !price_offered) {
     return res.status(400).send({
       status: 400,
       error: 'Please fill in valid data',
@@ -83,6 +83,16 @@ export const errorUpdatePriceOfCar = (req, res, next) => {
 export const errorUpdateStatusOfCar = (req, res, next) => {
   const { status, id } = req.body;
   if (!status || !id) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorUpdatePriceOfOrder = (req, res, next) => {
+  const { status, car_id } = req.body;
+  if (!status || !car_id) {
     return res.status(400).send({
       status: 400,
       error: 'Please fill in valid data',
