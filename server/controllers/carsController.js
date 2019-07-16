@@ -48,6 +48,7 @@ export default class CarsController {
         error: 'Oops! no car found with this id.',
       });
     }
+    console.log(specificCar);
     delete specificCar.rows[0].email;
     return res.status(200).send({
       status: 200,
@@ -276,7 +277,6 @@ export default class CarsController {
     return res.status(200).send({
       status: 200,
       data: updateOrderPrice.rows[0],
-      message: 'Successfully updated price of the purchase order',
     });
   }
 }
