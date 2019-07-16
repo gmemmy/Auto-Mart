@@ -71,8 +71,8 @@ export const errorNewOrder = (req, res, next) => {
 };
 
 export const errorUpdatePriceOfCar = (req, res, next) => {
-  const { price } = req.body;
-  if (!price || price === undefined) {
+  const { id, price } = req.body;
+  if (!price || !id) {
     return res.status(400).send({
       status: 400,
       error: 'Please fill in valid data',

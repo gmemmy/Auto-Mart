@@ -189,7 +189,7 @@ export default class CarsController {
   */
   static async updatePriceCarSaleAdvert(req, res) {
     const payload = {
-      id: req.params.id,
+      id: req.body.id,
       field_name: 'price',
       data: req.body.price,
     };
