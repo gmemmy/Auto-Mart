@@ -20,7 +20,7 @@ export const purchaseOrderTable = `
    buyer varchar(50),
    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    car_id int,
-   price int,
+   amount int,
    price_offered int,
    status varchar(50)
   );

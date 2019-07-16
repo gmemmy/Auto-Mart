@@ -189,7 +189,7 @@ export default class CarsController {
   */
   static async updatePriceCarSaleAdvert(req, res) {
     const payload = {
-      id: Number(req.body.id),
+      id: Number(req.params.id),
       field_name: 'price',
       data: req.body.price,
     };
@@ -221,7 +221,7 @@ export default class CarsController {
   static async updateStatusCarSaleAdvert(req, res) {
     const { status } = req.body;
     const payload = {
-      id: req.body.id,
+      id: Number(req.params.id),
       field_name: 'status',
       data: status,
     };
@@ -251,7 +251,7 @@ export default class CarsController {
     const newPurchaseOrder = await CarModel.addOrder(purchaseOrder);
     return res.status(201).send({
       status: 201,
-      data: newPurchaseOrder.rows,
+      data: newPurchaseOrder.rows[0],
     });
   }
 
