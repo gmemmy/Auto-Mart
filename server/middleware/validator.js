@@ -44,6 +44,32 @@ export const errorSigninBody = (req, res, next) => {
   } return next();
 };
 
+// Validation for car body object
+
+export const errorNewCar = (req, res, next) => {
+  const {
+    manufacturer, model, email, price, state, status, body_type, img_url,
+  } = req.body;
+  if (!manufacturer || !model || !email || !price || !state || !status || !body_type || !img_url) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
+export const errorNewOrder = (req, res, next) => {
+  const {
+    buyer, car_id, price, status, price_offered,
+  } = req.body;
+  if (!buyer || !car_id || !price || status || !price_offered) {
+    return res.status(400).send({
+      status: 400,
+      error: 'Please fill in valid data',
+    });
+  } return next();
+};
+
 // eslint-disable-next-line import/prefer-default-export
 export const validateSignup = [
   check('email')

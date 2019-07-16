@@ -181,7 +181,6 @@ export default class CarsController {
       return res.status(201).send({
         status: 201,
         data: newAdvert.rows,
-        message: 'Successfully created a new car sale advertisement',
       });
     }
     return res.status(400).send({
