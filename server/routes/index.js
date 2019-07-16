@@ -3,7 +3,7 @@ import CarsController from '../controllers/carsController';
 import UserController from '../controllers/userController';
 import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
-  errorUpdatePriceOfCar, errorUpdateStatusOfCar,
+  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder
 } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
@@ -20,7 +20,7 @@ const routes = (app) => {
   app.patch('/car/:car-id/price', errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
   app.patch('/car/:car-id/status', errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
   app.post('/order/', errorNewOrder, CarsController.makePurchaseOrder);
-  app.patch('/order/:order-id/price', errorUpdatePriceOfCar, CarsController.updatePricePurchaseOrder);
+  app.patch('/order/:order-id/price', errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
 
   // auth routes
   app.post('/auth/signup', errorSignupBody, UserController.signUp);
