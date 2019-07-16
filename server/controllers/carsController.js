@@ -49,7 +49,7 @@ export default class CarsController {
         error: 'Oops! no car found with this id.',
       });
     }
-    console.log(specificCar);
+    console.log(specificCar.rows[0]);
     delete specificCar.rows[0].email;
     return res.status(200).json({
       status: 200,
@@ -275,6 +275,7 @@ export default class CarsController {
       data: req.body.price,
     };
     const updateOrderPrice = await CarModel.Orderpatch(payload);
+    console.log(updateOrderPrice.rows[0]);
     return res.status(200).json({
       status: 200,
       data: updateOrderPrice.rows[0],
