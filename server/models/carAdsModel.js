@@ -13,11 +13,11 @@ export default class CarModel {
   static async addCar(newCarObj) {
     try {
       const {
-        email, state, status, price, manufacturer, model, body_type, img_url,
+        state, status, price, manufacturer, model, body_type, img_url,
       } = newCarObj;
 
-      const query = `INSERT INTO carAds(email, state, status, price, manufacturer, model, body_type, img_url)
-     VALUES ('${email}', '${state}', '${status}', '${price}', '${manufacturer}', '${model}', '${body_type}', '${img_url}')
+      const query = `INSERT INTO carAds(state, status, price, manufacturer, model, body_type, img_url)
+     VALUES ('${state}', '${status}', '${price}', '${manufacturer}', '${model}', '${body_type}', '${img_url}')
      RETURNING *
    `;
       const response = await pool.query(query);
