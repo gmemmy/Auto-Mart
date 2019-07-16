@@ -16,7 +16,7 @@ export default class CarModel {
         email, state, status, price, manufacturer, model, body_type, img_url,
       } = newCarObj;
 
-      const query = `INSERT INTO carAds(email, state, status, price, manufacturer, model, bodyType, imgUrl)
+      const query = `INSERT INTO carAds(email, state, status, price, manufacturer, model, body_type, img_url)
      VALUES ('${email}', '${state}', '${status}', '${price}', '${manufacturer}', '${model}', '${body_type}', '${img_url}')
      RETURNING *
    `;
