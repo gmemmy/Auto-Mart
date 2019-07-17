@@ -5,7 +5,7 @@ import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
   errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
 } from '../middleware/validator';
-import authentication from '../middleware/userAuth';
+// import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
 // import { userRecord, isAdmin } from '../middleware/userPermission';
 
@@ -29,7 +29,7 @@ const routes = (app) => {
   // admin routes
   app.get('/api/v1/admin', AdminController.viewAllCarRecords);
   app.get('/api/v1/admin/users', AdminController.viewAllUsers);
-  app.delete('/car/:id/', authentication, AdminController.deleteASpecificRecord);
+  app.delete('/car/:id/', AdminController.deleteASpecificRecord);
 
   return app;
 };

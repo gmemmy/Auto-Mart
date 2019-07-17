@@ -195,15 +195,9 @@ export default class CarsController {
       data: req.body.price,
     };
     const updatePrice = await CarModel.patch(payload);
-    if (updatePrice.rowCount) {
-      return res.status(200).json({
-        status: 200,
-        data: updatePrice.rows[0],
-      });
-    }
-    return res.status(500).json({
-      status: 400,
-      error: 'Sorry! Something happened.',
+    return res.status(200).json({
+      status: 200,
+      data: updatePrice.rows[0],
     });
   }
 
@@ -277,7 +271,7 @@ export default class CarsController {
     try {
       const payload = {
         id: req.params.id,
-        field_name: 'price',
+        field_name: 'new_price_offered',
         data: req.body.price,
       };
       const updateOrderPrice = await CarModel.Orderpatch(payload);
