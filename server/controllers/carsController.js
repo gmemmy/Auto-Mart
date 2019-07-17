@@ -201,9 +201,9 @@ export default class CarsController {
         data: updatePrice.rows[0],
       });
     }
-    return res.status(400).json({
+    return res.status(500).json({
       status: 400,
-      error: 'Car sale advert does not exist',
+      error: 'Sorry! Something happened.',
     });
   }
 
@@ -227,9 +227,15 @@ export default class CarsController {
       data: status,
     };
     const updateStatus = await CarModel.patch(payload);
-    return res.status(200).json({
-      status: 200,
-      data: updateStatus.rows[0],
+    if (updateStatus.rows.length === 1) {
+      return res.status(200).json({
+        status: 200,
+        data: updateStatus.rows[0],
+      });
+    }
+    return res.status(500).json({
+      status: 500,
+      error: 'Sorry! Something happened.',
     });
   }
 

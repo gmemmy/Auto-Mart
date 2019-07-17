@@ -67,7 +67,7 @@ export default class AdminController {
   static async deleteASpecificRecord(req, res) {
     const deleteCar = await CarModel.deleteById(req.params.id);
     if (deleteCar.length === 1) {
-      res.status(200).json({
+      return res.status(200).json({
         status: 200,
         data: 'Car advert successfully deleted',
       });
