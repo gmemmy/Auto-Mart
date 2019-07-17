@@ -27,7 +27,7 @@ export const validateGetCar = (req, res, next) => {
   if (objectBody) {
     return res.status(400).json({
       status: 400,
-      error: 'Please fill in valid data',
+      error: 'Please do not fill in any data',
     });
   } return next();
 };

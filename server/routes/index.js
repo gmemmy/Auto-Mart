@@ -4,15 +4,16 @@ import UserController from '../controllers/userController';
 import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
   errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder, errorDeleteCar,
+  validateGetCar,
 } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
-import authentication from '../middleware/userAuth';
+// import authentication from '../middleware/userAuth';
 // import { userRecord, isAdmin } from '../middleware/userPermission';
 
 
 const routes = (app) => {
-  app.get('/car/', authentication, CarsController.viewAllUnsoldCars);
+  app.get('/car/', validateGetCar, CarsController.viewAllUnsoldCars);
   // app.get('/car/', CarsController.viewAllUnsoldCarsWithinAPriceRange);
   // app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   // app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
