@@ -2,7 +2,7 @@ import CarsController from '../controllers/carsController';
 // eslint-disable-next-line import/no-named-as-default
 import UserController from '../controllers/userController';
 import {
-  errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,validateGetCar,
+  errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder, validateGetCar,
   errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
 } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
