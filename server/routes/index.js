@@ -20,7 +20,7 @@ const routes = (app) => {
   app.patch('/car/:car-id/price', authentication, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
   app.patch('/car/:car-id/status', authentication, errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
   app.post('/order/', errorNewOrder, CarsController.makePurchaseOrder);
-  app.patch('/order/:order-id/price', authentication, errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
+  app.patch('/order/:id/price', authentication, errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
 
   // auth routes
   app.post('/auth/signup', errorSignupBody, UserController.signUp);

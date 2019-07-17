@@ -50,7 +50,7 @@ export default class CarModel {
       const response = await pool.query(query);
       return response;
     } catch (error) {
-      return console.log(error);
+      return error;
     }
   }
 

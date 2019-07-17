@@ -271,10 +271,9 @@ export default class CarsController {
     try {
       const payload = {
         id: req.params.id,
-        field_name: 'price',
+        field_name: 'amount',
         data: req.body.price,
       };
-      console.log(req.body);
       const updateOrderPrice = await CarModel.Orderpatch(payload);
       if (updateOrderPrice.rows.length === 1) {
         return res.status(200).json({
@@ -286,7 +285,7 @@ export default class CarsController {
         error: 'Sorry! Something happened.',
       });
     } catch (error) {
-      return console.log(error);
+      return error;
     }
   }
 }
