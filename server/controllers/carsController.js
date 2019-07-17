@@ -273,6 +273,7 @@ export default class CarsController {
       field_name: 'price',
       data: req.body.price,
     };
+    console.log(req.body);
     const updateOrderPrice = await CarModel.Orderpatch(payload);
     if (updateOrderPrice.rows.length === 1) {
       return res.status(200).json({
