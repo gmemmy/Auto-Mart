@@ -42,7 +42,7 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async viewSpecificCar(req, res) {
-    const specificCar = await CarModel.getById(Number(req.body.id));
+    const specificCar = await CarModel.getById(Number(req.params.id));
     if (specificCar.rowCount !== 1) {
       return res.status(404).json({
         status: 404,

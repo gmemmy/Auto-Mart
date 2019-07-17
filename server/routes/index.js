@@ -3,7 +3,7 @@ import CarsController from '../controllers/carsController';
 import UserController from '../controllers/userController';
 import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
-  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
+  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder, validateGetCar,
 } from '../middleware/validator';
 import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
@@ -11,14 +11,14 @@ import AdminController from '../controllers/adminController';
 
 
 const routes = (app) => {
-  app.get('/car/', CarsController.viewAllUnsoldCars);
+  app.get('/car/', validateGetCar, CarsController.viewAllUnsoldCars);
   // app.get('/car/', CarsController.viewAllUnsoldCarsWithinAPriceRange);
   // app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   // app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
-  app.get('/car/:car-id', CarsController.viewSpecificCar);
+  app.get('/car/:id', CarsController.viewSpecificCar);
   app.post('/car/', errorNewCar, CarsController.addCarSaleAdvert);
-  app.patch('/car/:car-id/price', authentication, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
-  app.patch('/car/:car-id/status', authentication, errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
+  app.patch('/car/:id/price', authentication, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
+  app.patch('/car/:id/status', authentication, errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
   app.post('/order/', errorNewOrder, CarsController.makePurchaseOrder);
   app.patch('/order/:id/price', authentication, errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
 
@@ -29,7 +29,7 @@ const routes = (app) => {
   // admin routes
   app.get('/api/v1/admin', AdminController.viewAllCarRecords);
   app.get('/api/v1/admin/users', AdminController.viewAllUsers);
-  app.delete('/car/:car_id/', AdminController.deleteASpecificRecord);
+  app.delete('/car/:id/', authentication, AdminController.deleteASpecificRecord);
 
   return app;
 };
