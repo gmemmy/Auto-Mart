@@ -268,21 +268,25 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async updatePricePurchaseOrder(req, res) {
-    const payload = {
-      id: req.params.id,
-      field_name: 'price',
-      data: req.body.price,
-    };
-    console.log(req.body);
-    const updateOrderPrice = await CarModel.Orderpatch(payload);
-    if (updateOrderPrice.rows.length === 1) {
-      return res.status(200).json({
-        status: 200,
-        data: updateOrderPrice.rows[0],
+    try {
+      const payload = {
+        id: req.params.id,
+        field_name: 'price',
+        data: req.body.price,
+      };
+      console.log(req.body);
+      const updateOrderPrice = await CarModel.Orderpatch(payload);
+      if (updateOrderPrice.rows.length === 1) {
+        return res.status(200).json({
+          status: 200,
+          data: updateOrderPrice.rows[0],
+        });
+      } return res.status(500).json({
+        status: 500,
+        error: 'Sorry! Something happened.',
       });
-    } return res.status(500).json({
-      status: 500,
-      error: 'Sorry! Something happened.',
-    });
+    } catch (error) {
+      return console.log(error);
+    }
   }
 }
