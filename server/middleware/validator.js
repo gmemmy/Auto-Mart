@@ -24,7 +24,7 @@ export const checkPassword = (req, res, next) => {
 
 export const validateGetCar = (req, res, next) => {
   const objectBody = req.body;
-  if (!objectBody) {
+  if (!objectBody || objectBody === undefined || objectBody === null) {
     return res.status(400).json({
       status: 400,
       error: 'Please do not fill in any data',
