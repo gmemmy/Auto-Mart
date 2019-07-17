@@ -271,7 +271,7 @@ export default class CarsController {
     try {
       const payload = {
         id: req.params.id,
-        field_name: 'amount',
+        field_name: 'price',
         data: req.body.price,
       };
       const updateOrderPrice = await CarModel.Orderpatch(payload);
