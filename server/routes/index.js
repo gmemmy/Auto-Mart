@@ -3,7 +3,7 @@ import CarsController from '../controllers/carsController';
 import UserController from '../controllers/userController';
 import {
   errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
-  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
+  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder, errorDeleteCar,
 } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
@@ -30,7 +30,7 @@ const routes = (app) => {
   // admin routes
   app.get('/api/v1/admin', AdminController.viewAllCarRecords);
   app.get('/api/v1/admin/users', AdminController.viewAllUsers);
-  app.delete('/car/:id/', AdminController.deleteASpecificRecord);
+  app.delete('/car/:id/', errorDeleteCar, AdminController.deleteASpecificRecord);
 
   return app;
 };
