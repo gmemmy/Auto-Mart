@@ -17,15 +17,9 @@ export default class CarsController {
   */
   static async viewAllUnsoldCars(req, res) {
     const unsoldCars = await CarModel.getAll({ status: 'Available' });
-    if (unsoldCars.rowCount >= 1) {
-      return res.status(200).json({
-        status: 200,
-        data: unsoldCars.rows,
-      });
-    }
-    return res.status(400).json({
-      status: 400,
-      error: 'No unsold cars found',
+    return res.status(200).json({
+      status: 200,
+      data: unsoldCars.rows,
     });
   }
 
@@ -42,14 +36,13 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async viewSpecificCar(req, res) {
-    const specificCar = await CarModel.getById(Number(req.body.id));
+    const specificCar = await CarModel.getById(Number(req.params.id));
     if (specificCar.rowCount !== 1) {
       return res.status(404).json({
         status: 404,
         error: 'Oops! no car found with this id.',
       });
     }
-    console.log(specificCar);
     delete specificCar.rows[0].email;
     return res.status(200).json({
       status: 200,
@@ -196,15 +189,9 @@ export default class CarsController {
       data: req.body.price,
     };
     const updatePrice = await CarModel.patch(payload);
-    if (updatePrice.rowCount) {
-      return res.status(200).json({
-        status: 200,
-        data: updatePrice.rows[0],
-      });
-    }
-    return res.status(400).json({
-      status: 400,
-      error: 'Car sale advert does not exist',
+    return res.status(200).json({
+      status: 200,
+      data: updatePrice.rows[0],
     });
   }
 
@@ -228,9 +215,15 @@ export default class CarsController {
       data: status,
     };
     const updateStatus = await CarModel.patch(payload);
-    return res.status(200).json({
-      status: 200,
-      data: updateStatus.rows[0],
+    if (updateStatus.rows.length === 1) {
+      return res.status(200).json({
+        status: 200,
+        data: updateStatus.rows[0],
+      });
+    }
+    return res.status(500).json({
+      status: 500,
+      error: 'Sorry! Something happened.',
     });
   }
 
@@ -269,15 +262,24 @@ export default class CarsController {
   * @returns {object} Class instance
   */
   static async updatePricePurchaseOrder(req, res) {
-    const payload = {
-      id: req.params.id,
-      field_name: 'price',
-      data: req.body.price,
-    };
-    const updateOrderPrice = await CarModel.Orderpatch(payload);
-    return res.status(200).json({
-      status: 200,
-      data: updateOrderPrice.rows[0],
-    });
+    try {
+      const payload = {
+        id: req.params.id,
+        field_name: 'new_price_offered',
+        data: req.body.price,
+      };
+      const updateOrderPrice = await CarModel.Orderpatch(payload);
+      if (updateOrderPrice.rows.length === 1) {
+        return res.status(200).json({
+          status: 200,
+          data: updateOrderPrice.rows[0],
+        });
+      } return res.status(500).json({
+        status: 500,
+        error: 'Sorry! Something happened.',
+      });
+    } catch (error) {
+      return error;
+    }
   }
 }

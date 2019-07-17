@@ -9,7 +9,7 @@ const authentication = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
-        res.send({
+        res.status(401).json({
           status: 401,
           error: 'Token is invalid, please sign in',
         });
@@ -19,7 +19,7 @@ const authentication = (req, res, next) => {
       return next();
     });
   } else {
-    res.send({
+    res.status(401).json({
       status: 401,
       error: 'Unauthorized! you have to sign in first',
     });

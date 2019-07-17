@@ -2,6 +2,7 @@
 export const carAdsTable = `
   CREATE TABLE IF NOT EXISTS carAds (
    id SERIAL,
+   owner SERIAL,
    email varchar(30),
    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    state varchar(20),
@@ -21,7 +22,7 @@ export const purchaseOrderTable = `
    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    car_id int,
    amount int,
-   price_offered int,
+   new_price_offered int,
    status varchar(50)
   );
 `;
