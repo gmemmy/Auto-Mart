@@ -111,8 +111,7 @@ export const errorUpdatePriceOfOrder = (req, res, next) => {
 };
 
 export const errorDeleteCar = (req, res, next) => {
-  const { id } = req.parmas;
-  if (!id || id === undefined) {
+  if (!req.params.id || req.params.id === undefined) {
     return res.status(400).json({
       status: 400,
       error: 'Please fill in valid data',
