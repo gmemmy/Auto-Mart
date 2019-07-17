@@ -2,7 +2,7 @@ import CarsController from '../controllers/carsController';
 // eslint-disable-next-line import/no-named-as-default
 import UserController from '../controllers/userController';
 import {
-  errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
+  errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,validateGetCar,
   errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
 } from '../middleware/validator';
 // import authentication from '../middleware/userAuth';
@@ -11,7 +11,7 @@ import AdminController from '../controllers/adminController';
 
 
 const routes = (app) => {
-  app.get('/car/', CarsController.viewAllUnsoldCars);
+  app.get('/car/', validateGetCar, CarsController.viewAllUnsoldCars);
   // app.get('/car/', CarsController.viewAllUnsoldCarsWithinAPriceRange);
   // app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   // app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
