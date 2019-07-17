@@ -17,15 +17,9 @@ export default class CarsController {
   */
   static async viewAllUnsoldCars(req, res) {
     const unsoldCars = await CarModel.getAll({ status: 'Available' });
-    if (unsoldCars.rowCount >= 1) {
-      return res.status(200).json({
-        status: 200,
-        data: unsoldCars.rows,
-      });
-    }
-    return res.status(400).json({
-      status: 400,
-      error: 'No unsold cars found',
+    return res.status(200).json({
+      status: 200,
+      data: unsoldCars.rows,
     });
   }
 
