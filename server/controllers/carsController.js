@@ -279,8 +279,9 @@ export default class CarsController {
         status: 200,
         data: updateOrderPrice.rows[0],
       });
-    } return res.status(400).json({
-      error: 'No record found to update',
+    } return res.status(500).json({
+      status: 500,
+      error: 'Sorry! Something happened.',
     });
   }
 }

@@ -44,7 +44,7 @@ export default class CarModel {
       const query = fieldName && fieldValue
         ? `
         SELECT * FROM carAds
-        WHERE ${fieldName} = ${fieldName === 'email' ? String(fieldValue) : fieldValue}
+        WHERE ${fieldName} = ${fieldName === 'id' ? Number(fieldValue) : fieldValue}
         ` : 'SELECT * FROM carAds';
 
       const response = await pool.query(query);
