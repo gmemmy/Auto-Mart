@@ -33,6 +33,7 @@ export default class UserController {
         });
       }
       delete user.rows[0].password;
+      delete user.rows[0].username;
       const token = generateToken(user.rows[0]);
       return res.status(200).json({
         status: 200,
@@ -68,6 +69,7 @@ export default class UserController {
       );
       if (passwordIsValid) {
         delete user.rows[0].password;
+        delete user.rows[0].username;
         const token = generateToken(user.rows[0]);
         return res.status(200).json({
           status: 200,

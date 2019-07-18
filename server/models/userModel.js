@@ -28,13 +28,10 @@ export default class UserModel {
   }
 
   // Gets all users
-  static async getAll({ fieldName, fieldValue }) {
+  static async getAllUsers() {
     try {
-      const query = fieldName && fieldValue
-        ? `
-        SELECT * FROM Users
-        WHERE ${fieldName} = ${fieldName === 'owner' ? String(fieldValue) : fieldValue}
-        ` : 'SELECT * FROM Users';
+      // eslint-disable-next-line quotes
+      const query = `SELECT * FROM users`;
       const response = await pool.query(query);
       return response;
     } catch (error) {
