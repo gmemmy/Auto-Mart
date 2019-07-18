@@ -22,12 +22,12 @@ export const checkPassword = (req, res, next) => {
   } return next();
 };
 
-export const validateGetCar = (req, res, next) => {
-  const objectBody = req.body;
+export const validateGetCarByBodyType = (req, res, next) => {
+  const objectBody = req.body.body_type;
   if (!objectBody || objectBody === undefined || objectBody === null) {
     return res.status(400).json({
       status: 400,
-      error: 'Please do not fill in any data',
+      error: 'Please fill in a valid input',
     });
   } return next();
 };

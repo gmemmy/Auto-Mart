@@ -1,9 +1,9 @@
 import CarsController from '../controllers/carsController';
 import UserController from '../controllers/userController';
 import {
-  checkPassword, errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
-  errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder, errorDeleteCar,
-  validateNewCarAdvert, validateSignup, validateSignin,
+  checkPassword, errorSignupBody, errorSigninBody, validateGetCarByBodyType, errorNewCar,
+  errorNewOrder, errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder,
+  errorDeleteCar, validateNewCarAdvert, validateSignup, validateSignin,
 } from '../middleware/validator';
 import AdminController from '../controllers/adminController';
 import authentication from '../middleware/userAuth';
@@ -13,14 +13,14 @@ import { userRecord, isAdmin } from '../middleware/userPermission';
 const routes = (app) => {
   app.get('/api/v1/car/', authentication, CarsController.viewAllUnsoldCars);
   app.get('/api/v1/car/price-range', authentication, CarsController.viewAllUnsoldCarsWithinAPriceRange);
-  app.get('/api/v1/car/body-type', authentication, CarsController.viewAllUnsoldCarsOfSpecificBodyType);
+  app.get('/api/v1/car/body-type', authentication, validateGetCarByBodyType, CarsController.viewAllUnsoldCarsOfSpecificBodyType);
   app.get('/api/v1/car/used', authentication, CarsController.viewAllUnsoldCarsofUsedState);
   app.get('/api/v1/car/:id', authentication, CarsController.viewSpecificCar);
   app.post('/api/v1/car/', authentication, errorNewCar, validateNewCarAdvert, CarsController.addCarSaleAdvert);
-  app.patch('/car/:id/price', authentication, userRecord, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
-  app.patch('/car/:id/status', authentication, userRecord, errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
-  app.post('/order/', authentication, errorNewOrder, CarsController.makePurchaseOrder);
-  app.patch('/order/:id/price', authentication, userRecord, errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
+  app.patch('/api/v1/car/:id/price', authentication, userRecord, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
+  app.patch('/api/v1/car/:id/status', authentication, userRecord, errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
+  app.post('/api/v1/order/', authentication, errorNewOrder, CarsController.makePurchaseOrder);
+  app.patch('/api/v1/order/:id/price', authentication, userRecord, errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
 
   // auth routes
   app.post('/api/v1/auth/signup', errorSignupBody, validateSignup, checkPassword, UserController.signUp);

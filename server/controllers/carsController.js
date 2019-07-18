@@ -114,10 +114,9 @@ export default class CarsController {
         data: carsByBodyType.rows,
       });
     }
-    return res.status(204).json({
-      status: 204,
-      message: 'Sorry there are no cars with the specified body type',
-      data: [],
+    return res.status(404).json({
+      status: 404,
+      error: 'Sorry there are no cars with the specified body type',
     });
   }
 
@@ -145,10 +144,9 @@ export default class CarsController {
         data: carsOfUsedState.rows,
       });
     }
-    return res.status(204).json({
-      status: 204,
-      message: 'Sorry there are no cars with the specified car state',
-      data: [],
+    return res.status(404).json({
+      status: 404,
+      error: 'Sorry there are no cars with the specified car state',
     });
   }
 
