@@ -27,9 +27,9 @@ const routes = (app) => {
   app.post('/api/v1/auth/signin', errorSigninBody, validateSignin, UserController.signIn);
 
   // admin routes
-  app.get('/api/v1/admin', isAdmin, AdminController.viewAllCarRecords);
-  app.get('/api/v1/admin/users', isAdmin, AdminController.viewAllUsers);
-  app.delete('/api/v1/admin/:id/', isAdmin, errorDeleteCar, AdminController.deleteASpecificRecord);
+  app.get('/api/v1/admin', authentication, isAdmin, AdminController.viewAllCarRecords);
+  app.get('/api/v1/admin/users', authentication, isAdmin, AdminController.viewAllUsers);
+  app.delete('/api/v1/admin/:id/', authentication, isAdmin, errorDeleteCar, AdminController.deleteASpecificRecord);
 
   return app;
 };

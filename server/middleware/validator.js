@@ -131,12 +131,12 @@ export const validateSignup = [
     .isLength({ min: 8, max: 20 })
     .withMessage('Password must not be less than 8 characters long and not more than 20'),
 
-  check('firstName')
+  check('first_name')
     .isString().withMessage('First Name must be alphabetical characters!')
     .isLength({ min: 2, max: 40 })
     .withMessage('First Name must not be less than 2 characters long and not more than 40'),
 
-  check('lastName')
+  check('last_name')
     .isString().withMessage('Last Name must be alphabetical characters!')
     .isLength({ min: 2, max: 40 })
     .withMessage('Last Name must not be less than 2 characters long and not more than 40'),
