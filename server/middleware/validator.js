@@ -13,8 +13,8 @@ export const validateNewCarAdvert = [
 // Validate request body and throw relevant error messages
 
 export const checkPassword = (req, res, next) => {
-  const { password, confirmPassword } = req.body;
-  if (password !== confirmPassword) {
+  const { password, confirm_password } = req.body;
+  if (password !== confirm_password) {
     return res.json({
       status: 400,
       error: 'Password and Confirm Password do not match',
@@ -34,12 +34,12 @@ export const validateGetCar = (req, res, next) => {
 
 export const errorSignupBody = (req, res, next) => {
   const {
-    email, first_name, last_name, password, address,
+    email, first_name, last_name, password, confirm_password, address,
   } = req.body;
-  if (!password || !first_name || !last_name || !email || !address) {
+  if (!password || !confirm_password || !first_name || !last_name || !email || !address) {
     return res.status(400).json({
       status: 400,
-      error: 'Please fill in valid data',
+      error: 'Please fill in all input fields',
     });
   } return next();
 };

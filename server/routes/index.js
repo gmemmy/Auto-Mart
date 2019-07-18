@@ -1,37 +1,34 @@
 import CarsController from '../controllers/carsController';
-// eslint-disable-next-line import/no-named-as-default
 import UserController from '../controllers/userController';
 import {
-  errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
+  checkPassword, errorSignupBody, errorSigninBody, errorNewCar, errorNewOrder,
   errorUpdatePriceOfCar, errorUpdateStatusOfCar, errorUpdatePriceOfOrder, errorDeleteCar,
-  validateGetCar,
 } from '../middleware/validator';
-// import authentication from '../middleware/userAuth';
 import AdminController from '../controllers/adminController';
-// import authentication from '../middleware/userAuth';
-// import { userRecord, isAdmin } from '../middleware/userPermission';
+import authentication from '../middleware/userAuth';
+import { userRecord, isAdmin } from '../middleware/userPermission';
 
 
 const routes = (app) => {
-  app.get('/car/', validateGetCar, CarsController.viewAllUnsoldCars);
-  // app.get('/car/', CarsController.viewAllUnsoldCarsWithinAPriceRange);
-  // app.get('/api/v1/carSales/bodyType', CarsController.viewAllUnsoldCarsOfSpecificBodyType);
-  // app.get('/api/v1/carSales/unsold/used', CarsController.viewAllUnsoldCarsofUsedState);
-  app.get('/car/:id', CarsController.viewSpecificCar);
-  app.post('/car/', errorNewCar, CarsController.addCarSaleAdvert);
-  app.patch('/car/:id/price', errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
-  app.patch('/car/:id/status', errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
-  app.post('/order/', errorNewOrder, CarsController.makePurchaseOrder);
-  app.patch('/order/:id/price', errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
+  app.get('/api/v1/car/', authentication, CarsController.viewAllUnsoldCars);
+  app.get('/api/v1/car/price-range', authentication, CarsController.viewAllUnsoldCarsWithinAPriceRange);
+  app.get('/api/v1/car/body-type', authentication, CarsController.viewAllUnsoldCarsOfSpecificBodyType);
+  app.get('/api/v1/car/used', authentication, CarsController.viewAllUnsoldCarsofUsedState);
+  app.get('/api/v1/car/:id', authentication, CarsController.viewSpecificCar);
+  app.post('/api/v1/car/', authentication, errorNewCar, CarsController.addCarSaleAdvert);
+  app.patch('/car/:id/price', authentication, userRecord, errorUpdatePriceOfCar, CarsController.updatePriceCarSaleAdvert);
+  app.patch('/car/:id/status', authentication, userRecord, errorUpdateStatusOfCar, CarsController.updateStatusCarSaleAdvert);
+  app.post('/order/', authentication, errorNewOrder, CarsController.makePurchaseOrder);
+  app.patch('/order/:id/price', authentication, userRecord, errorUpdatePriceOfOrder, CarsController.updatePricePurchaseOrder);
 
   // auth routes
-  app.post('/auth/signup', errorSignupBody, UserController.signUp);
-  app.post('/auth/signin', errorSigninBody, UserController.signIn);
+  app.post('/api/v1/auth/signup', errorSignupBody, checkPassword, UserController.signUp);
+  app.post('/api/v1/auth/signin', errorSigninBody, UserController.signIn);
 
   // admin routes
-  app.get('/api/v1/admin', AdminController.viewAllCarRecords);
-  app.get('/api/v1/admin/users', AdminController.viewAllUsers);
-  app.delete('/car/:id/', errorDeleteCar, AdminController.deleteASpecificRecord);
+  app.get('/api/v1/admin', isAdmin, AdminController.viewAllCarRecords);
+  app.get('/api/v1/admin/users', isAdmin, AdminController.viewAllUsers);
+  app.delete('/api/v1/admin/:id/', isAdmin, errorDeleteCar, AdminController.deleteASpecificRecord);
 
   return app;
 };

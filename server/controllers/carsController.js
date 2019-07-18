@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
-// import advertisements from '../data/carAds';
+import ExpressValidator from 'express-validator/check';
+import advertisements from '../data/carAds';
 import CarModel from '../models/carAdsModel';
 
+const { validationResult } = ExpressValidator;
 
 export default class CarsController {
   /**
@@ -17,9 +19,15 @@ export default class CarsController {
   */
   static async viewAllUnsoldCars(req, res) {
     const unsoldCars = await CarModel.getAll({ status: 'Available' });
+    if (unsoldCars.rowCount >= 1) {
+      return res.status(200).json({
+        status: 200,
+        data: unsoldCars.rows,
+      });
+    }
     return res.status(200).json({
-      status: 200,
-      data: unsoldCars.rows,
+      status: 204,
+      data: [],
     });
   }
 
@@ -51,98 +59,98 @@ export default class CarsController {
   }
 
 
-  //   /**
-  // * @description - View all unsold cars within specific price range
-  // * @static
-  // *
-  // * @param {object} req - HTTP Request
-  // * @param {object} res - HTTP Response
-  // *
-  // * @memberof CarsController
-  // *
-  // * @returns {object} Class instance
-  // */
-  //   static viewAllUnsoldCarsWithinAPriceRange(req, res) {
-  //     const { minPrice, maxPrice } = req.body;
-  //     const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
-  //     if (minPrice || maxPrice) {
-  //       unsoldCars.forEach((unsoldCar) => {
-  //         if (minPrice >= unsoldCar.price && maxPrice <= unsoldCar.price) {
-  //           return res.status(200).json({
-  //             status: 200,
-  //             data: [unsoldCar],
-  //           });
-  //         }
-  //         return res.status(404).json({
-  //           status: 404,
-  //           error: 'No car record found within the specified range',
-  //         });
-  //       });
-  //     } else {
-  //       res.status(400).json({
-  //         status: 400,
-  //         error: 'Please specify price range',
-  //       });
-  //     }
-  //   }
+  /**
+  * @description - View all unsold cars within specific price range
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static viewAllUnsoldCarsWithinAPriceRange(req, res) {
+    const { minPrice, maxPrice } = req.body;
+    const unsoldCars = advertisements.filter(advertisment => advertisment.status === 'Available');
+    if (minPrice || maxPrice) {
+      unsoldCars.forEach((unsoldCar) => {
+        if (minPrice >= unsoldCar.price && maxPrice <= unsoldCar.price) {
+          return res.status(200).json({
+            status: 200,
+            data: [unsoldCar],
+          });
+        }
+        return res.status(404).json({
+          status: 404,
+          error: 'No car record found within the specified range',
+        });
+      });
+    } else {
+      res.status(400).json({
+        status: 400,
+        error: 'Please specify price range',
+      });
+    }
+  }
 
-  //   /**
-  // * @description - View all unsold cars with a specific body type
-  // * @static
-  // *
-  // * @param {object} req - HTTP Request
-  // * @param {object} res - HTTP Response
-  // *
-  // * @memberof CarsController
-  // *
-  // * @returns {object} Class instance
-  // */
+  /**
+  * @description - View all unsold cars with a specific body type
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
 
-  //   static async viewAllUnsoldCarsOfSpecificBodyType(req, res) {
-  //     const carsByBodyType = await CarModel.getBodyType(req.body.body_type);
-  //     if (carsByBodyType.rowCount >= 1) {
-  //       return res.status(200).json({
-  //         status: 200,
-  //         data: carsByBodyType.rows,
-  //       });
-  //     }
-  //     return res.status(204).json({
-  //       status: 204,
-  //       message: 'Sorry there are no cars with the specified body type',
-  //       data: [],
-  //     });
-  //   }
+  static async viewAllUnsoldCarsOfSpecificBodyType(req, res) {
+    const carsByBodyType = await CarModel.getBodyType(req.body.body_type);
+    if (carsByBodyType.rowCount >= 1) {
+      return res.status(200).json({
+        status: 200,
+        data: carsByBodyType.rows,
+      });
+    }
+    return res.status(204).json({
+      status: 204,
+      message: 'Sorry there are no cars with the specified body type',
+      data: [],
+    });
+  }
 
-  //   /**
-  // * @description - View all unsold cars that are used
-  // * @static
-  // *
-  // * @param {object} req - HTTP Request
-  // * @param {object} res - HTTP Response
-  // *
-  // * @memberof CarsController
-  // *
-  // * @returns {object} Class instance
-  // */
-  //   static async viewAllUnsoldCarsofUsedState(req, res) {
-  //     const carsOfUsedState = await CarModel.getUsedState(req.body.state);
-  //     if (req.body.state !== 'used') {
-  //       return res.status(400).json({
-  //         status: 400,
-  //         error: 'Unauthorized! You can only view cars that are of state used',
-  //       });
-  //     } if (carsOfUsedState.rowCount >= 1) {
-  //       return res.status(200).json({
-  //         status: 200,
-  //         data: carsOfUsedState.rows,
-  //       });
-  //     }
-  //     return res.status(204).json({
-  //       status: 204,
-  //       message: 'Sorry there are no cars with the specified car state',
-  //       data: [],
-  //     });
-  //   }
+  /**
+  * @description - View all unsold cars that are used
+  * @static
+  *
+  * @param {object} req - HTTP Request
+  * @param {object} res - HTTP Response
+  *
+  * @memberof CarsController
+  *
+  * @returns {object} Class instance
+  */
+  static async viewAllUnsoldCarsofUsedState(req, res) {
+    const carsOfUsedState = await CarModel.getUsedState(req.body.state);
+    if (req.body.state !== 'used') {
+      return res.status(400).json({
+        status: 400,
+        error: 'Unauthorized! You can only view cars that are of state used',
+      });
+    } if (carsOfUsedState.rowCount >= 1) {
+      return res.status(200).json({
+        status: 200,
+        data: carsOfUsedState.rows,
+      });
+    }
+    return res.status(204).json({
+      status: 204,
+      message: 'Sorry there are no cars with the specified car state',
+      data: [],
+    });
+  }
 
   /**
   * @description - Add a new car sale advertisment
@@ -157,17 +165,25 @@ export default class CarsController {
   */
   static async addCarSaleAdvert(req, res) {
     const carSale = req.body;
-    carSale.manufacturer = carSale.manufacturer;
-    carSale.model = carSale.model;
-    carSale.price = carSale.price;
-    carSale.state = carSale.state;
-    carSale.status = carSale.status;
-    carSale.body_type = carSale.body_type;
-    carSale.img_url = [];
-    const newAdvert = await CarModel.addCar(carSale);
-    return res.status(201).json({
-      status: 201,
-      data: newAdvert.rows[0],
+    // Retrieve all errors from express validator
+    const errors = validationResult(req).array().map(error => error.msg);
+    if (errors.length < 1) {
+      carSale.manufacturer = carSale.manufacturer;
+      carSale.model = carSale.model;
+      carSale.price = carSale.price;
+      carSale.state = carSale.state;
+      carSale.status = carSale.status;
+      carSale.body_type = carSale.body_type;
+      carSale.img_url = [];
+      const newAdvert = await CarModel.addCar(carSale);
+      return res.status(201).json({
+        status: 201,
+        data: newAdvert.rows[0],
+      });
+    }
+    return res.status(400).json({
+      status: 400,
+      error: errors,
     });
   }
 

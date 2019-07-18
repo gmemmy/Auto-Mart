@@ -59,7 +59,7 @@ export default class UserController {
       if (!user.rowCount) {
         return res.status(400).json({
           status: 400,
-          error: 'You do not have an active account, please sign in.',
+          error: 'You do not have an active account, please sign up.',
         });
       }
       const passwordIsValid = bcrypt.compareSync(
