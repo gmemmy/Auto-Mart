@@ -162,4 +162,16 @@ export default class CarModel {
       return error;
     }
   }
+
+  // Selects all cars(sold and available)
+  static async getAllCars() {
+    try {
+      // eslint-disable-next-line quotes
+      const query = `SELECT * FROM carAds`;
+      const response = await pool.query(query);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
 }

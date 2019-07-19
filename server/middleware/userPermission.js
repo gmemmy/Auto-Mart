@@ -15,16 +15,16 @@ export const userRecord = async (req, res, next) => {
   }
   return res.send({
     status: 404,
-    error: 'No user was found with the specified id!',
+    error: 'No car was found with the specified id!',
   });
 };
 
 export const isAdmin = (req, res, next) => {
-  if (req.user.isAdmin) {
+  if (req.user.isAdmin === true) {
     return next();
   }
   return res.send({
     status: 402,
-    error: 'Unauthorized, only the admin can perform this operation',
+    error: 'Unauthorized! Only the admin can perform this operation',
   });
 };

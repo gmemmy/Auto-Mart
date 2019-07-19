@@ -13,8 +13,8 @@ export const validateNewCarAdvert = [
 // Validate request body and throw relevant error messages
 
 export const checkPassword = (req, res, next) => {
-  const { password, confirmPassword } = req.body;
-  if (password !== confirmPassword) {
+  const { password, confirm_password } = req.body;
+  if (password !== confirm_password) {
     return res.json({
       status: 400,
       error: 'Password and Confirm Password do not match',
@@ -22,24 +22,24 @@ export const checkPassword = (req, res, next) => {
   } return next();
 };
 
-export const validateGetCar = (req, res, next) => {
-  const objectBody = req.body;
+export const validateGetCarByBodyType = (req, res, next) => {
+  const objectBody = req.body.body_type;
   if (!objectBody || objectBody === undefined || objectBody === null) {
     return res.status(400).json({
       status: 400,
-      error: 'Please do not fill in any data',
+      error: 'Please fill in a valid input',
     });
   } return next();
 };
 
 export const errorSignupBody = (req, res, next) => {
   const {
-    email, first_name, last_name, password, address,
+    email, first_name, last_name, password, confirm_password, address,
   } = req.body;
-  if (!password || !first_name || !last_name || !email || !address) {
+  if (!password || !confirm_password || !first_name || !last_name || !email || !address) {
     return res.status(400).json({
       status: 400,
-      error: 'Please fill in valid data',
+      error: 'Please fill in all input fields',
     });
   } return next();
 };
@@ -131,12 +131,12 @@ export const validateSignup = [
     .isLength({ min: 8, max: 20 })
     .withMessage('Password must not be less than 8 characters long and not more than 20'),
 
-  check('firstName')
+  check('first_name')
     .isString().withMessage('First Name must be alphabetical characters!')
     .isLength({ min: 2, max: 40 })
     .withMessage('First Name must not be less than 2 characters long and not more than 40'),
 
-  check('lastName')
+  check('last_name')
     .isString().withMessage('Last Name must be alphabetical characters!')
     .isLength({ min: 2, max: 40 })
     .withMessage('Last Name must not be less than 2 characters long and not more than 40'),
