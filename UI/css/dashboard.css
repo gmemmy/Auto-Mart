@@ -22,8 +22,8 @@ h2 {
  text-align: center;
  font-size: 30px;
  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ color: #d3a560;
 }
-
 
 li {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -56,9 +56,17 @@ img {
 }
 
 td, th {
-  border: 1px solid #dddddd;
+  border: 10px solid #dddddd;
   text-align: left;
   padding: 10px;
+}
+/* table#t01 {
+  width: 100%;    
+  background-color: #f1f1c1;
+} */
+.table_head th{
+  background-color: rgba(95, 75, 4, 0.466);
+  color: white;
 }
 
 tr:nth-child(even) {
