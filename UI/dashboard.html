@@ -1,4 +1,6 @@
+<html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
  <link rel="stylesheet" type="text/css" href="css/dashboard.css">
  
@@ -28,36 +30,143 @@
 </head>
 
  <body>
-  <div class= "page_content">
-   <div class="wp-box footer ads-box" id="adcard">
-     <img src="images/advert_img.webp">
-    <div class="view_mre">
-      <button>View More</button>
-    </div>
-    <div class="inner">
-     <button>Edit</button>
-    </div>
-   </div>
+  <h2>My Cars</h2>
 
-   <div class="wp-box footer ads-box" id="adcard2">
-     <img src="images/advert_img.webp">
-     <div class="view_mre">
-       <button>View More</button>
-     </div>
-    <div class="inner">
+  <table>
+    <tr>
+      <th>S/No.</th>
+      <th>Created On</th>
+      <th>Price</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>1.</td>
+      <td>07/05/2019</td>
+      <td> NGN 50,000</td>
+      <td>
+        SOLD
+        <button>Edit</button>
+      </td>
+    </tr>
+    <tr>
+      <td>2.</td>
+      <td>07/05/2019</td>
+      <td> NGN 50,000</td>
+      <td>
+        SOLD
+        <button>Edit</button>
+      </td>
+    </tr>
+    <tr>
+      <td>3.</td>
+      <td>07/05/2019</td>
+      <td> NGN 50,000</td>
+      <td>
+        AVAILABLE
+        <button>Edit</button>
+      </td>
+    </tr>
+    <tr>
+      <td>4.</td>
+      <td>07/05/2019</td>
+      <td> NGN 50,000</td>
+      <td>
+       AVAILABLE
+        <button>Edit</button>
+      </td>
+    </tr>
+    <tr>
+      <td>5.</td>
+      <td>07/05/2019</td>
+      <td> NGN 50,000</td>
+      <td>
+       SOLD
+        <button>Edit</button>
+      </td>
+    </tr>
+    <tr>
+      <td>6.</td>
+      <td>07/05/2019</td>
+      <td> NGN 50,000</td>
+    <td>
+      AVAILABLE
       <button>Edit</button>
-    </div>
-   </div>
+    </td>
+    </tr>
+  </table>
 
-   <div class="wp-box footer ads-box" id="adcard3">
-     <img src="images/advert_img.webp">
-    <div class="view_mre">
-      <button>View More</button>
-    </div>
-     <div class="inner">
-       <button>Edit</button>
-     </div>
-    </div>
+  <h2>My Purchase Orders</h2>
+  
+    <table>
+      <tr>
+        <th>S/No.</th>
+        <th>Created On</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Price Offered</th>
+      </tr>
+      <tr>
+        <td>1.</td>
+        <td>07/05/2019</td>
+        <td> NGN 50,000</td>
+        <td>Pending</td>
+        <td>
+          NGN 50,000
+          <button>Edit</button>
+        </td>
+      </tr>
+      <tr>
+        <td>2.</td>
+        <td>07/05/2019</td>
+        <td> NGN 50,000</td>
+        <td>Pending</td>
+        <td>
+          NGN 50,000
+          <button>Edit</button>
+        </td>
+      </tr>
+      <tr>
+        <td>3.</td>
+        <td>07/05/2019</td>
+        <td> NGN 50,000</td>
+        <td>Pending</td>
+        <td>
+          NGN 50,000
+          <button>Edit</button>
+        </td>
+      </tr>
+      <tr>
+        <td>4.</td>
+        <td>07/05/2019</td>
+        <td> NGN 50,000</td>
+        <td>Pending</td>
+        <td>
+          NGN 50,000
+          <button>Edit</button>
+        </td>
+
+      </tr>
+      <tr>
+        <td>5.</td>
+        <td>07/05/2019</td>
+        <td>NGN 50,000</td>
+        <td>Pending</td>
+        <td>
+          NGN 50,000
+          <button>Edit</button>
+        </td>
+      </tr>
+      <tr>
+        <td>6.</td>
+        <td>07/05/2019</td>
+        <td>NGN 50,000</td>
+        <td>Pending</td>
+        <td>
+          NGN 50,000
+          <button>Edit</button>
+        </td>
+      </tr>
+    </table>
 
         <!--Modal box for advert card-->
         <div id="boxModal" class="modal">
@@ -93,53 +202,8 @@
             </ul>
         </div>
 
-      <!--Modal box for advert card-->
-      <div id="boxModal" class="modal">
-       <div class="modal-content">
-         <span class="close">&times;</span>
-         <img src="images/advert_img.webp">
-
-         <div class="container">
-          <form action="">
-            <div class="row">
-              <div class="col-25">
-                <label for="rname">Car Price:</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="rname" name="firstname" placeholder="">
-              </div>
-            </div>
-            
-            <form action="">
-            <div class="row">
-              <div class="col-25">
-                <label for="record">Car Availability:</label>
-              </div>
-
-              <div class="col-75">
-                <select id="record" name="record">
-                  <option value="">SOLD</option>
-                  <option value="">NOT SOLD</option>
-                </select>
-              </div>
-              
-            </div>
-            <div class="row">
-             <div class="col-25">
-              <label><for="picture">Upload image/images:</for></label>
-             </div>
-             <div class="col-75">
-              <input type="file" name="pic" accept="picture/*">
-             </div>
-            </div>
-          </form>
         </div>
-       </div>
-       </div>
 
-    <div class="page_footer">
-    <p>AutoMart 2019.</p>
-    </div>
  </body>
 
 
