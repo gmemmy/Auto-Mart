@@ -32,9 +32,11 @@ li {
 button {
   float: right;
   align-content: center;
+  background-color: rgb(204, 203, 185);
   height: 30px;
   width: 70px;
   border-radius: 5px;
+  color: rgb(85, 30, 30);
   cursor: pointer;
 }
 button:hover{
@@ -59,6 +61,7 @@ td, th {
   border: 10px solid #dddddd;
   text-align: left;
   padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 /* table#t01 {
   width: 100%;    
