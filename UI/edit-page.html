@@ -1,4 +1,5 @@
 <html>
+
 <head>
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
   integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
@@ -32,34 +33,27 @@
 <body>
  <div class="container">
   <form action="">
-   <div class="row">
-    <div class="col-25">
-     <label for="rname">email:</label>
-    </div>
-    <div class="row">
-     <div class="col-75">
-      <input type="text" id="rname" name="firstname" placeholder="enter your email address">
-     </div>
-    </div>
     <div class="row">
      <div class="col-25">
       <label for="rname">Car Price:</label>
      </div>
      <div class="col-75">
-      <input type="text" id="rname" name="Car Model" placeholder="Please state the price the buyer stated...">
+      <input type="text" id="rname" name="Car Model" placeholder="NGN...">
      </div>
     </div>
-    <div class="row">
-     <div class="col-25">
-      <label for="rname">Price Offerable:</label>
-     </div>
-     <div class="col-75">
-      <input type="text" id="rname" name="price" placeholder="Please state the price you are willing to offer in naira...">
-     </div>
+   <div class="row">
+    <div class="col-25">
+     <label for="record">Car Status:</label>
     </div>
+    <div class="col-75">
+     <select id="record" name="record">
+      <option value="">SOLD</option>
+      <option value="">AVAILABLE</option>
+     </select>
     </div>
-    <input type="submit" value="Create Purchase Order">
    </div>
-  </form>
+   <input type="submit" value="Update">
+ </div>
+ </form>
  </div>
 </body>

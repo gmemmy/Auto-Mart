@@ -1,5 +1,9 @@
 body {
+ margin: 0;
+ /* background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../images/landing-bg.jpg); */
  background-size: cover;
+ background-repeat: no-repeat;
+ overflow: scroll;
 }
 
 p {
@@ -8,16 +12,37 @@ p {
  font-size: 20px;
  font-family: 'Times New Roman', Times, serif;
 }
-
+/* 
 hr {
   border-top: 2px dotted #d3a560;
   margin-top: 20px;
+} */
+
+h2 {
+ text-align: center;
+ font-size: 30px;
+ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ color: #d3a560;
 }
 
 li {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+button {
+  float: right;
+  align-content: center;
+  background-color: rgb(204, 203, 185);
+  height: 30px;
+  width: 70px;
+  border-radius: 5px;
+  color: rgb(85, 30, 30);
+  cursor: pointer;
+}
+button:hover{
+  background-color: rgba(95, 75, 4, 0.466);
+  color: rgb(161, 54, 54);
+ }
 
 img {
   width: 100%;
@@ -25,6 +50,31 @@ img {
   object-fit: fill;
   padding-top: 0 auto;
  }
+
+ table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 10px solid #dddddd;
+  text-align: left;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+/* table#t01 {
+  width: 100%;    
+  background-color: #f1f1c1;
+} */
+.table_head th{
+  background-color: rgba(95, 75, 4, 0.466);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 
 .vl {
   border-left: 2px solid #d3a560;
