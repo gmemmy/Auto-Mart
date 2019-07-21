@@ -20,7 +20,7 @@ export const userRecord = async (req, res, next) => {
 };
 
 export const isAdmin = (req, res, next) => {
-  if (req.user.isAdmin === true) {
+  if (req.user.is_admin === true) {
     return next();
   }
   return res.send({
