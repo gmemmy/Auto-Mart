@@ -6,16 +6,52 @@ h2 {
  text-align: center;
  font-size: 30px;
  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ color: #d3a560;
 }
 
 img {
  width: 100%;
  padding-top: 1px;
 }
+ table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 10px solid #dddddd;
+  text-align: left;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+/* table#t01 {
+  width: 100%;    
+  background-color: #f1f1c1;
+} */
+.table_head th{
+  background-color: rgba(95, 75, 4, 0.466);
+  color: white;
+}
+
+tr:nth-child(even) {
+   background-color: #dddddd;
+}
 
 button {
- float: right;
+  float: right;
+  align-content: center;
+  background-color: rgb(204, 203, 185);
+  height: 30px;
+  width: 70px;
+  border-radius: 5px;
+  color: rgb(85, 30, 30);
+  cursor: pointer;
 }
+button:hover{
+  background-color: rgba(95, 75, 4, 0.466);
+  color: rgb(161, 54, 54);
+ }
 
 .hero {
  background-color: rgba(5, 4, 0, 0.466);
@@ -65,3 +101,12 @@ button {
   border-top: 0 none;
  }
  
+ .page_footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(5, 4, 0, 0.466);
+  text-align: center;
+  color: #f7e9e9;
+ }
