@@ -58,9 +58,9 @@ export const errorSigninBody = (req, res, next) => {
 
 export const errorNewCar = (req, res, next) => {
   const {
-    manufacturer, model, price, state, status, body_type, img_url,
+    manufacturer, model, price, state, body_type, img_url,
   } = req.body;
-  if (!manufacturer || !model || !price || !state || !status || !body_type || !img_url) {
+  if (!manufacturer || !model || !price || !state || !body_type || !img_url) {
     return res.status(400).json({
       status: 400,
       error: 'Please fill in valid data',
