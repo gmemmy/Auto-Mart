@@ -57,7 +57,7 @@ export default class UserController {
     if (errors.length < 1) {
       const { email, password } = req.body;
       const user = await UserModel.getByEmail(email);
-      if (!user.rowCount) {
+      if (user.rowCount !== 1) {
         return res.status(400).json({
           status: 400,
           error: 'You do not have an active account, please sign up.',

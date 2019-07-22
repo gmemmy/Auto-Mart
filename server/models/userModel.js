@@ -42,7 +42,7 @@ export default class UserModel {
   // Gets user by email
   static async getByEmail(email) {
     try {
-      const query = `SELECT * FROM Users WHERE email = '${email.trim()}' `;
+      const query = `SELECT * FROM Users WHERE email = '${email}' `;
 
       const response = await pool.query(query);
       return response;

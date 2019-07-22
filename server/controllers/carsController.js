@@ -25,7 +25,7 @@ export default class CarsController {
         data: unsoldCars.rows,
       });
     }
-    return res.status(204).json({
+    return res.status(200).json({
       status: 204,
       data: [],
     });
