@@ -24,7 +24,7 @@
       }
     },
     {
-      "name": "carSales",
+      "name": "car",
       "description": "Everything about Car records",
       "externalDocs": {
         "url": "https://auto-mart-gmemmy.herokuapp.com"
@@ -43,10 +43,10 @@
     "http"
   ],
   "paths": {
-    "/carSales": {
+    "/car": {
       "post": {
         "tags": [
-          "carSales"
+          "car"
         ],
         "summary": "Create a car sale advertisement",
         "description": "Users can create a car sale advertisement",
@@ -64,7 +64,7 @@
             "description": "The record the user wants to place",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/carSales"
+              "$ref": "#/definitions/car"
             }
           }
         ],
@@ -76,7 +76,7 @@
       },
       "get": {
         "tags": [
-          "carSales"
+          "car"
         ],
         "summary": "Get all unsold cars",
         "description": "Return all unsold cars from the database",
@@ -94,10 +94,10 @@
         }
       }
     },
-    "/carSales/unsold/used": {
+    "/car/state": {
       "get": {
         "tags": [
-          "carSales"
+          "car"
         ],
         "summary": "User: Allows to view all used, unsold cars",
         "description": "View all unsold, used cars",
@@ -109,7 +109,7 @@
           "200": {
             "description": "All unsold, used cars",
             "schema": {
-              "$ref": "#/definitions/carSales"
+              "$ref": "#/definitions/car"
             }
           },
           "404": {
@@ -118,10 +118,10 @@
         }
       }
     },
-      "/carSales/unsold/bodyType": {
+      "/car/body-type": {
         "get": {
           "tags": [
-            "carSales"
+            "car"
           ],
           "summary": "User: Allows to view all unsold cars by specific body type",
           "description": "View all unsold cars by specific body type",
@@ -133,7 +133,7 @@
             "200": {
               "description": "All unsold cars by body type",
               "schema": {
-                "$ref": "#/definitions/carSales"
+                "$ref": "#/definitions/car"
               }
             },
             "404": {
@@ -142,10 +142,10 @@
           }
         }
       },
-      "/carSales/unsold/priceRange": {
+      "/car/price-range": {
         "get": {
           "tags": [
-            "carSales"
+            "car"
           ],
           "summary": "User: Allows to view all unsold cars within a specific price range",
           "description": "View all unsold cars within a specific price range",
@@ -157,7 +157,7 @@
             "200": {
               "description": "All unsold cars by price range",
               "schema": {
-                "$ref": "#/definitions/carSales"
+                "$ref": "#/definitions/car"
               }
             },
             "404": {
@@ -166,10 +166,10 @@
           }
         }
       },
-    "/carSales/{id}": {
+    "/car/{id}": {
       "get": {
         "tags": [
-          "carSales"
+          "car"
         ],
         "summary": "Find car by ID",
         "description": "Returns a single car record",
@@ -191,7 +191,7 @@
           "200": {
             "description": "Successful got record",
             "schema": {
-              "$ref": "#/definitions/carSales"
+              "$ref": "#/definitions/car"
             }
           },
           "404": {
@@ -200,10 +200,10 @@
         }
       }
     },
-    "/carSales/{id}/price": {
+    "/car/{id}/price": {
       "patch": {
         "tags": [
-          "carSales"
+          "car"
         ],
         "summary": "Edit a car advert's price",
         "description": "Edits a car advert's price by id",
@@ -237,10 +237,10 @@
         }
       }
     },
-    "/carSales/{id}/status": {
+    "/car/{id}/status": {
       "patch": {
         "tags": [
-          "carSales"
+          "car"
         ],
         "summary": "Edit a car sale advert's status by id",
         "description": "Edits a car advert's status by id",
@@ -275,7 +275,7 @@
       }
     },
     
-    "/carSales/purchase": {
+    "/order": {
       "get": {
         "tags": [
           "purchase"
@@ -307,7 +307,7 @@
         }
       }
     },
-    "/carSaless/{id}/updatePurchase": {
+    "/order/{id}/price": {
       "patch": {
         "tags": [
           "purchase"
@@ -332,7 +332,7 @@
           "200": {
             "description": "Successful edited record's location",
             "schema": {
-              "$ref": "#/definitions/carSales"
+              "$ref": "#/definitions/car"
             }
           },
           "404": {
@@ -419,7 +419,7 @@
     }
   },
   "definitions": {
-    "carSales": {
+    "car": {
       "type": "object",
       "properties": {
         "id": {
@@ -469,7 +469,7 @@
         }
       },
       "xml": {
-        "name": "carSales"
+        "name": "car"
       }
     },
     "purchase": {
