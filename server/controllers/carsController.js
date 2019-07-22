@@ -131,12 +131,12 @@ export default class CarsController {
   *
   * @returns {object} Class instance
   */
-  static async viewAllUnsoldCarsofUsedState(req, res) {
+  static async viewAllUnsoldCarsofState(req, res) {
     const carsOfUsedState = await CarModel.getUsedState(req.body.state);
-    if (req.body.state !== 'used') {
+    if (req.body.state !== 'used' && req.body.state !== 'new') {
       return res.status(400).json({
         status: 400,
-        error: 'Unauthorized! You can only view cars that are of state used',
+        error: 'Unauthorized! You can only view cars that are of state used or new',
       });
     } if (carsOfUsedState.rowCount >= 1) {
       return res.status(200).json({
@@ -170,7 +170,7 @@ export default class CarsController {
       carSale.model = carSale.model;
       carSale.price = carSale.price;
       carSale.state = carSale.state;
-      carSale.status = carSale.status;
+      carSale.status = 'Available';
       carSale.body_type = carSale.body_type;
       carSale.img_url = [];
       const newAdvert = await CarModel.addCar(carSale);
